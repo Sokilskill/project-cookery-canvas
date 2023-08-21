@@ -64,7 +64,7 @@ async function openRecipeModal(recipeID) {
                     <div id="youtubePlayer"></div>
                     <p class="rating-and-time">${ratingAndTime}</p>
                     ${ingredientList}
-                    <p class="tag-button">#${data.tags[0]}</p>
+                    ${data.tags.map(tag => `<p class="tag-button">#${tag}</p>`).join('')}
                     <p class="instruction-text">${data.instructions}</p>
                     <button class="button addToFavorite">Add to favorite</button>
                     <button class="button giveRating">Give a rating</button>
