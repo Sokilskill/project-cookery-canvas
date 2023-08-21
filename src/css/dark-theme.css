@@ -5,31 +5,31 @@
 }
 /* Header */
 
-.dark-theme .nav-link-favorites {
+body.dark-theme .nav-link-favorites {
   color: var(--default-color);
 }
-.dark-theme .shopping-cart-icon,
+body.dark-theme .shopping-cart-icon,
 .btn-open-menu-icon {
   stroke: var(--default-color);
 }
 
-.dark-theme .mob-menu {
+body.dark-theme .mob-menu {
   background-color: #050505;
 }
 
 /* Hero */
 
-.dark-theme .hero-title,
-.hero-text,
-.hero-order-btn,
-.hero-swipe-dot,
-.hero-swiper {
+body.dark-theme .hero-title,
+body.dark-theme .hero-text,
+body.dark-theme .hero-order-btn,
+body.dark-theme .hero-swipe-dot,
+body.dark-theme .hero-swiper {
   color: var(--default-color);
 }
 
-.dark-theme .hero-swipe-dot:first-child {
+body.dark-theme .hero-swipe-dot:first-child {
   color: var(--main-text-color);
 }
-.dark-theme .no-one-text {
+body.dark-theme .no-one-text {
   color: var(--default-color);
 }
