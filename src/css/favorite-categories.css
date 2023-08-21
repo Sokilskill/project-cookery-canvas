@@ -23,7 +23,7 @@
     color: #0505054D;
     padding: 14px 18px 14px 18px;
     border-radius: 15px;
-    background-color:var(--background-color);
+    background-color: transparent;
     border: 1px solid #05050533;
     cursor: pointer;
     white-space: nowrap;

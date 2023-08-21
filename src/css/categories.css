@@ -41,14 +41,14 @@
     
 }
 .category-item {
-    background-color: var(--background-color);
+    background-color: transparent;
 }
 .category-btn {
     font-family: inherit;
     font-weight: 500;
     font-size: 14px;
     line-height: calc(18 / 14);
-    background-color: var(--background-color);
+    background-color: transparent;
     color: #0505054D;
     padding-left: 0;
     border: none;
