@@ -37,12 +37,13 @@
     gap: 18px;
     width: 326px;
     height: 198px;
-    overflow-y: scroll;
-    
+    overflow-y: scroll;   
 }
+
 .category-item {
     background-color: transparent;
 }
+
 .category-btn {
     font-family: inherit;
     font-weight: 500;
