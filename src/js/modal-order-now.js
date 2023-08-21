@@ -1,7 +1,7 @@
 import { addFetch } from './add-order-API';
 
 const elements = {
-  form: document.querySelector('form'),
+  form: document.querySelector('.modal-form'),
   heroOrderBtn: document.querySelector('.hero-order-btn'),
   modalCloseBtn: document.querySelector('.modal-close-btn'),
   shoppingCartBtn: document.querySelector('.shopping-cart'),

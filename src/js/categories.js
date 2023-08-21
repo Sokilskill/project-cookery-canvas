@@ -23,15 +23,9 @@ const categories = fetchCategories()
     } else if (categoryFavorites) {
       renderCategoriesFavorites(data);
     }
-    // return data;
-  })
-  .catch(error => {
-    console.log(error);
-  });
 
-// console.log(categories);
+    document.querySelectorAll('.category-btn').forEach(el => {
 
-document.querySelectorAll('.category-btn').forEach(el => {
   el.addEventListener('click', evt => {
     const selID = evt.currentTarget.dataset.value;
     categorySelect.value = selID;
@@ -76,6 +70,13 @@ document.querySelectorAll('.favorite-categories-btn').forEach(el => {
     categorySelect.dispatchEvent(new Event('change'));
   });
 });
+    // return data;
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+// console.log(categories)
 
 // Используй это событие и categorySelect для получения категории
 // categorySelect.addEventListener("change",()=>{
@@ -95,7 +96,6 @@ function renderCategoriesHome(categories) {
 }
 
 function renderCategoriesFavorites(categories) {
-  console.log(categories, categorySelect.value);
   categories.forEach(category => {
     const htmlButton = `
         <li class="favorite-category-item"><button data-value="${category._id}" class="favorite-categories-btn">${category.name}</button></li>
