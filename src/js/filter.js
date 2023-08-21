@@ -195,15 +195,15 @@ function addingCards(el) {
             <span class="rating-value">${rating}</span>
 
             <svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg>
 
           </div>
@@ -232,15 +232,15 @@ function addingCards(el) {
             <span class="rating-value">${rating}</span>
 
             <svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg>
 
           </div>
@@ -269,15 +269,15 @@ function addingCards(el) {
             <span class="rating-value">${rating}</span>
 
             <svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg>
 
           </div>
@@ -306,15 +306,15 @@ function addingCards(el) {
             <span class="rating-value">${rating}</span>
 
             <svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg>
 
           </div>
@@ -343,15 +343,15 @@ function addingCards(el) {
             <span class="rating-value">${rating}</span>
 
             <svg class="rat-icon act">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="./img/icons.svg#icon-Star"></use>
+              <use href="../img/icons.svg#icon-Star"></use>
             </svg>
 
           </div>
