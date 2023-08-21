@@ -46,6 +46,13 @@
   border: 1px solid var(--alfa-text-color, rgba(5, 5, 5, 0.8));
   color: var(--secondary-text-color, #050505);
   margin-right: 8px;
+  margin-bottom: 10px;
+}
+
+.ingredient-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
 
 .ingredient-name {
@@ -76,6 +83,7 @@
   letter-spacing: 0em;
   text-align: left;
   color: var(--alfa-text-color, rgba(5, 5, 5, 0.8));
+  margin-bottom: 10px;
 }
 
 .rating-and-time {
@@ -86,6 +94,8 @@
   letter-spacing: 0em;
   text-align: left;
   color: var(--secondary-alfa-text-color, rgba(5, 5, 5, 0.5));
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 
 /* Styles for the button */
