@@ -117,6 +117,10 @@ body.active .nav-link-home {
   scale: 1.3;
 }
 
+body.dark-theme .mob-nav-link-home {
+  color: var(--main-text-color, #9bb537);
+}
+
 .switch-wrap {
   display: flex;
   justify-content: center;
