@@ -3,19 +3,47 @@
   background-color: var(--dark-theme);
   transition: all 0.3s ease;
 }
+
 /* Header */
 
-body.dark-theme .nav-link-favorites {
-  color: var(--default-color);
-}
+body.dark-theme .nav-link-favorites,
 body.dark-theme .shopping-cart-icon,
-.btn-open-menu-icon {
+body.dark-theme .btn-open-menu-icon {
+    color: var(--default-color);
+    stroke: var(--default-color);
+  }
+
+
+body.dark-theme .shopping-cart-icon,
+body.dark-theme .btn-open-menu-icon {
   stroke: var(--default-color);
+}
+
+body.dark-theme .close-icon {
+  stroke: var(--background-color);
 }
 
 body.dark-theme .mob-menu {
   background-color: #050505;
 }
+
+/* Favorites */
+
+body.dark-theme .favorite-categories-btn {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.30);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+body.dark-theme .active-favorite-categories,
+body.dark-theme .favorite-categories-btn:hover, 
+body.dark-theme .favorite-categories-btn:focus {
+  background-color: var(--main-text-color);
+  color: var(--default-color);
+  border: 1px solid var(--main-text-color);
+  transition: color 250ms var(--cubic-bezier), background-color 250ms var(--cubic-bezier);
+}
+
 
 /* Hero */
 
@@ -33,3 +61,63 @@ body.dark-theme .hero-swipe-dot:first-child {
 body.dark-theme .no-one-text {
   color: var(--default-color);
 }
+
+/* SideBar */
+body.dark-theme .categories-list {
+
+}
+
+body.dark-theme .category-item,
+body.dark-theme .category-btn {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.30);
+}
+
+body.dark-theme .categories-list {
+  background-color: transparent;
+}
+
+body.dark-theme .popular-recipe-h2,
+body.dark-theme .favorite-list-h2,
+body.dark-theme .favorite-list-h3 {
+  color: var(--default-color);
+}
+
+body.dark-theme .l-select {
+  color: rgba(255, 255, 255, 0.50);;
+}
+
+body.dark-theme .btn-reset-filtr {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+/* Input */
+
+body.dark-theme .input-name {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+body.dark-theme .svg-search {
+  fill: rgba(255, 255, 255, 0.50);
+}
+
+body.dark-theme #search-recipe {
+  border: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+body.dark-theme .filtr {
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  background-color: var(--dark-theme);
+}
+
+body.dark-theme .ss-content .ss-list .ss-option {
+  color: rgba(255, 255, 255, 0.30);
+}
+
+body.dark-theme .ss-main .ss-values .ss-single {
+  color: var(--default-color);
+}
+
+/* body.dark-theme .ss-content .ss-list .ss-option:hover {
+  color: var(--default-color);
+} */

@@ -32,6 +32,7 @@ body.active .nav-link-favorites {
 body.active .nav-link-home {
   color: var(--secondary-text-color, #050505);
 }
+
 .logo-link {
   padding: 28px 0;
 }
