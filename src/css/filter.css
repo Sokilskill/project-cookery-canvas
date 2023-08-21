@@ -51,8 +51,12 @@
 .search-form {
   position: relative;
   width: 335px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   margin-bottom: 20px;
+
+  /* ================= */
+  display: flex;
+  gap: 24px;
 }
 
 #search-recipe {
@@ -221,6 +225,10 @@
 
 .cards-recipe {
   margin-bottom: 40px;
+
+  /* =============== */
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .btn-list {
