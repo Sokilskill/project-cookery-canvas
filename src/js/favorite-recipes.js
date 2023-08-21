@@ -24,5 +24,5 @@ fetch('https://tasty-treats-backend.p.goit.global/api/recipes/popular')
       })
       .join('');
     // console.log(recipe);
-    // recipe_list.insertAdjacentHTML('beforeend', recipe);
+    recipe_list.insertAdjacentHTML('beforeend', recipe);
   });
