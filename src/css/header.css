@@ -69,7 +69,7 @@ body.active .nav-link-home {
 
   background-color: var(--main-text-color, #9bb537);
   min-width: 200px;
-  width: calc(100vw / 3);
+  width: 35vw;
   height: 100vh;
 
   transform: translateX(110%);
@@ -125,8 +125,8 @@ body.active .nav-link-home {
 
 .btn-switch-mob {
   position: absolute;
-  left: 20px;
-  bottom: 20px;
+  left: 30px;
+  bottom: 30px;
 }
 
 /* media */
