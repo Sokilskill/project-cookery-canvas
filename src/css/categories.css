@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 24px;
+  margin-bottom: 40px;
 }
 .all-categories-btn {
   font-family: inherit;
@@ -69,6 +70,7 @@
 @media screen and (min-width: 768px) {
   .categories {
     gap: 30px;
+    margin-bottom: 64px;
   }
   .all-categories-btn {
     padding: 14px 29px 14px 29px;
