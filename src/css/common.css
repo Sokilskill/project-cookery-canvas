@@ -15,6 +15,7 @@
 @import './modal-recipe.css';
 @import './order-now.css';
 @import './favorites-card.css';
+@import './filter.css';
 @import './dark-theme.css';
 
 :root {
@@ -37,6 +38,7 @@
   --label1: #cecdcd;
   --ballcolor: #f8f8f8;
   --ballcolor2: #f3f3f3;
+  --border-color-filter: rgba(5, 5, 5, 0.2);
 }
 
 @media (prefers-reduced-motion: no-preference) {

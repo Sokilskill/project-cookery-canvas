@@ -4,7 +4,7 @@
   width: 531px;
   display: none;
   position: fixed;
-  z-index: 100;
+  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;
@@ -49,33 +49,41 @@
 }
 
 .ingredient-name {
+  font-family: Inter;
   font-size: 14px;
   font-weight: 400;
-  line-height: calc(18 / 14);
+  line-height: 18px;
+  letter-spacing: 0em;
   text-align: left;
   color: var(--secondary-text-color, #050505);
 }
 
 .ingredient-measure {
+  font-family: Inter;
   font-size: 14px;
   font-weight: 400;
-  line-height: calc(18 / 14);
+  line-height: 18px;
+  letter-spacing: 0em;
   text-align: left;
   color: var(--secondary-alfa-text-color, rgba(5, 5, 5, 0.5));
 }
 
 .instruction-text {
+  font-family: Inter;
   font-size: 14px;
   font-weight: 400;
-  line-height: calc(18 / 14);
+  line-height: 18px;
+  letter-spacing: 0em;
   text-align: left;
   color: var(--alfa-text-color, rgba(5, 5, 5, 0.8));
 }
 
 .rating-and-time {
+  font-family: Inter;
   font-size: 14px;
   font-weight: 500;
-  line-height: calc(18 / 14);
+  line-height: 18px;
+  letter-spacing: 0em;
   text-align: left;
   color: var(--secondary-alfa-text-color, rgba(5, 5, 5, 0.5));
 }
@@ -87,6 +95,7 @@
   background-color: #007bff;
   color: #fff;
   border: none;
+  cursor: pointer;
   border-radius: 15px;
 }
 
@@ -100,6 +109,7 @@
   display: inline-block;
   padding: 14px 28px;
   font-size: 16px;
+  cursor: pointer;
   border-radius: 15px;
   gap: 10px;
   border: 1px solid #9bb537;

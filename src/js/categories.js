@@ -16,7 +16,7 @@ async function fetchCategories() {
 
 const categories = fetchCategories()
   .then(data => {
-    console.log('data: ', data);
+    // console.log('data: ', data);
 
     if (categoryHome) {
       renderCategoriesHome(data);
@@ -84,11 +84,9 @@ document.querySelectorAll('.favorite-categories-btn').forEach(el => {
 // })
 
 function renderCategoriesHome(categories) {
-  console.log(categories, categorySelect.value);
-
   categories.forEach(category => {
     const htmlButton = `
-        <li class="category-item"><button data-value="${category._id}" class="category-btn">${category.name}</button></li>
+        <li class="category-item"><button data-value="${category.name}" class="category-btn">${category.name}</button></li>
               `;
     const htmlOption = `<option value = "${category._id}">${category.name}</option>`;
     categoryHome.insertAdjacentHTML('beforeend', htmlButton);
