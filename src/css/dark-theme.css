@@ -5,21 +5,21 @@
 }
 /* Header */
 
-.nav-link-favorites {
+.dark-theme .nav-link-favorites {
   color: var(--default-color);
 }
-.shopping-cart-icon,
+.dark-theme .shopping-cart-icon,
 .btn-open-menu-icon {
   stroke: var(--default-color);
 }
 
-.mob-menu {
+.dark-theme .mob-menu {
   background-color: #050505;
 }
 
 /* Hero */
 
-.hero-title,
+.dark-theme .hero-title,
 .hero-text,
 .hero-order-btn,
 .hero-swipe-dot,
@@ -27,9 +27,9 @@
   color: var(--default-color);
 }
 
-.hero-swipe-dot:first-child {
+.dark-theme .hero-swipe-dot:first-child {
   color: var(--main-text-color);
 }
-.no-one-text {
+.dark-theme .no-one-text {
   color: var(--default-color);
 }
