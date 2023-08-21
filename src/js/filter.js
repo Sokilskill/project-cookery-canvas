@@ -163,14 +163,14 @@ function initialRecipeWindow() {
 }
 
 function createCards(result) {
-  refs.recipeList.insertAdjacentHTML('beforeend', addingСards(result));
+  refs.recipeList.insertAdjacentHTML('beforeend', addingCards(result));
 }
 
 function appdateTotal(tot) {
   pagination.total = tot;
 }
 
-function addingСards(el) {
+function addingCards(el) {
   return el
     .map(({ title, description, _id, rating, thumb }) => {
       const descr = description.slice(0, 94);
