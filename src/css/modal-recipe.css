@@ -1,0 +1,120 @@
+/* Modal recipe Muratov Denys */
+
+.modal {
+  width: 531px;
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--background-color, #f8f8f8);
+  overflow-y: scroll;
+}
+
+.modal-content {
+  background-color: var(--default-color, #ffffff);
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid var(--border-color, #9bb5374c);
+  width: 60%;
+  position: relative;
+  border-radius: 15px;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--secondary-text-color, #050505);
+}
+
+.tag-button {
+  display: inline-block;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 35px;
+  border: 1px solid var(--alfa-text-color, rgba(5, 5, 5, 0.8));
+  color: var(--secondary-text-color, #050505);
+  margin-right: 8px;
+}
+
+.ingredient-name {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: calc(18 / 14);
+  text-align: left;
+  color: var(--secondary-text-color, #050505);
+}
+
+.ingredient-measure {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: calc(18 / 14);
+  text-align: left;
+  color: var(--secondary-alfa-text-color, rgba(5, 5, 5, 0.5));
+}
+
+.instruction-text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: calc(18 / 14);
+  text-align: left;
+  color: var(--alfa-text-color, rgba(5, 5, 5, 0.8));
+}
+
+.rating-and-time {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: calc(18 / 14);
+  text-align: left;
+  color: var(--secondary-alfa-text-color, rgba(5, 5, 5, 0.5));
+}
+
+/* Styles for the button */
+#openModalBtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 15px;
+}
+
+#openModalBtn:hover {
+  background-color: #0056b3;
+}
+
+/* Styles for the buttons */
+
+.button {
+  display: inline-block;
+  padding: 14px 28px;
+  font-size: 16px;
+  border-radius: 15px;
+  gap: 10px;
+  border: 1px solid #9bb537;
+}
+
+.addToFavorite,
+.giveRating {
+  background-color: #fff;
+  border: 1px solid #9bb537;
+}
+
+.addToFavorite:hover,
+.giveRating:hover,
+.addToFavorite:focus,
+.giveRating:focus {
+  background-color: #9bb537;
+  color: #fff;
+}

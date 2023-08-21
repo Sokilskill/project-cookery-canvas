@@ -1,0 +1,35 @@
+/* dark-theme */
+.dark-theme {
+  background-color: var(--dark-theme);
+  transition: all 0.3s ease;
+}
+/* Header */
+
+.nav-link-favorites {
+  color: var(--default-color);
+}
+.shopping-cart-icon,
+.btn-open-menu-icon {
+  stroke: var(--default-color);
+}
+
+.mob-menu {
+  background-color: #050505;
+}
+
+/* Hero */
+
+.hero-title,
+.hero-text,
+.hero-order-btn,
+.hero-swipe-dot,
+.hero-swiper {
+  color: var(--default-color);
+}
+
+.hero-swipe-dot:first-child {
+  color: var(--main-text-color);
+}
+.no-one-text {
+  color: var(--default-color);
+}

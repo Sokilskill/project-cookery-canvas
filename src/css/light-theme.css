@@ -1,0 +1,6 @@
+/* light-theme
+.light-theme {
+  color: var(--dark-theme);
+  background-color: var(--light-theme);
+  transition: all .3s ease;
+} */

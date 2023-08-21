@@ -1,0 +1,49 @@
+<div class="backdrop is-hidden">
+    <div class="modal-order-now">
+        <button type="button" class="modal-close-btn">
+            <svg class="close-icon">
+                <use href="./img/icons.svg#icon-button-close"></use>
+            </svg>
+        </button>
+        <p class="modal-title">Order now</p>
+        <form class="modal-form" name="modal-form" autocomplete="on">
+            <div class="form-container">
+                <div>
+                    <div class="modal-field">
+                        <label class="input-text" for="user-name">Name</label>
+                        <div class="input-wrap">
+                            <input class="modal-input" id="user-name" name="user-name" type="text" pattern="\w{3,16}"
+                                required />
+                        </div>
+                    </div>
+                    <div class="modal-field">
+                        <label class="input-text" for="user-phone">Phone number</label>
+                        <div class="input-wrap">
+                            <input class="modal-input tel-input" id="user-phone" name="user-phone" type="tel"
+                                pattern="38[0-9]{3}[0-9]{3}[0-9]{4}" placeholder="380XX1234567" value="" required />
+                        </div>
+                    </div>
+                    <div class="modal-field">
+                        <label class="input-text" for="user-email">Email</label>
+                        <div class="input-wrap">
+                            <input class="modal-input" id="user-email" name="user-email" type="text"
+                                pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" required />
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="modal-field-last">
+                        <label class="input-text" for="comment-text">Comment</label>
+                        <div class="input-wrap">
+                            <textarea class="comment-input" name="comment-text" id="comment-text"></textarea>
+                        </div>
+                    </div>
+
+                    <button class="btn-order-now" type="submit">Send</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>

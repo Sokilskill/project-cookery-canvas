@@ -1,0 +1,56 @@
+.favorites-card{
+    display: none;
+    padding-bottom: 64px;
+}
+.favorites-card-img{
+    border-radius: 15px;
+}
+
+
+@media screen and (min-width: 768px) {
+    .favorites-card{
+        display: block;
+    }
+}
+
+
+
+.no-one {
+    padding: 257px 0;
+}
+.no-one-wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+.no-one-icon{
+    display: none;
+}
+.no-one-text {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.29;
+    text-align: center;
+    color: var(--secondary-text-color);
+    max-width: 335px;
+}
+@media screen and (min-width: 768px) {
+    .no-one {
+        padding: 0 0 64px 0;
+}
+.no-one-wrap{
+    gap: 32px;
+}
+.no-one-icon{
+    display: block;
+}
+.no-one-icon-mob{
+    display: none;
+}
+.no-one-text {
+    max-width: 481px;
+    font-size: 16px;
+    line-height: 1.5;
+}
+}

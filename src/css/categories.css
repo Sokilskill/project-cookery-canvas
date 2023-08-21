@@ -1,0 +1,110 @@
+.sidebar {
+
+}
+.categories {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.all-categories-btn {
+    font-family: inherit;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: calc(21.78 / 18);
+    color: var(--secondary-alfa-text-color);
+    padding: 14px 18px 14px 18px;
+    border-radius: 15px;
+    background-color:var(--background-color);
+    border: 1px solid #05050533;
+    cursor: pointer;
+    
+    
+
+}
+
+.active-all-categories,.all-categories-btn:focus,
+.all-categories-btn:hover {
+    background-color: var(--main-text-color);
+    color: var(--background-color);
+    border: 1px solid var(--main-text-color);
+    transition: color 250ms var(--cubic-bezier),
+    background-color 250ms var(--cubic-bezier);
+}
+
+.categories-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 326px;
+    height: 198px;
+    overflow-y: scroll;
+    
+}
+.category-item {
+    background-color: var(--background-color);
+}
+.category-btn {
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: calc(18 / 14);
+    background-color: var(--background-color);
+    color: #0505054D;
+    padding-left: 0;
+    border: none;
+    cursor: pointer;
+}
+
+.active-category, 
+.category-btn:hover,
+.category-btn:focus {
+    color: var(--main-text-color);
+    transition: color 250ms var(--cubic-bezier);
+}
+
+.categories-list::-webkit-scrollbar {
+    background-color:var(--background-color);
+}
+
+.categories-list::-webkit-scrollbar-thumb {
+    width: 8px;
+    height: 116px;
+    border-radius: 12px;
+    background-color: #0505052E;
+}
+
+@media screen and (min-width: 768px) {
+    .categories {
+        gap: 30px;
+    }
+    .all-categories-btn {
+        padding: 14px 29px 14px 29px;
+    }
+    .categories-list {
+        gap: 24px;
+        width: 176px;
+        height: 416px;
+    }
+    .category-btn {
+        font-size: 16px;
+        line-height: calc(20 / 16);
+    }
+
+    .categories-list::-webkit-scrollbar-thumb {
+        height: 201px;
+    }
+
+}
+
+@media screen and (min-width: 1280px) {
+    .categories {
+        gap: 42px;
+    }
+    .all-categories-btn {
+        padding: 14px 28px 14px 28px;
+    }
+    .categories-list {
+        width: 235px;
+    }
+
+}

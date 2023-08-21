@@ -1,0 +1,125 @@
+/* favorite recipes */
+/*  СТИЛИ */
+.popular-recipe-h2 {
+    color: var(--secondary-text-color);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.33;
+    text-transform: uppercase;
+}
+
+.popular-recipe-div {
+    width: 332px;
+}
+
+.favorite-list-img{
+}
+
+.popular-recipe-list {
+    margin-top: 20px;
+}
+
+.popular-recipe-list-li {
+display: flex;
+cursor: pointer;
+}
+
+.popular-recipe-list-li:not(:last-child) {
+    margin-bottom: 24px;
+}
+
+.popular-recipe-div-list{
+    margin-left: 16px;
+    width: 250px;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+}
+
+.favorite-list-h2 {
+    color: var(--secondary-text-color);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.28;
+    text-transform: uppercase;
+    width: 250px;
+}
+
+.favorite-list-h3 {
+    overflow: hidden;
+    color: var(--alfa-text-color);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    margin-top: 8px;
+    width: 250px;
+    height: 30px;
+}
+
+.favorite-list-img {
+    width: 64px;
+    height: 64px;
+}
+
+.popular-recipe-list-li:nth-last-child(-n + 2) {
+    display: none;
+  }
+
+@media screen and (min-width: 768px) {
+    .popular-recipe-list-li:nth-last-child(-n + 2) {
+        display: flex;
+      }
+    .popular-recipe-div {
+        width: 176px;
+    }
+    .favorite-list-img {
+        width: 48px;
+        height: 48px;
+    }
+    .favorite-list-h2 {
+        width: 91px;
+        height: 18px;
+        overflow: hidden;
+    }
+    .favorite-list-h3 {
+        overflow: hidden;
+        font-size: 10px;
+        line-height: 1.4;
+        margin-top: 8px;
+        width: 120px;
+        height: 41px;
+    }
+    .popular-recipe-div-list{
+        margin-left: 8px;
+        width: 120px;
+    }
+    .popular-recipe-list-li:not(:last-child) {
+        margin-bottom: 16px;
+    }
+    }
+  
+  @media screen and (min-width: 1280px) {
+    .popular-recipe-div {
+        width: 235px;
+    }
+    .favorite-list-img {
+        width: 64px;
+        height: 64px;
+    }
+    .favorite-list-h2 {
+        width: 136px;
+        height: 18px;
+        overflow: hidden;
+    }
+    .favorite-list-h3 {
+        width: 155px;
+        height: 41px;
+    }
+    .popular-recipe-div-list{
+        margin-left: 16px;
+        width: 155px;
+    }
+    .popular-recipe-list-li:not(:last-child) {
+        margin-bottom: 32px;
+    }
+  }
