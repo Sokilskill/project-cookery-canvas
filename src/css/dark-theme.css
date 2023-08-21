@@ -11,7 +11,15 @@ body.dark-theme .shopping-cart-icon,
 body.dark-theme .btn-open-menu-icon {
     color: var(--default-color);
     stroke: var(--default-color);
-  }
+}
+
+body.dark-theme.active .nav-link-favorites {
+  color: var(--main-text-color);
+}
+
+body.dark-theme.active .nav-link-home {
+  color: var(--default-color);
+}
 
 
 body.dark-theme .shopping-cart-icon,
