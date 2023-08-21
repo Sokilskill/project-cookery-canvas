@@ -4,6 +4,30 @@
   transition: all 0.3s ease;
 }
 
+/* Modal Order Now */
+
+body.dark-theme .modal-order-now {
+  background-color: var(--secondary-text-color);
+}
+
+body.dark-theme .modal-title {
+  color: white;
+}
+
+body.dark-theme .input-text {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+body.dark-theme .modal-input {
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  color: white;
+}
+
+body.dark-theme .comment-input {
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  color: white;
+}
+
 /* Header */
 
 body.dark-theme .nav-link-favorites,
@@ -71,18 +95,19 @@ body.dark-theme .no-one-text {
 }
 
 /* SideBar */
-body.dark-theme .categories-list {
-
+body.dark-theme .categories-list::-webkit-scrollbar-track {
+  background-color: var(--dark-theme);
 }
+
+body.dark-theme .categories-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+}
+
 
 body.dark-theme .category-item,
 body.dark-theme .category-btn {
   background-color: transparent;
   color: rgba(255, 255, 255, 0.30);
-}
-
-body.dark-theme .categories-list {
-  background-color: transparent;
 }
 
 body.dark-theme .popular-recipe-h2,
@@ -126,6 +151,10 @@ body.dark-theme .ss-main .ss-values .ss-single {
   color: var(--default-color);
 }
 
-/* body.dark-theme .ss-content .ss-list .ss-option:hover {
-  color: var(--default-color);
-} */
+body.dark-theme .ss-content {
+  background-color: var(--secondary-text-color);
+}
+
+body.dark-theme .ss-list {
+  color: color: rgba(255, 255, 255, 0.30);
+}

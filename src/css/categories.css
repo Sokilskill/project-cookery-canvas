@@ -35,9 +35,11 @@
   height: 198px;
   overflow-y: scroll;
 }
+
 .category-item {
   background-color: transparent;
 }
+
 .category-btn {
   font-family: inherit;
   font-size: 14px;
