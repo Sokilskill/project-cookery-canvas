@@ -18,15 +18,15 @@
 .favorite-categories-btn {
     font-family: inherit;
     font-size: 14px;
-    font-weight: 500;
     line-height: calc(18 / 14);
     color: #0505054D;
     padding: 14px 18px 14px 18px;
     border-radius: 15px;
     background-color:var(--background-color);
     border: 1px solid #05050533;
-    cursor: pointer;
     white-space: nowrap;
+    transition: color 250ms var(--cubic-bezier),
+    background-color 250ms var(--cubic-bezier);
 }
 
 .favorite-categories-list {
