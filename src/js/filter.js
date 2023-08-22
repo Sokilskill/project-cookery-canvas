@@ -6,8 +6,8 @@ const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api/';
 import Pagination from './pagination';
 const pagination = new Pagination();
 const FAVORITES = 'favorites'
+localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
 const favorit = JSON.parse(localStorage.getItem(FAVORITES));
-
 const refs = {
   inputEl: document.querySelector('#search-recipe'),
   selectTime: document.querySelector('.filtr-time'),
@@ -618,7 +618,7 @@ function addingCards(el) {
       const fav = favorit
   
 
-      if ( fav.includes(_id)) {
+      if (fav.includes(_id)) {
         heart = 'icon-heart-full';
       }
 
