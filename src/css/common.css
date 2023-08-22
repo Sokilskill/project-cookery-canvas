@@ -17,6 +17,7 @@
 @import './favorites-card.css';
 @import './filter.css';
 @import './dark-theme.css';
+@import './footer.css';
 
 :root {
   --cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
