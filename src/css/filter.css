@@ -574,8 +574,8 @@
   stroke-width: 10px;
   fill: rgba(248, 248, 248, 0);
   stroke: rgba(248, 248, 248, 0.5);
-  -webkit-transition: stroke 250ms linear, fill 250ms linear;
-  transition: stroke 250ms linear, fill 250ms linear;
+  -webkit-transition: stroke 250ms linear, fill 250ms linear, stroke-width 250ms linear;
+  transition: stroke 250ms linear, fill 250ms linear, stroke-width 250ms linear;
 }
 @media screen and (min-width: 768px) {
   .fav-icon {
@@ -591,16 +591,13 @@
 
 .fav-icon:hover {
   fill: rgb(248, 248, 248);
+  stroke: rgba(225, 93, 84, 0);
 }
 
 .fav-icon.activ {
   fill: rgb(248, 248, 248);
-  -webkit-transition: fill 250ms linear;
-  transition: fill 250ms linear;
-}
-
-.fav-icon.activ:hover {
-  fill: rgba(248, 248, 248, 0.4);
+  -webkit-transition: fill 250ms linear, stroke 250ms linear;
+  transition: fill 250ms linear, stroke 250ms linear;
 }
 
 .hidden-itm {

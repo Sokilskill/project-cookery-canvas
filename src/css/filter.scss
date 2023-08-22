@@ -447,7 +447,7 @@ margin-bottom: 16px;
   stroke-width: 10px;
   fill: rgb(248, 248, 248, 0.00);
   stroke: rgb(248, 248, 248, 0.50);
-  transition: stroke 250ms linear, fill 250ms linear;;
+  transition: stroke 250ms linear, fill 250ms linear, stroke-width 250ms linear;
 
   @media screen and (min-width: 768px){
     width: 22px;
@@ -467,15 +467,15 @@ margin-bottom: 16px;
 // }
 .fav-icon:hover{
   fill: rgb(248, 248, 248, 1.0);
+  stroke: #e15d5400;
 }
 
 .fav-icon.activ{
   fill: rgb(248, 248, 248, 1.0);
-  // stroke: #e15d54;
-  transition: fill 250ms linear;
+  transition: fill 250ms linear,stroke 250ms linear;
 }
 .fav-icon.activ:hover{
-  fill: rgb(248, 248, 248, 0.40);
+  // fill: rgb(248, 248, 248, 0.40);
 }
 
 
