@@ -7,21 +7,22 @@ const logoImgDark = document.getElementById('logo-img-dark');
 
 console.log('before', logoImg.src);
 
-
 function darkmode() {
   if (switchElement.checked || switchElement.checked2) {
     localStorage.setItem('darkmode', 'true');
     body.classList.add('dark-theme');
 
-    logoImg.style.display = 'none';
-    logoImgDark.style.display = 'block';
+    logoImg.src =
+      "new URL('../img/header/logo-dark-theme.svg', import.meta.url)";
+    // logoImg.style.display = 'none';
+    // logoImgDark.style.display = 'block';
     console.log('dark', logoImg.src);
-
   } else {
     localStorage.setItem('darkmode', 'false');
     body.classList.remove('dark-theme');
-    logoImg.style.display = 'block';
-    logoImgDark.style.display = 'none';
+    // logoImg.style.display = 'block';
+    // logoImgDark.style.display = 'none';
+    logoImg.src = "new URL('./img/header/logo.svg', import.meta.url)";
   }
 }
 
