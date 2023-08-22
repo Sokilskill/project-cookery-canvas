@@ -28,6 +28,13 @@ body.dark-theme .comment-input {
   color: white;
 }
 
+body.dark-theme .comment-input:focus,
+body.dark-theme .comment-input:hover,
+body.dark-theme .modal-input:focus,
+body.dark-theme .modal-input:hover {
+    border-color: var(--main-text-color);
+}
+
 /* Modal Recipies */
 
 body.dark-theme .modal {
@@ -45,6 +52,10 @@ body.dark-theme h2 {
 
 body.dark-theme .close {
   color: white;
+}
+
+body.dark-theme .rating-and-time {
+  color: rgba(255, 255, 255, 0.50);
 }
 
 body.dark-theme .tag-button {
@@ -132,6 +143,14 @@ body.dark-theme .no-one-text {
   color: var(--default-color);
 }
 
+body.dark-theme .swiper-pagination-bullet {
+  background-color: white;
+}
+
+body.dark-theme .swiper-container .swiper-pagination-bullet-active {
+  background-color: var(--main-text-color, #9bb537);
+}
+
 /* SideBar */
 
 
@@ -187,7 +206,14 @@ body.dark-theme .svg-search {
 
 body.dark-theme #search-recipe {
   border: 1px solid rgba(255, 255, 255, 0.20);
+  color: white;
+  background-color: transparent;
 }
+
+body.dark-theme #search-recipe::placeholder {
+  color: rgba(255, 255, 255, 0.50);
+}
+
 
 body.dark-theme .filtr {
   border: 1px solid rgba(255, 255, 255, 0.20);
@@ -208,4 +234,8 @@ body.dark-theme .ss-content {
 
 body.dark-theme .ss-list {
   color: color: rgba(255, 255, 255, 0.30);
+}
+
+body.dark-theme .btn-list {
+  color: white;
 }
