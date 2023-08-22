@@ -12,14 +12,19 @@ function darkmode() {
     localStorage.setItem('darkmode', 'true');
     body.classList.add('dark-theme');
 
-    logoImg.style.display = 'none';
-    logoImgDark.style.display = 'block';
-    console.log('dark', logoImg.src);
+    logoImg.src = new URL('../img/header/logo-dark-theme.svg', import.meta.url);
+
+    // logoImg.style.display = 'none';
+    // logoImgDark.style.display = 'block';
+    // console.log('dark', logoImg.src);
   } else {
     localStorage.setItem('darkmode', 'false');
     body.classList.remove('dark-theme');
-    logoImg.style.display = 'block';
-    logoImgDark.style.display = 'none';
+
+    logoImg.src = new URL('../img/header/logo.svg', import.meta.url);
+
+    // logoImg.style.display = 'block';
+    // logoImgDark.style.display = 'none';
   }
 }
 
@@ -47,3 +52,49 @@ document.addEventListener('DOMContentLoaded', () => {
     darkmode();
   });
 });
+
+// ========================================================
+// рефакторінг за допопмогою forEach
+
+// const switchesEl = document.querySelectorAll('[name="switch"');
+// const body = document.querySelector('body');
+// const logoImg = document.getElementById('logo-img');
+
+// document.addEventListener('DOMContentLoaded', () => {
+//   const wasDarkMode = localStorage.getItem('darkmode') === 'true';
+
+//   switchesEl.forEach(switchEl => {
+//     if (wasDarkMode) {
+//       switchEl.checked = true;
+//     }
+
+//     switchEl.addEventListener('click', ev => {
+//       switchesEl.forEach(switchElement => {
+//         switchElement.checked = switchEl.checked;
+//       });
+
+//       darkmode();
+//     });
+//   });
+
+//   darkmode();
+// });
+
+// function darkmode() {
+//   switchesEl.forEach(switchEl => {
+//     if (switchEl.checked) {
+//       localStorage.setItem('darkmode', 'true');
+//       body.classList.add('dark-theme');
+
+//       logoImg.src = new URL(
+//         '../img/header/logo-dark-theme.svg',
+//         import.meta.url
+//       );
+//     } else {
+//       localStorage.setItem('darkmode', 'false');
+//       body.classList.remove('dark-theme');
+
+//       logoImg.src = new URL('../img/header/logo.svg', import.meta.url);
+//     }
+//   });
+// }

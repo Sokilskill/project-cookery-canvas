@@ -48,7 +48,7 @@ body.active .nav-link-home {
 .btn-open-menu-icon,
 .shopping-cart-icon {
   fill: none;
-  stroke: black;
+  stroke: var(--secondary-text-color, #050505);
 
   transition: stroke 250ms var(--cubic-bezier);
 }
@@ -70,7 +70,7 @@ body.active .nav-link-home {
   background-color: var(--main-text-color, #9bb537);
   min-width: 200px;
   width: 35vw;
-  height: 100vh;
+  height: 100%;
 
   transform: translateX(110%);
   transition: transform 350ms ease-in-out;
@@ -107,9 +107,18 @@ body.active .nav-link-home {
 .mob-nav-link-favorites,
 .mob-nav-link-home {
   display: block;
-  color: var(--background-color, #f8f8f8);
 
   transition: scale 250ms var(--cubic-bezier);
+}
+
+body.active .mob-nav-link-home,
+.mob-nav-link-favorites {
+  color: var(--background-color, #f8f8f8);
+}
+
+body.active .mob-nav-link-favorites,
+.mob-nav-link-home {
+  color: var(--secondary-text-color, #050505);
 }
 
 .mob-nav-link-favorites:is(:focus, :hover),
