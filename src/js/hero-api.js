@@ -1,8 +1,5 @@
-import Swiper from 'swiper';
-// import { Pagination } from 'swiper';  ===================================
-import Pagination from 'swiper';
-const pag = new Pagination();
-import '../../node_modules/swiper/swiper-bundle.css'; //=======================================
+import Swiper from 'swiper/swiper-bundle.min.mjs';
+import '../../node_modules/swiper/swiper-bundle.css';
 
 const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api/';
 const END_POINT = 'events';
@@ -20,18 +17,14 @@ const fetchEvents = async () => {
 };
 fetchEvents();
 
-new Swiper('.swiper', {
-  // modules: [Pagination],==================================
+const swiper = new Swiper('.swiper', {
   allowTouchMove: true,
   breakpointsBase: 'hero-slider',
-  createElements: true,
   pagination: {
     el: '.swiper-pagination',
     clickable: true,
   },
 });
-
-const swiper = document.querySelector('.swiper');
 
 function markupEvents(arr) {
   return arr
