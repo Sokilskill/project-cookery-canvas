@@ -239,3 +239,23 @@ body.dark-theme .ss-list {
 body.dark-theme .btn-list {
   color: white;
 }
+
+/* Footer */
+
+body.dark-theme .footer-logo,
+body.dark-theme .footer-text-icon,
+body.dark-theme .footer-text,
+body.dark-theme .footer-second-text {
+  color: white;
+}
+
+/* Scroll Up */
+
+body.dark-theme .scroll-to-top-btn {
+  border: 2px solid white;
+}
+
+body.dark-theme .scroll-to-top-btn:before {
+  border-bottom: 4px solid white;
+  border-left: 4px solid white;
+}
