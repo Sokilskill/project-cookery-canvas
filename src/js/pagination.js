@@ -23,7 +23,16 @@ export default class Pagination {
     if (!this.local.includes(itm)) {
       this.local.push(itm);
     }
-    
+  }
+
+  allPushLoc(itm) {
+    this.local.push(...itm)
+  }
+  delItmLoc(itm) {
+    if (this.local.includes(itm)) {
+      const v = this.local.indexOf(itm);
+      this.local.splice(v,1)
+    }
   }
 
   incr() {
