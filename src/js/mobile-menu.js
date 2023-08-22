@@ -1,3 +1,6 @@
+//
+// Open modal menu
+//
 const burgerBtnEl = document.querySelector('.js-open-menu');
 const closeBtnEl = document.querySelector('.js-close-menu');
 const mobileMenuEl = document.querySelector('.js-mob-menu');
@@ -15,6 +18,7 @@ closeBtnEl.addEventListener('click', () => {
   closeMenu();
 });
 
+// закриття по кліку не на мобільному меню
 backdrop.addEventListener('click', () => {
   closeMenu();
 });
@@ -29,3 +33,25 @@ window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
   if (!e.matches) return;
   closeMenu();
 });
+
+//
+//============================
+//Scroll to top
+(() => {
+  window.onscroll = function () {
+    console.log(document.documentElement.scrollTop);
+
+    scrollFunction();
+  };
+
+  function scrollFunction() {
+    if (
+      document.body.scrollTop > 700 ||
+      document.documentElement.scrollTop > 700
+    ) {
+      document.getElementById('scroll-to-top-btn').classList.add('visible');
+    } else {
+      document.getElementById('scroll-to-top-btn').classList.remove('visible');
+    }
+  }
+})();
