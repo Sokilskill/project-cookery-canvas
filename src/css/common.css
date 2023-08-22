@@ -63,7 +63,13 @@ body {
   .container {
     max-width: 764px;
     padding: 0 30px;
+    
   }
+
+  .cont-filtr{
+  display: flex;
+    justify-content: space-between;
+}
 }
 
 @media screen and (min-width: 1280px) {
