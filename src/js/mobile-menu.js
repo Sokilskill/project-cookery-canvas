@@ -37,21 +37,21 @@ window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
 //
 //============================
 //Scroll to top
+const scrollTopBtn = document.getElementById('scroll-to-top-btn');
+
 (() => {
   window.onscroll = function () {
-    console.log(document.documentElement.scrollTop);
-
     scrollFunction();
   };
 
   function scrollFunction() {
-    if (
-      document.body.scrollTop > 700 ||
-      document.documentElement.scrollTop > 700
-    ) {
-      document.getElementById('scroll-to-top-btn').classList.add('visible');
+    if (document.documentElement.scrollTop > 700) {
+      scrollTopBtn.classList.add('visible');
     } else {
-      document.getElementById('scroll-to-top-btn').classList.remove('visible');
+      scrollTopBtn.classList.remove('visible');
     }
   }
+  scrollTopBtn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 })();
