@@ -98,6 +98,8 @@ async function openRecipeModal(recipeID) {
       toggleFavorite(recipeID);
       updateFavoriteButtonText(addToFavoriteBtn, recipeID);
     });
+    updateFavoriteButtonText(addToFavoriteBtn, recipeID);
+
 
     window.addEventListener('click', function (event) {
       if (event.target === modalContainer) {
@@ -133,10 +135,9 @@ async function openRecipeModal(recipeID) {
     function updateFavoriteButtonText(button, recipeID) {
       const favorites = getFavoritesFromStorage();
       const isFavorite = favorites.includes(recipeID);
-      button.textContent = isFavorite
-        ? 'Remove from Favorites'
-        : 'Add to Favorites';
+      button.textContent = isFavorite ? 'Remove from Favorites' : 'Add to Favorites';
     }
+
 
     function getFavoritesFromStorage() {
       const favoritesJson = localStorage.getItem('favorites');
