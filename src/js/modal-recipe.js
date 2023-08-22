@@ -10,6 +10,14 @@ recipe_list.addEventListener('click', async function (event) {
   }
 });
 
+document.body.addEventListener('click', async function (event) {
+  if (event.target.classList.contains('see-recipe-card')) {
+    const recipeID = event.target.dataset.id;
+    openRecipeModal(recipeID);
+  }
+});
+
+
 async function openRecipeModal(recipeID) {
   try {
     const response = await fetch(
@@ -20,7 +28,7 @@ async function openRecipeModal(recipeID) {
     if (data._id !== recipeID) {
       modalContainer.innerHTML = `
                     <div class="modal-content">
-                        <span class="close">&times;</span>
+                        <span class="close-button">&times;</span>
                         <h2>Recipe Not Found</h2>
                         <p>Sorry, the requested recipe could not be found.</p>
                     </div>
@@ -59,8 +67,8 @@ async function openRecipeModal(recipeID) {
 
     modalContainer.innerHTML = `
                 <div class="modal-content">
-                    <span class="close">&times;</span>
-                    <h2 style="text-transform: uppercase;">${data.title}</h2>
+                    <span class="close-button">&times;</span>
+                    <h2 class="title-modal-recipe">${data.title}</h2>
                     <div id="youtubePlayer"></div>
                     <p class="rating-and-time">${ratingAndTime}</p>
                     ${ingredientList}
@@ -98,7 +106,7 @@ async function openRecipeModal(recipeID) {
     });
 
     modalContainer.addEventListener('click', function (event) {
-      if (event.target.classList.contains('close')) {
+      if (event.target.classList.contains('close-button')) {
         closeModal();
       }
     });
@@ -145,6 +153,8 @@ async function openRecipeModal(recipeID) {
         player.stopVideo();
       }
       modalContainer.style.display = 'none';
+      document.body.classList.remove('my-body-noscroll-class');
+
     }
 
     function generateRatingStars(rating) {
@@ -164,9 +174,14 @@ async function openRecipeModal(recipeID) {
       );
       return (match && match[1]) || null;
     }
+
+    document.body.classList.add('my-body-noscroll-class');
+
   } catch (error) {
     console.error('Error loading recipe data:', error);
   }
+
+
 };
 
 window.addEventListener('click', function (event) {
@@ -176,7 +191,7 @@ window.addEventListener('click', function (event) {
 });
 
 modalContainer.addEventListener('click', function (event) {
-  if (event.target.classList.contains('close')) {
+  if (event.target.classList.contains('close-button')) {
     modalContainer.style.display = 'none';
   }
 });
