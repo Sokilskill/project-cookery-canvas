@@ -77,15 +77,19 @@ refs.btnThird.addEventListener('click', onClickThirdPage);
 refs.btnNext.addEventListener('click', onClickNextPage);
 refs.btnEnd.addEventListener('click', onClickLastPage);
 refs.btnOther.addEventListener('click', onClickOtherBtnPage);
+refs.formEl.addEventListener('submit', onSub)
 
 refs.btnResetFiltr.addEventListener('click', e => {
   location.reload();
-
 })
 
 refs.allCatBtn.addEventListener('click', onRemoveRecipe);
 
 refs.recipeList.addEventListener('click', onClickRecipeList);
+
+function onSub(e) {
+  e.preventDefault();
+}
 
 function onClickRecipeList(e) {
   const idTarget = e.target.parentNode.dataset.id;
