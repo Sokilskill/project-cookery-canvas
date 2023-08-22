@@ -62,7 +62,7 @@ body.active .nav-link-home {
 .mob-menu {
   --size-heigth: calc(100vh / 3.5);
   position: fixed;
-  z-index: 40;
+  z-index: 500;
   top: 0;
   right: 0;
   padding: var(--size-heigth) 74px 0;
@@ -78,6 +78,21 @@ body.active .nav-link-home {
 
 .mob-menu.is-open {
   transform: translateX(0);
+}
+
+.header-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.6); */
+  display: none;
+  z-index: 100;
+}
+
+.header-backdrop.active {
+  display: block;
 }
 
 /* -btn close- */
