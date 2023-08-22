@@ -3,9 +3,7 @@ const switchElement2 = document.querySelector('#switch2');
 const body = document.querySelector('body');
 const logoImg = document.getElementById('logo-img');
 
-const logoImgDark = document.getElementById('logo-img-dark');
-
-console.log('before', logoImg.src);
+// const logoImgDark = document.getElementById('logo-img-dark');
 
 function darkmode() {
   if (switchElement.checked || switchElement.checked2) {
