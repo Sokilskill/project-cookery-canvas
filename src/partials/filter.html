@@ -3,9 +3,6 @@
     <label class="l-select">
       <span class="input-name">Search</span>
       <div class="thumb-input">
-        <svg class="svg-search">
-          <use href="./img/icons.svg#icon-search"></use>
-        </svg>
         <input
           type="text"
           name="search-recipe"
@@ -13,6 +10,10 @@
           placeholder="Enter Text"
           id="search-recipe"
         />
+        <svg class="svg-search">
+          <use href="./img/icons.svg#icon-search"></use>
+        </svg>
+        
       </div>
     </label>
     <label class="l-select sel-time">
@@ -59,56 +60,13 @@
         <!-- <option value="" id=""></option> -->
       </select>
     </label>
-    <button type="button" class="btn-reset-filtr">
+    <button type="submit" class="btn-reset-filtr" data-reset>
       <svg class="svg-reset">
-        <use href="./img/icons.svg#icon-reset"></use></svg
-      >Reset the filter
+        <use href="./img/icons.svg#icon-reset"></use></svg>Reset the filter
     </button>
   </form>
-  <div class="all-recipe">
     <div class="cards-recipe"></div>
 
-    <ul class="page-pagination-list">
-      <li class="page-pagination-item">
-        <button type="button" class="btn-list btn-beginning bc">
-          <svg class="svg-switch-duo">
-            <use href="./img/icons.svg#icon-beginning"></use>
-          </svg>
-        </button>
-      </li>
-      <li class="page-pagination-item">
-        <button type="button" class="btn-list btn-previous bc">
-          <svg class="svg-switch">
-            <use href="./img/icons.svg#icon-previous"></use>
-          </svg>
-        </button>
-      </li>
-      <li class="page-pagination-item">
-        <button type="button" class="btn-list btn-first act">1</button>
-      </li>
-      <li class="page-pagination-item">
-        <button type="button" class="btn-list btn-second">2</button>
-      </li>
-      <li class="page-pagination-item">
-        <button type="button" class="btn-list btn-third hidden-btn">3</button>
-      </li>
-      <li class="page-pagination-item">
-        <button type="button" class="btn-list btn-show-others">...</button>
-      </li>
-      <li class="page-pagination-item">
-        <button type="button" class="btn-list btn-next act">
-          <svg class="svg-switch">
-            <use href="./img/icons.svg#icon-next"></use>
-          </svg>
-        </button>
-      </li>
-      <li class="page-pagination-item">
-        <button type="button" class="btn-list btn-end act">
-          <svg class="svg-switch-duo">
-            <use href="./img/icons.svg#icon-end"></use>
-          </svg>
-        </button>
-      </li>
-    </ul>
-  </div>
+    
+  
 </div>

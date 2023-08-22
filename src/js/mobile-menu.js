@@ -15,3 +15,8 @@ function closeMenu(event) {
   mobileMenuEl.classList.remove('is-open');
   body.classList.remove('my-body-noscroll-class');
 }
+
+window.matchMedia('(min-width: 768px)').addEventListener('change', e => {
+  if (!e.matches) return;
+  closeMenu();
+});
