@@ -1,15 +1,29 @@
 export default class Pagination {
   constructor() {
     this.request = '';
-    this.start = 0;
-    this.end = 6;
     this.time = null;
     this.area = '';
     this.ingredient = '';
-    this.page = 3;
+    this.page = 1;
     this.limit = 6;
     this.category = '';
     this.totalRecipe = 0;
+    this.local = [];
+  }
+
+  clearLoc() {
+    this.local.splice(0, 9999999)
+  }
+
+  getLoc() {
+    return this.local;
+  }
+  
+  pushLoc(itm) {
+    if (!this.local.includes(itm)) {
+      this.local.push(itm);
+    }
+    
   }
 
   incr() {
@@ -27,11 +41,11 @@ export default class Pagination {
     this.totalRecipe = newTotal;
   }
 
-  get startValue() {
-    return this.start;
+  get actPages() {
+    return this.actPage;
   }
-  set startValue(newStart) {
-    this.start = newStart;
+  set actPages(newActPage) {
+    this.actPages = newActPage;
   }
 
   get endValue() {
