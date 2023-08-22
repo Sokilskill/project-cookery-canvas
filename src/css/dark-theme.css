@@ -28,6 +28,44 @@ body.dark-theme .comment-input {
   color: white;
 }
 
+/* Modal Recipies */
+
+body.dark-theme .modal {
+  background-color: transparent;
+  backdrop-filter: blur(5px);
+}
+
+body.dark-theme .modal-content {
+  background-color: var(--secondary-text-color);
+}
+
+body.dark-theme h2 {
+  color: white;
+}
+
+body.dark-theme .close {
+  color: white;
+}
+
+body.dark-theme .tag-button {
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+body.dark-theme .ingredient-name,
+body.dark-theme .addToFavorite,
+body.dark-theme .giveRating {
+  color: white;
+}
+
+body.dark-theme .ingredient-measure {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+body.dark-theme .instruction-text {
+  color: rgba(255, 255, 255, 0.80);
+}
+
 /* Header */
 
 body.dark-theme .nav-link-favorites,
@@ -95,6 +133,10 @@ body.dark-theme .no-one-text {
 }
 
 /* SideBar */
+
+
+/* Categories */
+
 body.dark-theme .categories-list::-webkit-scrollbar-track {
   background-color: var(--dark-theme);
 }
@@ -109,6 +151,15 @@ body.dark-theme .category-btn {
   background-color: transparent;
   color: rgba(255, 255, 255, 0.30);
 }
+
+body.dark-theme .active-category,
+body.dark-theme .category-btn:hover,
+body.dark-theme .category-btn:focus {
+  color: var(--main-text-color);
+  transition: color 250ms var(--cubic-bezier);
+}
+
+/* Categories */
 
 body.dark-theme .popular-recipe-h2,
 body.dark-theme .favorite-list-h2,

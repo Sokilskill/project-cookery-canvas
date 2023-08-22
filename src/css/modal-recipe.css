@@ -9,7 +9,9 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--background-color, #f8f8f8);
+  /* background-color: var(--background-color, #f8f8f8); */
+  backdrop-filter: blur(5px);
+  background-color: rgba(46, 47, 66, 0.4);
   overflow-y: scroll;
 }
 
@@ -127,7 +129,7 @@
 
 .addToFavorite,
 .giveRating {
-  background-color: #fff;
+  background-color: transparent;
   border: 1px solid #9bb537;
 }
 
