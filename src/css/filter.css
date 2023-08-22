@@ -252,7 +252,6 @@
   line-height: 1.28; /* 128.571% */
 }
 
-
 .ss-content .ss-list .ss-option {
   color: rgba(5, 5, 5, 0.3);
   font-family: Inter;
@@ -572,7 +571,11 @@
 .fav-icon {
   width: 20px;
   height: 20px;
-  fill: rgba(248, 248, 248, 0.5);
+  stroke-width: 10px;
+  fill: rgba(248, 248, 248, 0);
+  stroke: rgba(248, 248, 248, 0.5);
+  -webkit-transition: stroke 250ms linear, fill 250ms linear;
+  transition: stroke 250ms linear, fill 250ms linear;
 }
 @media screen and (min-width: 768px) {
   .fav-icon {
@@ -581,14 +584,23 @@
   }
 }
 
-.fav-btn:hover .fav-icon,
-.fav-btn:focus .fav-icon {
-  fill: var(--background-color);
-}
-
 .see-recipe-card:hover,
 .see-recipe-card:focus {
   background-color: #839730;
+}
+
+.fav-icon:hover {
+  fill: rgb(248, 248, 248);
+}
+
+.fav-icon.activ {
+  fill: rgb(248, 248, 248);
+  -webkit-transition: fill 250ms linear;
+  transition: fill 250ms linear;
+}
+
+.fav-icon.activ:hover {
+  fill: rgba(248, 248, 248, 0.4);
 }
 
 .hidden-itm {

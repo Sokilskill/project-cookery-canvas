@@ -6,8 +6,13 @@ const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api/';
 import Pagination from './pagination';
 const pagination = new Pagination();
 const FAVORITES = 'favorites'
-localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
+
+if (!localStorage.getItem(FAVORITES)) {
+  localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
+}
 const favorit = JSON.parse(localStorage.getItem(FAVORITES));
+pagination.allPushLoc(favorit);
+
 const refs = {
   inputEl: document.querySelector('#search-recipe'),
   selectTime: document.querySelector('.filtr-time'),
@@ -73,18 +78,41 @@ refs.btnNext.addEventListener('click', onClickNextPage);
 refs.btnEnd.addEventListener('click', onClickLastPage);
 refs.btnOther.addEventListener('click', onClickOtherBtnPage);
 
+refs.btnResetFiltr.addEventListener('click', e => {
+  location.reload();
 
-refs.allCatBtn.addEventListener('click', onRemoveRecipe);
-refs.recipeList.addEventListener('click', e => {
-  if (e.target.classList.contains('fav-icon')) {
-    pagination.pushLoc(e.target.parentNode.dataset.id);
-    console.log(pagination.getLoc());
-    localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
-  }
 })
 
-// localStorage.setItem('pag', JSON.stringify(['1111']))
-// console.log(localStorage.getItem('pag'));
+refs.allCatBtn.addEventListener('click', onRemoveRecipe);
+
+refs.recipeList.addEventListener('click', onClickRecipeList);
+
+function onClickRecipeList(e) {
+  const idTarget = e.target.parentNode.dataset.id;
+  const classPar = e.target.parentNode.classList;
+
+  if (e.target.parentNode.classList.contains('fav-icon')) {
+    // console.log(pagination.getLoc().includes(idTarget));
+    if (pagination.getLoc().includes(idTarget)) {
+      pagination.delItmLoc(idTarget);
+      localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
+      classPar.remove('activ');
+      // classPar.add('dis');
+    } else {
+      pagination.pushLoc(idTarget);
+      localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
+      // classPar.remove('dis');
+      classPar.add('activ');
+    }
+
+    
+    
+    
+    
+  }
+
+}
+
 
 
 function onRemoveRecipe(e) {
@@ -609,99 +637,112 @@ function appdateTotal(tot) {
   pagination.total = tot;
 }
 
+
+
+
+
 function addingCards(el) {
   return el
     .map(({ title, description, _id, rating, thumb }) => {
       const descr = description.slice(0, 94);
       let stars = ``
-      let heart = 'icon-heart';
+      
       const fav = favorit
-  
+      
+      let useIcons;
+      useIcons = new URL('../img/icons.svg', import.meta.url);
 
+
+      let heart = `
+        <svg class="fav-icon dis" data-id="${_id}">
+            <use href="${useIcons.pathname}#icon-heart-full"></use>
+          </svg>`;
+      
       if (fav.includes(_id)) {
-        heart = 'icon-heart-full';
+        heart = `
+        <svg class="fav-icon activ" data-id="${_id}">
+            <use href="${useIcons.pathname}#icon-heart-full"></use>
+          </svg>`;
       }
 
       if (rating >= 4.5) {
         stars = `<svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 4 || rating >= 3.5) {
         stars = `<svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 3 || rating >= 2.5) {
         stars = `<svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 2 || rating >= 1.5) {
         stars = `<svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 1) {
         stars = `<svg class="rat-icon act">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else {
         stars = `<svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
-              <use href="../img/icons.svg#icon-Star"></use>
+              <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       }
 
       return `
       <div class="photo-recipe-card" style="background-image: url(${thumb}); background-repeat: no-repeat; background-size:cover;">
-        <button class="fav-btn" data-id="${_id}">
-          <svg class="fav-icon">
-            <use href="./img/icons.svg#${heart}"></use>
-          </svg>
+        <button class="fav-btn" >
+          ${heart}
         </button>
 
         <div class="info-recipe-card" >
