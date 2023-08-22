@@ -12,17 +12,14 @@ function darkmode() {
     localStorage.setItem('darkmode', 'true');
     body.classList.add('dark-theme');
 
-    logoImg.src =
-      "new URL('../img/header/logo-dark-theme.svg', import.meta.url)";
-    // logoImg.style.display = 'none';
-    // logoImgDark.style.display = 'block';
+    logoImg.style.display = 'none';
+    logoImgDark.style.display = 'block';
     console.log('dark', logoImg.src);
   } else {
     localStorage.setItem('darkmode', 'false');
     body.classList.remove('dark-theme');
-    // logoImg.style.display = 'block';
-    // logoImgDark.style.display = 'none';
-    logoImg.src = "new URL('./img/header/logo.svg', import.meta.url)";
+    logoImg.style.display = 'block';
+    logoImgDark.style.display = 'none';
   }
 }
 
