@@ -23,19 +23,33 @@
   border-radius: 15px;
 }
 
-.close {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-  font-size: 24px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 24px;
-  height: 24px;
+.title-modal-recipe {
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.close-button {
   display: flex;
-  align-items: center;
   justify-content: center;
-  color: var(--secondary-text-color, #050505);
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  font-size: 24px;
+  border-radius: 50%;
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  transition: background-color var(--common-time-func);
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: var(--main-text-color);
+}
+
+.close-button:focus {
+  outline: none;
+  background-color: var(--main-text-color);
 }
 
 .tag-button {
