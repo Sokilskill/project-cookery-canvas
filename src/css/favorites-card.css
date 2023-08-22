@@ -18,6 +18,10 @@
 .no-one {
     padding: 257px 0;
 }
+.no-one.close{
+    display: none;
+}
+
 .no-one-wrap{
     display: flex;
     flex-direction: column;
