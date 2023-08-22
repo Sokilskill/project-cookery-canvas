@@ -3,33 +3,239 @@
   background-color: var(--dark-theme);
   transition: all 0.3s ease;
 }
+
+/* Modal Order Now */
+
+body.dark-theme .modal-order-now {
+  background-color: var(--secondary-text-color);
+}
+
+body.dark-theme .modal-title {
+  color: white;
+}
+
+body.dark-theme .input-text {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+body.dark-theme .modal-input {
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  color: white;
+}
+
+body.dark-theme .comment-input {
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  color: white;
+}
+
+body.dark-theme .comment-input:focus,
+body.dark-theme .comment-input:hover,
+body.dark-theme .modal-input:focus,
+body.dark-theme .modal-input:hover {
+    border-color: var(--main-text-color);
+}
+
+/* Modal Recipies */
+
+body.dark-theme .modal {
+  background-color: transparent;
+  backdrop-filter: blur(5px);
+}
+
+body.dark-theme .modal-content {
+  background-color: var(--secondary-text-color);
+}
+
+body.dark-theme h2 {
+  color: white;
+}
+
+body.dark-theme .close {
+  color: white;
+}
+
+body.dark-theme .rating-and-time {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+body.dark-theme .tag-button {
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+body.dark-theme .ingredient-name,
+body.dark-theme .addToFavorite,
+body.dark-theme .giveRating {
+  color: white;
+}
+
+body.dark-theme .ingredient-measure {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+body.dark-theme .instruction-text {
+  color: rgba(255, 255, 255, 0.80);
+}
+
 /* Header */
 
-.dark-theme .nav-link-favorites {
+body.dark-theme .nav-link-favorites,
+body.dark-theme .shopping-cart-icon,
+body.dark-theme .btn-open-menu-icon {
+    color: var(--default-color);
+    stroke: var(--default-color);
+}
+
+body.dark-theme.active .nav-link-favorites {
+  color: var(--main-text-color);
+}
+
+body.dark-theme.active .nav-link-home {
   color: var(--default-color);
 }
-.dark-theme .shopping-cart-icon,
-.btn-open-menu-icon {
+
+
+body.dark-theme .shopping-cart-icon,
+body.dark-theme .btn-open-menu-icon {
   stroke: var(--default-color);
 }
 
-.dark-theme .mob-menu {
+body.dark-theme .close-icon {
+  stroke: var(--background-color);
+}
+
+body.dark-theme .mob-menu {
   background-color: #050505;
 }
 
+/* Favorites */
+
+body.dark-theme .favorite-categories-btn {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.30);
+  border: 1px solid rgba(255, 255, 255, 0.20);
+}
+
+body.dark-theme .active-favorite-categories,
+body.dark-theme .favorite-categories-btn:hover, 
+body.dark-theme .favorite-categories-btn:focus {
+  background-color: var(--main-text-color);
+  color: var(--default-color);
+  border: 1px solid var(--main-text-color);
+  transition: color 250ms var(--cubic-bezier), background-color 250ms var(--cubic-bezier);
+}
+
+
 /* Hero */
 
-.dark-theme .hero-title,
-.hero-text,
-.hero-order-btn,
-.hero-swipe-dot,
-.hero-swiper {
+body.dark-theme .hero-title,
+body.dark-theme .hero-text,
+body.dark-theme .hero-order-btn,
+body.dark-theme .hero-swipe-dot,
+body.dark-theme .hero-swiper {
   color: var(--default-color);
 }
 
-.dark-theme .hero-swipe-dot:first-child {
+body.dark-theme .hero-swipe-dot:first-child {
   color: var(--main-text-color);
 }
-.dark-theme .no-one-text {
+body.dark-theme .no-one-text {
   color: var(--default-color);
+}
+
+body.dark-theme .swiper-pagination-bullet {
+  background-color: white;
+}
+
+body.dark-theme .swiper-container .swiper-pagination-bullet-active {
+  background-color: var(--main-text-color, #9bb537);
+}
+
+/* SideBar */
+
+
+/* Categories */
+
+body.dark-theme .categories-list::-webkit-scrollbar-track {
+  background-color: var(--dark-theme);
+}
+
+body.dark-theme .categories-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+
+body.dark-theme .category-item,
+body.dark-theme .category-btn {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.30);
+}
+
+body.dark-theme .active-category,
+body.dark-theme .category-btn:hover,
+body.dark-theme .category-btn:focus {
+  color: var(--main-text-color);
+  transition: color 250ms var(--cubic-bezier);
+}
+
+/* Categories */
+
+body.dark-theme .popular-recipe-h2,
+body.dark-theme .favorite-list-h2,
+body.dark-theme .favorite-list-h3 {
+  color: var(--default-color);
+}
+
+body.dark-theme .l-select {
+  color: rgba(255, 255, 255, 0.50);;
+}
+
+body.dark-theme .btn-reset-filtr {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+/* Input */
+
+body.dark-theme .input-name {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+body.dark-theme .svg-search {
+  fill: rgba(255, 255, 255, 0.50);
+}
+
+body.dark-theme #search-recipe {
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  color: white;
+  background-color: transparent;
+}
+
+body.dark-theme #search-recipe::placeholder {
+  color: rgba(255, 255, 255, 0.50);
+}
+
+
+body.dark-theme .filtr {
+  border: 1px solid rgba(255, 255, 255, 0.20);
+  background-color: var(--dark-theme);
+}
+
+body.dark-theme .ss-content .ss-list .ss-option {
+  color: rgba(255, 255, 255, 0.30);
+}
+
+body.dark-theme .ss-main .ss-values .ss-single {
+  color: var(--default-color);
+}
+
+body.dark-theme .ss-content {
+  background-color: var(--secondary-text-color);
+}
+
+body.dark-theme .ss-list {
+  color: color: rgba(255, 255, 255, 0.30);
+}
+
+body.dark-theme .btn-list {
+  color: white;
 }

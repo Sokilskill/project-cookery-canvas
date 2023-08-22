@@ -17,6 +17,7 @@
 @import './favorites-card.css';
 @import './filter.css';
 @import './dark-theme.css';
+@import './footer.css';
 
 :root {
   --cubic-bezier: cubic-bezier(0.4, 0, 0.2, 1);
@@ -63,7 +64,13 @@ body {
   .container {
     max-width: 764px;
     padding: 0 30px;
+    
   }
+
+  .cont-filtr{
+  display: flex;
+    justify-content: space-between;
+}
 }
 
 @media screen and (min-width: 1280px) {
@@ -71,6 +78,7 @@ body {
     max-width: calc(1080px + 60px);
   }
 }
+
 
 /* Тема сайту змінюється з налаштування системи */
 /* @media (prefers-color-scheme: dark) {
