@@ -45,11 +45,16 @@
   color: var(--background-color, #f8f8f8);
   background-color: var(--main-text-color, #9bb537);
 }
-.swiper {
+
+.swiper-container {
   display: flex;
   width: 518px;
-  margin-left: 0;
   height: 302px;
+
+  /* ============================================ */
+  /* margin-left: 0; */
+  /* ======================== */
+  min-width: 0;
 }
 .my-slide {
   display: flex;
@@ -125,23 +130,23 @@
   font-size: 8px;
   line-height: calc(12 / 8);
 }
-.swiper-pagination {
-  z-index: 2;
-  position: relative;
-  width: 23px;
-  height: 5px;
-  display: flex;
-  gap: 4px;
-  margin-top: -6px;
-  margin-left: 176px;
+.swiper-container > .swiper-wrapper + .swiper-pagination {
+  /* ============================================== */
+  /* margin-top: -6px;
+  margin-left: 176px; */
+  bottom: -4px;
 }
-.swiper-pagination-bullet {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
+.swiper-container .swiper-pagination-bullet {
+  /* ============================================= */
+  /* width:5px;
+  height: 5px; */
+  width: 10px;
+  /* margin-right: 2px; */
+  height: 10px;
+  line-height: 20px;
   background-color: var(--secondary-text-color, #050505);
 }
-.swiper-pagination-bullet-active {
+.swiper-container .swiper-pagination-bullet-active {
   background-color: var(--main-text-color, #9bb537);
 }
 
@@ -169,6 +174,7 @@
   .hero-slider {
     width: 871px;
   }
+
   .swiper {
     width: 871px;
     height: 462px;
@@ -211,7 +217,9 @@
     font-size: 12px;
     line-height: calc(14 / 12);
   }
-  .swiper-pagination {
+
+  /* ==================================================== */
+  /* .swiper-pagination {
     width: 26px;
     height: 6px;
     margin-left: 296px;
@@ -219,7 +227,7 @@
   .swiper-pagination-bullet {
     width: 6px;
     height: 6px;
-  }
+  } */
 }
 
 @media screen and (min-width: 1280px) {
