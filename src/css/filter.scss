@@ -344,20 +344,13 @@ line-height: 1.22; /* 122.222% */
 .page-pagination-item:nth-child(7){
     margin-right: 4px;
 }
-
-.photo-recipe-card{
-  position: relative;
-  width: 335px;
+.thumb-card{
+  display: flex;
+width: 335px;
   height: 335px;
-  background-color: #404822;
   margin: 0 auto;
-  padding: 16px;
   border-radius: 8px;
-    display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  
-
+  background-color: #404822;
   @media screen and (min-width: 768px){
     width: 240px;
     height: 264px;
@@ -369,7 +362,20 @@ line-height: 1.22; /* 122.222% */
     margin: 0;
   }
 }
-.photo-recipe-card:not(:last-child){
+
+.photo-recipe-card{
+  position: relative;
+  
+  
+  
+  padding: 16px;
+  
+    display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  
+}
+.thumb-card:not(:last-child){
   margin-bottom: 24px;
   @media screen and (min-width: 768px){
     margin-bottom: 0;
