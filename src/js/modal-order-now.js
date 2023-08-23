@@ -76,5 +76,3 @@ function post(e) {
 }
 
 elements.form.addEventListener('submit', post);
-
-console.log(elements.backdrop);
