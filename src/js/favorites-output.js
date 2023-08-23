@@ -63,8 +63,7 @@ function createMarkup(recipes) {
         if (numStars < 5) {
           for (i = 0; i < 5 - numStars; i++) {
             stars += `<svg class="rat-icon ">
-                   <use href="${newUrl}#icon-Star"></use>
-                 </svg>`;
+              <use href="${newUrl}#icon-Star"></use></svg>`;
           }
         }
         //   console.log(stars);
@@ -91,10 +90,8 @@ function createMarkup(recipes) {
           <div class="thum-raying-card">
             <div class="rating-recipe-card">
             <span class="rating-value ">${el.rating.toFixed(1)}</span>
-          
-            ${stars}
+          ${stars}
       
-            
           </div>
           <button class="see-recipe-card" data-id="${
             el._id
@@ -105,7 +102,7 @@ function createMarkup(recipes) {
       </li>
      `;
       })
-      .join(' ')
+      .join('')
   );
 }
 
