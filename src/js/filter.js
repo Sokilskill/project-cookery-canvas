@@ -765,7 +765,7 @@ function addingCards(el) {
       }
 
       return `
-      <div class="thumb-card" style="background-image: url(${thumb}); background-repeat: no-repeat; background-size:cover;">
+      <div class="thumb-card" style="background-image: linear-gradient(1deg, rgba(5, 5, 5, 0.60) 0%, rgba(5, 5, 5, 0.00) 100%), url(${thumb}); background-repeat: no-repeat; background-size:cover;">
           <div class="photo-recipe-card" >
         <button class="fav-btn" >
           ${heart}
