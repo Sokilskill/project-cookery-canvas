@@ -2,7 +2,7 @@
 // сторінка favorite =============
 
 const categoryFilter = document.querySelector('.favorite-categories');
-const recipeList = document.querySelector('.cards-recipe');
+const recipeList = document.querySelector('.card-recipe-favorite');
 const categorySelect = document.querySelector('.category-select');
 const errorMessageEl = document.querySelector('.js-noone');
 
@@ -23,18 +23,6 @@ function createMarkup(recipes) {
     .map(el => {
       const newUrl = new URL('../img/icons.svg', import.meta.url);
 
-      let heart = `
-        <svg class="fav-icon dis" data-id="${el._id}">
-            <use href="${newUrl}#icon-heart-full"></use>
-          </svg>`;
-
-      if (favoriteRecipes.includes(el._id)) {
-        heart = `
-        <svg class="fav-icon activ" data-id="${el._id}">
-            <use href="${newUrl}#icon-heart-full"></use>
-          </svg>`;
-      }
-
       const numStars = Math.round(el.rating);
       let stars = '';
       //   console.log(numStars);
@@ -54,15 +42,18 @@ function createMarkup(recipes) {
       //   console.log(stars);
 
       return `
-     <li class="recipe-item"> 
-        <div class="photo-recipe-card" style="background-image: url('${
+      <li class="recipe-item"> 
+        <div class="photo-recipe-card photo-recipe-card-favorite" style="background:linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
           el.preview
         }'); background-repeat: no-repeat; background-size:cover;">
         <button class="fav-btn" >
-              ${heart}
+            
+        <svg class="fav-icon activ" data-id="${el._id}">
+            <use href="${newUrl}#icon-heart-full"></use>
+          </svg>
         </button>
 
-        <div class="info-recipe-card" >
+        <div class="info-recipe-card  " >
           <h2 class="title-recipe-card">
             ${el.title}
           </h2>
@@ -83,7 +74,8 @@ function createMarkup(recipes) {
           </div>
         </div>
       </div>
-      </li>`;
+      </li>
+     `;
     })
     .join('');
 }
