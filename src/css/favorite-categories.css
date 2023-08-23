@@ -1,6 +1,7 @@
 .favorite-categories {
   padding-left: 20px;
   padding-right: 0;
+  margin-bottom: 24px;
 }
 
 .favorite-categories-list {
@@ -50,6 +51,7 @@
 @media screen and (min-width: 768px) {
   .favorite-categories {
     padding-left: 32px;
+    margin-bottom: 32px;
   }
   .favorite-categories-list {
     gap: 15px;
