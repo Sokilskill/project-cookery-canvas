@@ -1,132 +1,125 @@
-const nooneMESSAGE = document.querySelector('.js-noone');
+// ================================
+// сторінка favorite =============
 
-// number of favorites
-let fav = JSON.parse( localStorage.favorites );
+const categoryFilter = document.querySelector('.favorite-categories');
+const recipeList = document.querySelector('.cards-recipe');
+const categorySelect = document.querySelector('.category-select');
+const errorMessageEl = document.querySelector('.js-noone');
 
-// console.log(fav);
-// console.log(fav.length);
+// забирає об'єкт масиву з локал сторедж
+// favoriteRecipes сюди додавати після натискання кнопки додати в улюблені
+const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+console.log(favoriteRecipes);
 
-// noone message show
-if (fav.length > 0) {
-    nooneMESSAGE.classList.add('close');
-    // console.log('close');
-} else{
-    // console.log('show');
-};
+// рендер html
+function renderMarkup(markup) {
+  recipeList.innerHTML = '';
+  recipeList.innerHTML = markup;
+}
 
+// створює картки
+function createMarkup(recipes) {
+  return recipes
+    .map(el => {
+      const newUrl = new URL('../img/icons.svg', import.meta.url);
 
+      let heart = `
+        <svg class="fav-icon dis" data-id="${el._id}">
+            <use href="${newUrl}#icon-heart-full"></use>
+          </svg>`;
 
-// function addingCards(el) {
-//     return el
-//       .map(({ title, description, _id, rating, thumb }) => {
-//         const descr = description.slice(0, 94);
-//         let stars = ``
-//         let heart = 'icon-heart';
-//         const fav = favorit
-    
-  
-//         if (fav.includes(_id)) {
-//           heart = 'icon-heart-full';
-//         }
-  
-//         if (rating >= 4.5) {
-//           stars = `<svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg>`;
-//         } else if (rating >= 4 || rating >= 3.5) {
-//           stars = `<svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg>`;
-//         } else if (rating >= 3 || rating >= 2.5) {
-//           stars = `<svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg>`;
-//         } else if (rating >= 2 || rating >= 1.5) {
-//           stars = `<svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg>`;
-//         } else if (rating >= 1) {
-//           stars = `<svg class="rat-icon act">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg>`;
-//         } else {
-//           stars = `<svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg><svg class="rat-icon ">
-//                 <use href="../img/icons.svg#icon-Star"></use>
-//               </svg>`;
-//         }
-  
-//         return `
-//         <div class="photo-recipe-card" style="background-image: url(${thumb}); background-repeat: no-repeat; background-size:cover;">
-//           <button class="fav-btn" data-id="${_id}">
-//             <svg class="fav-icon">
-//               <use href="./img/icons.svg#${heart}"></use>
-//             </svg>
-//           </button>
-  
-//           <div class="info-recipe-card" >
-//             <h2 class="title-recipe-card">
-//               ${title}
-//             </h2>
-//             <p class="descr-recipe-card">
-//               ${descr}...
-//             </p>
-//             <div class="thum-raying-card">
-//               <div class="rating-recipe-card">
-//               <span class="rating-value">${rating}</span>
-//               ${stars}
-//             </div>
-//             <button class="see-recipe-card" data-id="${_id}">See recipe</button>
-//             </div>
-//           </div>
-//         </div>`;
-//       })
-//       .join('');
-//   }
+      if (favoriteRecipes.includes(el._id)) {
+        heart = `
+        <svg class="fav-icon activ" data-id="${el._id}">
+            <use href="${newUrl}#icon-heart-full"></use>
+          </svg>`;
+      }
+
+      const numStars = Math.round(el.rating);
+      let stars = '';
+      //   console.log(numStars);
+
+      for (let i = 0; i < numStars; i++) {
+        stars += `<svg class="rat-icon act">
+              <use href="${newUrl}#icon-Star"></use></svg>`;
+      }
+
+      if (numStars < 5) {
+        for (i = 0; i < 5 - numStars; i++) {
+          stars += `<svg class="rat-icon ">
+                   <use href="${newUrl}#icon-Star"></use>
+                 </svg>`;
+        }
+      }
+      //   console.log(stars);
+
+      return `
+     <li class="recipe-item"> 
+        <div class="photo-recipe-card" style="background-image: url('${
+          el.preview
+        }'); background-repeat: no-repeat; background-size:cover;">
+        <button class="fav-btn" >
+              ${heart}
+        </button>
+
+        <div class="info-recipe-card" >
+          <h2 class="title-recipe-card">
+            ${el.title}
+          </h2>
+          <p class="descr-recipe-card">
+            ${el.description.slice(0, 94)}...
+          </p>
+          <div class="thum-raying-card">
+            <div class="rating-recipe-card">
+            <span class="rating-value">${el.rating}</span>
+          
+            ${stars}
+      
+            
+          </div>
+          <button class="see-recipe-card" data-id="${
+            el._id
+          }">See recipe</button>
+          </div>
+        </div>
+      </div>
+      </li>`;
+    })
+    .join('');
+}
+
+// фільтр
+
+function handlerCategorySelect(event) {
+  const selectedCategory = event.target.value;
+  console.log(selectedCategory);
+  if (selectedCategory === '0') {
+    const allRecipesMarkup = createMarkup(favoriteRecipes);
+    renderMarkup(allRecipesMarkup);
+  } else {
+    const filteredRecipes = favoriteRecipes.filter(
+      recipe => recipe.category === selectedCategory
+    );
+    console.log(filteredRecipes);
+
+    const filteredMarkup = createMarkup(filteredRecipes);
+    renderMarkup(filteredMarkup);
+  }
+}
+
+//запуск
+function run() {
+  if (favoriteRecipes) {
+    categorySelect.addEventListener('change', handlerCategorySelect);
+
+    const allRecipesMarkup = createMarkup(favoriteRecipes);
+
+    renderMarkup(allRecipesMarkup);
+    errorMessageEl.classList.add('disactive-message');
+  } else {
+    categoryFilter.style.display = 'none';
+    errorMessageEl.classList.remove('disactive-message');
+  }
+}
+
+run();
