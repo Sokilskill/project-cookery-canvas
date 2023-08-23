@@ -1,26 +1,22 @@
 /* Modal recipe Muratov Denys */
 
 .modal {
-  width: 531px;
-  display: none;
   position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
+  z-index: 100;
   width: 100%;
   height: 100%;
-  /* background-color: var(--background-color, #f8f8f8); */
   backdrop-filter: blur(5px);
   background-color: rgba(46, 47, 66, 0.4);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .modal-content {
   background-color: var(--default-color, #ffffff);
-  margin: 10% auto;
+  margin: 20 auto;
   padding: 20px;
   border: 1px solid var(--border-color, #9bb5374c);
-  width: 60%;
+  width: calc(100vw - 20px);
+  max-width: 531px;
   position: relative;
   border-radius: 15px;
 }
@@ -72,7 +68,6 @@
 }
 
 .ingredient-name {
-  font-family: Inter;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -82,7 +77,6 @@
 }
 
 .ingredient-measure {
-  font-family: Inter;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -91,8 +85,11 @@
   color: var(--secondary-alfa-text-color, rgba(5, 5, 5, 0.5));
 }
 
+.ingredient-list-placeholder {
+  margin-bottom: 8px;
+}
+
 .instruction-text {
-  font-family: Inter;
   font-size: 14px;
   font-weight: 400;
   line-height: 18px;
@@ -103,7 +100,6 @@
 }
 
 .rating-and-time {
-  font-family: Inter;
   font-size: 14px;
   font-weight: 500;
   line-height: 18px;
@@ -112,21 +108,6 @@
   color: var(--secondary-alfa-text-color, rgba(5, 5, 5, 0.5));
   margin-top: 10px;
   margin-bottom: 10px;
-}
-
-/* Styles for the button */
-#openModalBtn {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  border-radius: 15px;
-}
-
-#openModalBtn:hover {
-  background-color: #0056b3;
 }
 
 /* Styles for the buttons */
@@ -153,4 +134,12 @@
 .giveRating:focus {
   background-color: #9bb537;
   color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+  .button.addToFavorite,
+  .button.giveRating {
+    display: block;
+    margin-top: 8px;
+  }
 }

@@ -17,7 +17,6 @@ document.body.addEventListener('click', async function (event) {
   }
 });
 
-
 async function openRecipeModal(recipeID) {
   try {
     const response = await fetch(
@@ -42,38 +41,14 @@ async function openRecipeModal(recipeID) {
       data.rating
     )} | ${data.time} min`;
 
-    const ingredientsResponse = await fetch(
-      `https://tasty-treats-backend.p.goit.global/api/ingredients`
-    );
-    const ingredientsData = await ingredientsResponse.json();
-
-    const ingredientItems = data.ingredients
-      .map(ingredientData => {
-        const ingredientInfo = ingredientsData.find(
-          item => item._id === ingredientData.id
-        );
-        const ingredientName = ingredientInfo
-          ? ingredientInfo.name
-          : 'Unknown Ingredient';
-        return `
-                    <div class="ingredient-item">
-                        <span class="ingredient-name">${ingredientName}</span>
-                        <span class="ingredient-measure">${ingredientData.measure}</span>
-                    </div>`;
-      })
-      .join('');
-
-    const ingredientList = `<div class="ingredient-list">${ingredientItems}</div>`;
-
     modalContainer.innerHTML = `
                 <div class="modal-content">
                     <span class="close-button">&times;</span>
                     <h2 class="title-modal-recipe">${data.title}</h2>
                     <div id="youtubePlayer"></div>
-                    <p class="rating-and-time">${ratingAndTime}</p>
-                    ${ingredientList}
-                    ${data.tags.map(tag => `<p class="tag-button">#${tag}</p>`).join('')}
-                    <p class="instruction-text">${data.instructions}</p>
+                    <p class="rating-and-time"> ${data.tags.map(tag => `<p class="tag-button">#${tag}</p>`).join('')} ${ratingAndTime}</p>
+                    <div class="ingredient-list-placeholder">Loading ingredients...</div>
+                   <p class="instruction-text">${data.instructions}</p>
                     <button class="button addToFavorite">Add to favorite</button>
                     <button class="button giveRating">Give a rating</button>
                 </div>
@@ -100,7 +75,6 @@ async function openRecipeModal(recipeID) {
     });
     updateFavoriteButtonText(addToFavoriteBtn, recipeID);
 
-
     window.addEventListener('click', function (event) {
       if (event.target === modalContainer) {
         closeModal();
@@ -119,71 +93,37 @@ async function openRecipeModal(recipeID) {
       }
     });
 
-    function toggleFavorite(recipeID) {
-      const favorites = getFavoritesFromStorage();
-      const index = favorites.indexOf(recipeID);
+    const ingredientsResponse = await fetch(
+      `https://tasty-treats-backend.p.goit.global/api/ingredients`
+    );
+    const ingredientsData = await ingredientsResponse.json();
 
-      if (index === -1) {
-        favorites.push(recipeID);
-      } else {
-        favorites.splice(index, 1);
-      }
+    const ingredientItems = data.ingredients
+      .map(ingredientData => {
+        const ingredientInfo = ingredientsData.find(
+          item => item._id === ingredientData.id
+        );
+        const ingredientName = ingredientInfo
+          ? ingredientInfo.name
+          : 'Unknown Ingredient';
+        return `
+                    <div class="ingredient-item">
+                        <span class="ingredient-name">${ingredientName}</span>
+                        <span class="ingredient-measure">${ingredientData.measure}</span>
+                    </div>`;
+      })
+      .join('');
 
-      saveFavoritesToStorage(favorites);
-    }
-
-    function updateFavoriteButtonText(button, recipeID) {
-      const favorites = getFavoritesFromStorage();
-      const isFavorite = favorites.includes(recipeID);
-      button.textContent = isFavorite ? 'Remove from Favorites' : 'Add to Favorites';
-    }
-
-
-    function getFavoritesFromStorage() {
-      const favoritesJson = localStorage.getItem('favorites');
-      return favoritesJson ? JSON.parse(favoritesJson) : [];
-    }
-
-    function saveFavoritesToStorage(favorites) {
-      const favoritesJson = JSON.stringify(favorites);
-      localStorage.setItem('favorites', favoritesJson);
-    }
-
-    function closeModal() {
-      if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
-        player.stopVideo();
-      }
-      modalContainer.style.display = 'none';
-      document.body.classList.remove('my-body-noscroll-class');
-
-    }
-
-    function generateRatingStars(rating) {
-      const starIconFilled =
-        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFD700" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M6.612.499a1.5 1.5 0 0 1 2.776 0l1.976 4.787 5.038.434a1.5 1.5 0 0 1 .832 2.572l-3.843 3.143 1.259 4.889a1.5 1.5 0 0 1-2.302 1.583L8 13.347l-4.67 3.163a1.5 1.5 0 0 1-2.302-1.582l1.259-4.89-3.843-3.142a1.5 1.5 0 0 1 .832-2.572l5.038-.434L6.612.499z"/></svg>';
-      const starIconEmpty =
-        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgba(128, 128, 128, 0.5)" class="bi bi-star" viewBox="0 0 16 16"><path d="M6.612.499a1.5 1.5 0 0 1 2.776 0l1.976 4.787 5.038.434a1.5 1.5 0 0 1 .832 2.572l-3.843 3.143 1.259 4.889a1.5 1.5 0 0 1-2.302 1.583L8 13.347l-4.67 3.163a1.5 1.5 0 0 1-2.302-1.582l1.259-4.89-3.843-3.142a1.5 1.5 0 0 1 .832-2.572l5.038-.434L6.612.499z"/></svg>';
-      const roundedRating = Math.round(rating);
-      const filledStars = starIconFilled.repeat(roundedRating);
-      const emptyStars = starIconEmpty.repeat(5 - roundedRating);
-      return filledStars + emptyStars;
-    }
-
-    function extractVideoId(videoUrl) {
-      const match = videoUrl.match(
-        /(?:\/embed\/|v=|\/v\/|youtu\.be\/|\/v=|^v=)([-_a-zA-Z0-9]+)/i
-      );
-      return (match && match[1]) || null;
-    }
+    const ingredientList = `<div class="ingredient-list">${ingredientItems}</div>`;
+    const ingredientListPlaceholder = modalContainer.querySelector('.ingredient-list-placeholder');
+    ingredientListPlaceholder.innerHTML = ingredientList;
 
     document.body.classList.add('my-body-noscroll-class');
 
   } catch (error) {
     console.error('Error loading recipe data:', error);
   }
-
-
-};
+}
 
 window.addEventListener('click', function (event) {
   if (event.target === modalContainer) {
@@ -202,3 +142,58 @@ document.addEventListener('keydown', function (event) {
     modalContainer.style.display = 'none';
   }
 });
+
+function toggleFavorite(recipeID) {
+  const favorites = getFavoritesFromStorage();
+  const index = favorites.indexOf(recipeID);
+
+  if (index === -1) {
+    favorites.push(recipeID);
+  } else {
+    favorites.splice(index, 1);
+  }
+
+  saveFavoritesToStorage(favorites);
+}
+
+function updateFavoriteButtonText(button, recipeID) {
+  const favorites = getFavoritesFromStorage();
+  const isFavorite = favorites.includes(recipeID);
+  button.textContent = isFavorite ? 'Remove from Favorites' : 'Add to Favorites';
+}
+
+function getFavoritesFromStorage() {
+  const favoritesJson = localStorage.getItem('favorites');
+  return favoritesJson ? JSON.parse(favoritesJson) : [];
+}
+
+function saveFavoritesToStorage(favorites) {
+  const favoritesJson = JSON.stringify(favorites);
+  localStorage.setItem('favorites', favoritesJson);
+}
+
+function closeModal() {
+  if (player && player.getPlayerState() === YT.PlayerState.PLAYING) {
+    player.stopVideo();
+  }
+  modalContainer.style.display = 'none';
+  document.body.classList.remove('my-body-noscroll-class');
+}
+
+function generateRatingStars(rating) {
+  const starIconFilled =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#FFD700" class="bi bi-star-fill" viewBox="0 0 16 16"><path d="M6.612.499a1.5 1.5 0 0 1 2.776 0l1.976 4.787 5.038.434a1.5 1.5 0 0 1 .832 2.572l-3.843 3.143 1.259 4.889a1.5 1.5 0 0 1-2.302 1.583L8 13.347l-4.67 3.163a1.5 1.5 0 0 1-2.302-1.582l1.259-4.89-3.843-3.142a1.5 1.5 0 0 1 .832-2.572l5.038-.434L6.612.499z"/></svg>';
+  const starIconEmpty =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgba(128, 128, 128, 0.5)" class="bi bi-star" viewBox="0 0 16 16"><path d="M6.612.499a1.5 1.5 0 0 1 2.776 0l1.976 4.787 5.038.434a1.5 1.5 0 0 1 .832 2.572l-3.843 3.143 1.259 4.889a1.5 1.5 0 0 1-2.302 1.583L8 13.347l-4.67 3.163a1.5 1.5 0 0 1-2.302-1.582l1.259-4.89-3.843-3.142a1.5 1.5 0 0 1 .832-2.572l5.038-.434L6.612.499z"/></svg>';
+  const roundedRating = Math.round(rating);
+  const filledStars = starIconFilled.repeat(roundedRating);
+  const emptyStars = starIconEmpty.repeat(5 - roundedRating);
+  return filledStars + emptyStars;
+}
+
+function extractVideoId(videoUrl) {
+  const match = videoUrl.match(
+    /(?:\/embed\/|v=|\/v\/|youtu\.be\/|\/v=|^v=)([-_a-zA-Z0-9]+)/i
+  );
+  return (match && match[1]) || null;
+}
