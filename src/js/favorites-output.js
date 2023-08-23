@@ -11,9 +11,26 @@ const paginationList = document.querySelector('.page-pagination-list');
 const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
 console.log(favoriteRecipes);
 
-const allElements = favoriteRecipes.length;
+let allElements;
 let currentPage = 1;
-let itemsPerPage = 9;
+let itemsPerPage = 12;
+
+//запуск
+function run() {
+  if (favoriteRecipes) {
+    allElements = favoriteRecipes.length;
+    console.log(favoriteRecipes.length);
+    categorySelect.addEventListener('change', handlerCategorySelect);
+    renderMarkup(favoriteRecipes); //завантаження списку на сторінку з локал сторедж
+    errorMessageEl.classList.add('disactive-message'); //відключає повідомлення про пустий список
+  } else {
+    paginationList.style.display = 'none';
+    categoryFilter.style.display = 'none'; // приховує фільтр по категорії
+    errorMessageEl.classList.remove('disactive-message');
+  }
+}
+
+run();
 const totalPages = Math.ceil(allElements / itemsPerPage);
 
 // рендер html, відображає на сторінці
@@ -92,20 +109,6 @@ function createMarkup(recipes) {
   );
 }
 
-//запуск
-function run() {
-  if (favoriteRecipes) {
-    categorySelect.addEventListener('change', handlerCategorySelect);
-    renderMarkup(favoriteRecipes); //завантаження списку на сторінку з локал сторедж
-    errorMessageEl.classList.add('disactive-message'); //відключає повідомлення про пустий список
-  } else {
-    categoryFilter.style.display = 'none'; // приховує фільтр по категорії
-    errorMessageEl.classList.remove('disactive-message');
-  }
-}
-
-run();
-
 // фільтр
 function handlerCategorySelect(event) {
   const selectedCategory = event.target.value;
@@ -140,7 +143,7 @@ paginationList.addEventListener('click', event => {
       currentPage = 3;
       console.log(currentPage);
       event.target.classList.add('act');
-    } else if (event.target.classList.contains('btn-last')) {
+    } else if (event.target.classList.contains('.btn-show-others')) {
       currentPage = totalPages;
     } else if (event.target.classList.contains('btn-previous')) {
       if (currentPage > 1) {
