@@ -1,6 +1,5 @@
 import Swiper from 'swiper/swiper-bundle.min.mjs';
 import '../../node_modules/swiper/swiper-bundle.css';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Loading } from 'notiflix/build/notiflix-loading-aio';
 
 const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api/';
@@ -13,10 +12,13 @@ const fetchEvents = async () => {
     const response = await fetch(`${BASE_URL}${END_POINT}`);
     const events = await response.json();
     const data = await Promise.allSettled(events);
-    Loading.remove(60);
+    Loading.remove();
     swiperEl.innerHTML = markupEvents(data);
   } catch (error) {
-    Notify.failure('Sorry, data is currently unavailable. Please try again.');
+    Loading.remove();
+    swiperEl.innerHTML =
+      '<p class="slider-massedge">"Opps! Your next master classes will be here!"</p>';
+    swiper.removeAllSlides();
     console.log(error.message);
   }
 };

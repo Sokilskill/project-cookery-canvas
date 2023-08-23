@@ -45,6 +45,16 @@
   color: var(--background-color, #f8f8f8);
   background-color: var(--main-text-color, #9bb537);
 }
+.slider-massedge {
+  width: 335px;
+  color: var(--main-text-color, #9bb537);
+  font-style: italic;
+  font-size: 26px;
+  font-weight: 400;
+  line-height: calc(31.2 / 26);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
 .hero-slider {
   min-width: 0;
 }
@@ -232,6 +242,14 @@
   }
   .hero-info {
     padding-top: 64px;
+  }
+  .slider-massedge {
+    font-size: 36px;
+    line-height: calc(43.2 / 36);
+    margin-bottom: 16px;
+    margin-top: 64px;
+    margin-left: 40px;
+    width: 400px;
   }
   .hero-slider {
     margin-right: -291px;
