@@ -25,51 +25,50 @@ const categories = fetchCategories()
     }
 
     document.querySelectorAll('.category-btn').forEach(el => {
+      el.addEventListener('click', evt => {
+        const selID = evt.currentTarget.dataset.value;
+        categorySelect.value = selID;
 
-  el.addEventListener('click', evt => {
-    const selID = evt.currentTarget.dataset.value;
-    categorySelect.value = selID;
+        document
+          .querySelector('.active-category')
+          ?.classList.remove('active-category');
+        document
+          .querySelector('.active-all-categories')
+          ?.classList.remove('active-all-categories');
 
-    document
-      .querySelector('.active-category')
-      ?.classList.remove('active-category');
-    document
-      .querySelector('.active-all-categories')
-      ?.classList.remove('active-all-categories');
+        evt.currentTarget.classList.add('active-category');
 
-    evt.currentTarget.classList.add('active-category');
+        categorySelect.dispatchEvent(new Event('change'));
+      });
+    });
 
-    categorySelect.dispatchEvent(new Event('change'));
-  });
-});
+    document.querySelectorAll('.all-categories-btn').forEach(el => {
+      el.addEventListener('click', evt => {
+        const selID = evt.currentTarget.dataset.value;
+        categorySelect.value = selID;
 
-document.querySelectorAll('.all-categories-btn').forEach(el => {
-  el.addEventListener('click', evt => {
-    const selID = evt.currentTarget.dataset.value;
-    categorySelect.value = selID;
+        document
+          .querySelector('.active-category')
+          ?.classList.remove('active-category');
+        evt.currentTarget.classList.add('active-all-categories');
 
-    document
-      .querySelector('.active-category')
-      ?.classList.remove('active-category');
-    evt.currentTarget.classList.add('active-all-categories');
+        categorySelect.dispatchEvent(new Event('change'));
+      });
+    });
 
-    categorySelect.dispatchEvent(new Event('change'));
-  });
-});
+    document.querySelectorAll('.favorite-categories-btn').forEach(el => {
+      el.addEventListener('click', evt => {
+        const selID = evt.currentTarget.dataset.value;
+        categorySelect.value = selID;
 
-document.querySelectorAll('.favorite-categories-btn').forEach(el => {
-  el.addEventListener('click', evt => {
-    const selID = evt.currentTarget.dataset.value;
-    categorySelect.value = selID;
+        document
+          .querySelector('.active-favorite-categories')
+          ?.classList.remove('active-favorite-categories');
+        evt.currentTarget.classList.add('active-favorite-categories');
 
-    document
-      .querySelector('.active-favorite-categories')
-      ?.classList.remove('active-favorite-categories');
-    evt.currentTarget.classList.add('active-favorite-categories');
-
-    categorySelect.dispatchEvent(new Event('change'));
-  });
-});
+        categorySelect.dispatchEvent(new Event('change'));
+      });
+    });
     // return data;
   })
   .catch(error => {
@@ -98,9 +97,10 @@ function renderCategoriesHome(categories) {
 function renderCategoriesFavorites(categories) {
   categories.forEach(category => {
     const htmlButton = `
-        <li class="favorite-category-item"><button data-value="${category._id}" class="favorite-categories-btn">${category.name}</button></li>
+        <li class="favorite-category-item"><button data-value="${category.name}" class="favorite-categories-btn">${category.name}</button></li>
               `;
-    const htmlOption = `<option value = "${category._id}">${category.name}</option>`;
+    const htmlOption = `<option value = "${category.name}">${category.name}</option>`;
+
     categoryFavorites.insertAdjacentHTML('beforeend', htmlButton);
     categorySelect.insertAdjacentHTML('beforeend', htmlOption);
   });

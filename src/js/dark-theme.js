@@ -28,7 +28,6 @@ function darkmode() {
 
 document.addEventListener('DOMContentLoaded', () => {
   const wasDarkMode = localStorage.getItem('darkmode') === 'true';
-  console.log('load', logoImg.src);
 
   if (wasDarkMode) {
     switchElement.checked = true;
