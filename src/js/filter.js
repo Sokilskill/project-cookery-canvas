@@ -5,7 +5,7 @@ import { debounce } from 'throttle-debounce';
 const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api/';
 import Pagination from './pagination';
 const pagination = new Pagination();
-const FAVORITES = 'favorites'
+const FAVORITES = 'favorites';
 
 if (!localStorage.getItem(FAVORITES)) {
   localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
@@ -36,7 +36,6 @@ const refs = {
 hidden(refs.pagBtn);
 createSelect(refs.selectTime, '0 min');
 
-
 getApi('areas').then(r => {
   refs.selectArea.insertAdjacentHTML('beforeend', stringConcatenation(r));
   createSelect(refs.selectArea, 'Region');
@@ -57,11 +56,9 @@ getAllRecipes().then(r => {
     appdateTotal(r.totalPages);
     console.log(pagination.total);
     rmHidden(refs.pagBtn);
-    defaultValuePaginat()
+    defaultValuePaginat();
   }
 });
-
-
 
 refs.categoryBtn.addEventListener('click', onClickBtnRecipeInAll);
 refs.selectTime.addEventListener('change', onChangeTime);
@@ -77,11 +74,11 @@ refs.btnThird.addEventListener('click', onClickThirdPage);
 refs.btnNext.addEventListener('click', onClickNextPage);
 refs.btnEnd.addEventListener('click', onClickLastPage);
 refs.btnOther.addEventListener('click', onClickOtherBtnPage);
-refs.formEl.addEventListener('submit', onSub)
+refs.formEl.addEventListener('submit', onSub);
 
 refs.btnResetFiltr.addEventListener('click', e => {
   location.reload();
-})
+});
 
 refs.allCatBtn.addEventListener('click', onRemoveRecipe);
 
@@ -108,55 +105,47 @@ function onClickRecipeList(e) {
       // classPar.remove('dis');
       classPar.add('activ');
     }
-
-    
-    
-    
-    
   }
-
 }
-
-
 
 function onRemoveRecipe(e) {
   location.reload();
 }
 
 function onChangeRequest(e) {
-   pagination.req = e.target.value;
-   clearCardsList();
-   defaultPage();
-   getAllRecipes().then(r => {
-     createCards(r.results);
-     appdateTotal(r.totalPages);
-     console.log(pagination.total);
-     if (pagination.total > 3) {
-       defaultValuePaginat();
-       return;
-     } else if (pagination.total === 3) {
-       defaultValuePaginat();
-       refs.btnOther.textContent = '-';
-       return;
-     } else if (pagination.total === 2) {
-       defaultValuePaginat();
-       refs.btnThird.textContent = '-';
-       refs.btnOther.textContent = '-';
-       return;
-     } else if (pagination.total === 1) {
-       defaultValuePaginat();
-       refs.btnThird.textContent = '-';
-       refs.btnOther.textContent = '-';
-       refs.btnSecond.textContent = '-';
-       return;
-     } else if (r.totalPages === null) {
-       refs.btnThird.textContent = '-';
-       refs.btnOther.textContent = '-';
-       refs.btnSecond.textContent = '-';
-       refs.btnFirst.textContent = '-';
-       Notiflix.Notify.failure(`❌ There are no requests with such filters.`);
-     }
-   });
+  pagination.req = e.target.value;
+  clearCardsList();
+  defaultPage();
+  getAllRecipes().then(r => {
+    createCards(r.results);
+    appdateTotal(r.totalPages);
+    console.log(pagination.total);
+    if (pagination.total > 3) {
+      defaultValuePaginat();
+      return;
+    } else if (pagination.total === 3) {
+      defaultValuePaginat();
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 2) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 1) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      return;
+    } else if (r.totalPages === null) {
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      refs.btnFirst.textContent = '-';
+      Notiflix.Notify.failure(`❌ There are no requests with such filters.`);
+    }
+  });
 }
 
 function defaultValuePaginat() {
@@ -167,37 +156,34 @@ function defaultValuePaginat() {
 }
 
 function onClickBegininPage(e) {
-    if (pagination.page > 1) {
-      clearCardsList();
-      pagination.pages = 1;
-      getAllRecipes().then(r => {
-        createCards(r.results);
-        appdateTotal(r.totalPages);
-        console.log(pagination.total);
-        rmActive(refs.btnOther);
-        rmActive(refs.btnSecond);
-        rmActive(refs.btnThird);
-        addActive(refs.btnFirst);
-        if (pagination.total > 3) {
-          defaultValuePaginat();
-          return
-        } else if (pagination.total === 2) {
-          refs.btnThird.textContent = '-';
-          refs.btnOther.textContent = '-';
-          return;
-        } else if (pagination.total === 3) {
-          refs.btnOther.textContent = '-';
-          return;
-        }
-        
-      });
-    }
+  if (pagination.page > 1) {
+    clearCardsList();
+    pagination.pages = 1;
+    getAllRecipes().then(r => {
+      createCards(r.results);
+      appdateTotal(r.totalPages);
+      console.log(pagination.total);
+      rmActive(refs.btnOther);
+      rmActive(refs.btnSecond);
+      rmActive(refs.btnThird);
+      addActive(refs.btnFirst);
+      if (pagination.total > 3) {
+        defaultValuePaginat();
+        return;
+      } else if (pagination.total === 2) {
+        refs.btnThird.textContent = '-';
+        refs.btnOther.textContent = '-';
+        return;
+      } else if (pagination.total === 3) {
+        refs.btnOther.textContent = '-';
+        return;
+      }
+    });
+  }
 }
-
 
 function onClickPrevPage(e) {
   if (window.screen.width < 768) {
-
     if (pagination.page > 1) {
       clearCardsList();
       pagination.decr();
@@ -217,9 +203,7 @@ function onClickPrevPage(e) {
         refs.btnSecond.textContent = pagination.pages;
       });
     }
-
   } else {
-
     if (pagination.page > 1) {
       clearCardsList();
       pagination.decr();
@@ -262,7 +246,7 @@ function onClickFirstPage(e) {
       defaultValuePaginat();
       if (pagination.total > 3) {
         defaultValuePaginat();
-        return
+        return;
       } else if (pagination.total === 2) {
         refs.btnThird.textContent = '-';
         refs.btnOther.textContent = '-';
@@ -273,7 +257,6 @@ function onClickFirstPage(e) {
       }
     });
   }
-  
 }
 
 function onClickSecondPage(e) {
@@ -293,7 +276,6 @@ function onClickSecondPage(e) {
       });
     }
   } else {
-    
     if (
       pagination.pages !== Number(e.target.textContent) &&
       pagination.total >= Number(e.target.textContent)
@@ -321,14 +303,13 @@ function onClickSecondPage(e) {
       });
     }
   }
-    
 }
 
 function onClickThirdPage(e) {
-  
   if (
     pagination.pages !== Number(e.target.textContent) &&
-    e.target.textContent !== '-' && pagination.total >= 3
+    e.target.textContent !== '-' &&
+    pagination.total >= 3
   ) {
     clearCardsList();
     pagination.pages = Number(e.target.textContent);
@@ -344,15 +325,16 @@ function onClickThirdPage(e) {
       } else if (pagination.total === 3) {
         refs.btnOther.textContent = '-';
       }
-      
     });
   }
-  
 }
 
 function onClickOtherBtnPage(e) {
   if (window.screen.width < 768) {
-    if (pagination.pages !== Number(e.target.textContent) && pagination.total > 3) {
+    if (
+      pagination.pages !== Number(e.target.textContent) &&
+      pagination.total > 3
+    ) {
       clearCardsList();
       pagination.pages = Number(e.target.textContent);
       getAllRecipes().then(r => {
@@ -365,8 +347,10 @@ function onClickOtherBtnPage(e) {
       });
     }
   } else {
-
-    if (pagination.pages !== Number(e.target.textContent) && pagination.total > 3) {
+    if (
+      pagination.pages !== Number(e.target.textContent) &&
+      pagination.total > 3
+    ) {
       clearCardsList();
       pagination.pages = Number(e.target.textContent);
       getAllRecipes().then(r => {
@@ -377,13 +361,12 @@ function onClickOtherBtnPage(e) {
         rmActive(refs.btnThird);
         addActive(refs.btnOther);
       });
-    } 
+    }
   }
 }
 
 function onClickNextPage(e) {
   if (window.screen.width < 768) {
-
     if (pagination.pages < pagination.totalRecipe) {
       clearCardsList();
 
@@ -403,7 +386,6 @@ function onClickNextPage(e) {
       });
     }
   } else {
-    
     if (pagination.pages < pagination.totalRecipe) {
       clearCardsList();
       pagination.incr();
@@ -413,12 +395,15 @@ function onClickNextPage(e) {
         if (pagination.pages === 2) {
           addActive(refs.btnSecond);
           rmActive(refs.btnFirst);
-          return
+          return;
         } else if (pagination.pages === 3) {
           addActive(refs.btnThird);
           rmActive(refs.btnSecond);
-          return
-        } else if (pagination.pages === pagination.total && pagination.pages > 3) {
+          return;
+        } else if (
+          pagination.pages === pagination.total &&
+          pagination.pages > 3
+        ) {
           addActive(refs.btnOther);
           rmActive(refs.btnThird);
           return;
@@ -428,8 +413,6 @@ function onClickNextPage(e) {
       });
     }
   }
-  
-    
 }
 function onClickLastPage(e) {
   if (window.screen.width < 768) {
@@ -448,7 +431,6 @@ function onClickLastPage(e) {
       });
     }
   } else {
-    
     if (pagination.total > 3 && pagination.pages !== pagination.total) {
       clearCardsList();
       pagination.pages = pagination.totalRecipe;
@@ -464,7 +446,6 @@ function onClickLastPage(e) {
       });
     }
   }
-  
 }
 
 function onClickBtnRecipeInAll(e) {
@@ -616,7 +597,7 @@ function defaultPage() {
   rmActive(refs.btnSecond);
   rmActive(refs.btnThird);
   rmActive(refs.btnOther);
-  addActive(refs.btnFirst)
+  addActive(refs.btnFirst);
 }
 
 function clearCardsList() {
@@ -641,27 +622,22 @@ function appdateTotal(tot) {
   pagination.total = tot;
 }
 
-
-
-
-
 function addingCards(el) {
   return el
     .map(({ title, description, _id, rating, thumb }) => {
       const descr = description.slice(0, 94);
-      let stars = ``
-      
-      const fav = favorit
-      
+      let stars = ``;
+
+      const fav = favorit;
+
       let useIcons;
       useIcons = new URL('../img/icons.svg', import.meta.url);
-
 
       let heart = `
         <svg class="fav-icon dis" data-id="${_id}">
             <use href="${useIcons.pathname}#icon-heart-full"></use>
           </svg>`;
-      
+
       if (fav.includes(_id)) {
         heart = `
         <svg class="fav-icon activ" data-id="${_id}">
@@ -826,7 +802,7 @@ function rmHidden(itm) {
 }
 
 function addActive(itm) {
-  itm.classList.add('act')
+  itm.classList.add('act');
 }
 
 function rmActive(itm) {
