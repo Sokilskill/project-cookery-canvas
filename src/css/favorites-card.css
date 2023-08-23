@@ -3,7 +3,6 @@
   margin-bottom: 40px;
 }
 .favorites-card {
-  /* display: none; */
   padding-bottom: 64px;
 }
 .favorites-card-img {
@@ -29,9 +28,13 @@
     margin-bottom: 64px;
   }
 
-  .photo-recipe-card.photo-recipe-card-favorite {
+  body.active .photo-recipe-card {
     width: 224px;
     height: 244px;
+  }
+
+  body.active .rating-value {
+    margin-right: 2px;
   }
 }
 
@@ -42,7 +45,7 @@
     row-gap: 32px;
   }
 
-  .photo-recipe-card.photo-recipe-card-favorite {
+  body.active .photo-recipe-card {
     width: 258px;
     height: 287px;
   }
