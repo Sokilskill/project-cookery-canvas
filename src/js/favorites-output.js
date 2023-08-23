@@ -49,34 +49,34 @@ function createMarkup(recipes) {
     'beforeend',
     recipes
       .map(el => {
-        const newUrl = new URL('../img/icons.svg', import.meta.url);
+        let newUrl = new URL('../img/icons.svg', import.meta.url);
 
         const numStars = Math.round(el.rating);
         let stars = '';
-        //   console.log(numStars);
+        // console.log(newUrl.pathname);
 
         for (let i = 0; i < numStars; i++) {
           stars += `<svg class="rat-icon act">
-              <use href="${newUrl}#icon-Star"></use></svg>`;
+              <use href="${newUrl.pathname}#icon-Star"></use></svg>`;
         }
 
         if (numStars < 5) {
           for (i = 0; i < 5 - numStars; i++) {
             stars += `<svg class="rat-icon ">
-              <use href="${newUrl}#icon-Star"></use></svg>`;
+              <use href="${newUrl.pathname}#icon-Star"></use></svg>`;
           }
         }
         //   console.log(stars);
 
         return `
       <li class="recipe-item"> 
-        <div class="photo-recipe-card " style="background:linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
-          el.preview
-        }'); background-repeat: no-repeat; background-size:cover;">
+        <div class="photo-recipe-card " style="background:linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ),
+         url('${
+           el.preview
+         }'); background-repeat: no-repeat; background-size:cover;">
         <button class="fav-btn" >
-            
         <svg class="fav-icon activ" data-id="${el._id}">
-            <use href="${newUrl}#icon-heart-full"></use>
+            <use href="${newUrl.pathname}#icon-heart-full"></use>
           </svg>
         </button>
 
