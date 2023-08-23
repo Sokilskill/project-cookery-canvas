@@ -574,7 +574,7 @@
   height: 20px;
   stroke-width: 10px;
   fill: rgba(248, 248, 248, 0);
-  stroke: rgba(248, 248, 248, 0.5);
+  stroke: var(--background-color);
   -webkit-transition: stroke 250ms linear, fill 250ms linear, stroke-width 250ms linear;
   transition: stroke 250ms linear, fill 250ms linear, stroke-width 250ms linear;
 }

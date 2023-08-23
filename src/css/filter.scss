@@ -446,7 +446,7 @@ margin-bottom: 16px;
   height: 20px;
   stroke-width: 10px;
   fill: rgb(248, 248, 248, 0.00);
-  stroke: rgb(248, 248, 248, 0.50);
+  stroke: var(--background-color);
   transition: stroke 250ms linear, fill 250ms linear, stroke-width 250ms linear;
 
   @media screen and (min-width: 768px){
