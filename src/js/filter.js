@@ -6,7 +6,9 @@ const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api/';
 import Pagination from './pagination';
 import LocalStorage from './localStorage'
 const pagination = new Pagination();
+const localData = new LocalStorage();
 const FAVORITES = 'favorites'
+const FAVORITES_RECIPES = 'favoriteRecipes ';
 
 if (!localStorage.getItem(FAVORITES_RECIPES)) {
   localStorage.setItem(FAVORITES_RECIPES, JSON.stringify(localData.getLoc()));
@@ -136,8 +138,17 @@ function onClickRecipeList(e) {
     }
 
     
-    
-    
+    // if (pagination.getLoc().includes(idTarget)) {
+    //   pagination.delItmLoc(idTarget);
+    //   localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
+    //   classPar.remove('activ');
+    //   // classPar.add('dis');
+    // } else {
+    //   pagination.pushLoc(idTarget);
+    //   localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
+    //   // classPar.remove('dis');
+    //   classPar.add('activ');
+    // }
     
   }
 }
