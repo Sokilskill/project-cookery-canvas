@@ -3,16 +3,48 @@
   margin-bottom: 40px;
 }
 .favorites-card {
-  display: none;
+  /* display: none; */
   padding-bottom: 64px;
 }
 .favorites-card-img {
   border-radius: 15px;
 }
 
+.card-recipe-favorite {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
 @media screen and (min-width: 768px) {
   .favorites-card {
     display: block;
+  }
+
+  .card-recipe-favorite {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+
+  .photo-recipe-card.photo-recipe-card-favorite {
+    width: 224px;
+    height: 244px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .card-recipe-favorite {
+    flex-direction: row;
+
+    row-gap: 32px;
+  }
+
+  .photo-recipe-card.photo-recipe-card-favorite {
+    width: 258px;
+    height: 287px;
   }
 }
 
