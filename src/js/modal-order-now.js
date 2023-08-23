@@ -10,7 +10,10 @@ const elements = {
   telInput: document.querySelector('.tel-input'),
 };
 
-elements.heroOrderBtn.addEventListener('click', orderNowOpn);
+if (elements.heroOrderBtn) {
+  elements.heroOrderBtn.addEventListener('click', orderNowOpn);
+}
+
 elements.shoppingCartBtn.addEventListener('click', orderNowOpn);
 
 function orderNowOpn(e) {
@@ -29,17 +32,23 @@ function orderNowOpn(e) {
     elements.form[3].value = parsedData.Comment;
   }
 
+  if (elements.heroOrderBtn) {
+    elements.heroOrderBtn.removeEventListener('click', orderNowOpn);
+  }
+
   elements.body.classList.add('my-body-noscroll-class');
-  elements.heroOrderBtn.removeEventListener('click', orderNowOpn);
   elements.shoppingCartBtn.removeEventListener('click', orderNowOpn);
   elements.modalCloseBtn.addEventListener('click', modalClose);
   elements.backdrop.classList.remove('is-hidden');
 }
 
 function modalClose(e) {
+  if (elements.heroOrderBtn) {
+    elements.heroOrderBtn.addEventListener('click', orderNowOpn);
+  }
+
   elements.body.classList.remove('my-body-noscroll-class');
   elements.modalCloseBtn.removeEventListener('click', modalClose);
-  elements.heroOrderBtn.addEventListener('click', orderNowOpn);
   elements.shoppingCartBtn.addEventListener('click', orderNowOpn);
   elements.backdrop.classList.add('is-hidden');
 
@@ -67,3 +76,5 @@ function post(e) {
 }
 
 elements.form.addEventListener('submit', post);
+
+console.log(elements.backdrop);
