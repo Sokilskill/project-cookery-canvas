@@ -4,12 +4,22 @@ import Notiflix from 'notiflix';
 import { debounce } from 'throttle-debounce';
 const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api/';
 import Pagination from './pagination';
+import LocalStorage from './localStorage'
 const pagination = new Pagination();
-const FAVORITES = 'favorites';
+const localData = new LocalStorage();
+const FAVORITES = 'favorites'
+const FAVORITES_RECIPES = 'favoriteRecipes ';
 
+if (!localStorage.getItem(FAVORITES_RECIPES)) {
+  localStorage.setItem(FAVORITES_RECIPES, JSON.stringify(localData.getLoc()));
+}
 if (!localStorage.getItem(FAVORITES)) {
   localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
 }
+
+const favoritRecipes = JSON.parse(localStorage.getItem(FAVORITES_RECIPES));
+localData.allPushLoc(favoritRecipes);
+
 const favorit = JSON.parse(localStorage.getItem(FAVORITES));
 pagination.allPushLoc(favorit);
 
@@ -88,23 +98,58 @@ function onSub(e) {
   e.preventDefault();
 }
 
+
+
 function onClickRecipeList(e) {
   const idTarget = e.target.parentNode.dataset.id;
   const classPar = e.target.parentNode.classList;
+  console.log(idTarget);
+  // let actualObj = null;
+
+  
 
   if (e.target.parentNode.classList.contains('fav-icon')) {
     // console.log(pagination.getLoc().includes(idTarget));
     if (pagination.getLoc().includes(idTarget)) {
+
+      localData.delItmLoc(idTarget);
+      localStorage.setItem(
+        FAVORITES_RECIPES,
+        JSON.stringify(localData.getLoc())
+      );
       pagination.delItmLoc(idTarget);
       localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
       classPar.remove('activ');
       // classPar.add('dis');
     } else {
+      getApiOneId(idTarget).then(r => {
+        // actualObj = r;
+        localData.pushLoc(r);
+        localStorage.setItem(
+          FAVORITES_RECIPES,
+          JSON.stringify(localData.getLoc())
+        );
+      });
+      
       pagination.pushLoc(idTarget);
       localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
       // classPar.remove('dis');
       classPar.add('activ');
     }
+
+    
+    // if (pagination.getLoc().includes(idTarget)) {
+    //   pagination.delItmLoc(idTarget);
+    //   localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
+    //   classPar.remove('activ');
+    //   // classPar.add('dis');
+    // } else {
+    //   pagination.pushLoc(idTarget);
+    //   localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
+    //   // classPar.remove('dis');
+    //   classPar.add('activ');
+    // }
+    
   }
 }
 
@@ -720,7 +765,8 @@ function addingCards(el) {
       }
 
       return `
-      <div class="photo-recipe-card" style="background-image: url(${thumb}); background-repeat: no-repeat; background-size:cover;">
+      <div class="thumb-card" style="background-image: url(${thumb}); background-repeat: no-repeat; background-size:cover;">
+          <div class="photo-recipe-card" >
         <button class="fav-btn" >
           ${heart}
         </button>
@@ -740,7 +786,8 @@ function addingCards(el) {
           <button class="see-recipe-card" data-id="${_id}">See recipe</button>
           </div>
         </div>
-      </div>`;
+      </div>
+        </div>`;
     })
     .join('');
 }
@@ -779,6 +826,10 @@ function stringConcatenationIng(ms) {
 
 function getApi(tag) {
   return axios.get(`${BASE_URL}${tag}`).then(r => r.data);
+}
+
+function getApiOneId(id) {
+  return axios.get(`${BASE_URL}recipes/${id}`).then(r => r.data);
 }
 
 function createSelect(select, placehold) {

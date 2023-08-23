@@ -110,7 +110,6 @@
   border-radius: 15px;
   font: inherit;
   color: var(--secondary-text-color);
-  background-color: transparent;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
@@ -442,14 +441,34 @@
   margin-right: 4px;
 }
 
-.photo-recipe-card {
-  position: relative;
+.thumb-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   width: 335px;
   height: 335px;
-  background-color: #404822;
   margin: 0 auto;
-  padding: 16px;
   border-radius: 8px;
+  background-color: #404822;
+}
+@media screen and (min-width: 768px) {
+  .thumb-card {
+    width: 240px;
+    height: 264px;
+    margin: 0;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .thumb-card {
+    width: 250px;
+    height: 287px;
+    margin: 0;
+  }
+}
+
+.photo-recipe-card {
+  position: relative;
+  padding: 16px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -461,26 +480,12 @@
       -ms-flex-pack: end;
           justify-content: flex-end;
 }
-@media screen and (min-width: 768px) {
-  .photo-recipe-card {
-    width: 240px;
-    height: 264px;
-    margin: 0;
-  }
-}
-@media screen and (min-width: 1280px) {
-  .photo-recipe-card {
-    width: 250px;
-    height: 287px;
-    margin: 0;
-  }
-}
 
-.photo-recipe-card:not(:last-child) {
+.thumb-card:not(:last-child) {
   margin-bottom: 24px;
 }
 @media screen and (min-width: 768px) {
-  .photo-recipe-card:not(:last-child) {
+  .thumb-card:not(:last-child) {
     margin-bottom: 0;
   }
 }
@@ -574,7 +579,7 @@
   height: 20px;
   stroke-width: 10px;
   fill: rgba(248, 248, 248, 0);
-  stroke: rgba(248, 248, 248, 0.5);
+  stroke: var(--background-color);
   -webkit-transition: stroke 250ms linear, fill 250ms linear, stroke-width 250ms linear;
   transition: stroke 250ms linear, fill 250ms linear, stroke-width 250ms linear;
 }
