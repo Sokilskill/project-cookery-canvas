@@ -41,18 +41,29 @@ async function openRecipeModal(recipeID) {
       data.rating
     )} | ${data.time} min`;
 
+    const ingredientItems = data.ingredients.map(ingredientData => {
+      const ingredientName = ingredientData.name || 'Unknown ingredient';
+      return `
+        <div class="ingredient-item">
+          <span class="ingredient-name">${ingredientName}</span>
+          <span class="ingredient-measure">${ingredientData.measure}</span>
+        </div>`;
+    });
+
+    const ingredientList = `<div class="ingredient-list">${ingredientItems.join('')}</div>`;
+
     modalContainer.innerHTML = `
-                <div class="modal-content">
-                    <span class="close-button">&times;</span>
-                    <h2 class="title-modal-recipe">${data.title}</h2>
-                    <div id="youtubePlayer"></div>
-                    <p class="rating-and-time"> ${data.tags.map(tag => `<p class="tag-button">#${tag}</p>`).join('')} ${ratingAndTime}</p>
-                    <div class="ingredient-list-placeholder">Loading ingredients...</div>
-                   <p class="instruction-text">${data.instructions}</p>
-                    <button class="button addToFavorite">Add to favorite</button>
-                    <button class="button giveRating">Give a rating</button>
-                </div>
-            `;
+      <div class="modal-content" data-id="${recipeID}">
+          <span class="close-button">&times;</span>
+          <h2 class="title-modal-recipe">${data.title}</h2>
+          <div id="youtubePlayer"></div>
+          <p class="rating-and-time">${data.tags.map(tag => `<p class="tag-button">#${tag}</p>`).join('')} ${ratingAndTime}</p>
+          ${ingredientList}
+          <p class="instruction-text">${data.instructions}</p>
+          <button class="button addToFavorite">Add to Favorites</button>
+          <button class="button giveRating">Give a rating</button>
+      </div>
+    `;
 
     modalContainer.style.display = 'block';
 
@@ -92,31 +103,6 @@ async function openRecipeModal(recipeID) {
         closeModal();
       }
     });
-
-    const ingredientsResponse = await fetch(
-      `https://tasty-treats-backend.p.goit.global/api/ingredients`
-    );
-    const ingredientsData = await ingredientsResponse.json();
-
-    const ingredientItems = data.ingredients
-      .map(ingredientData => {
-        const ingredientInfo = ingredientsData.find(
-          item => item._id === ingredientData.id
-        );
-        const ingredientName = ingredientInfo
-          ? ingredientInfo.name
-          : 'Unknown Ingredient';
-        return `
-                    <div class="ingredient-item">
-                        <span class="ingredient-name">${ingredientName}</span>
-                        <span class="ingredient-measure">${ingredientData.measure}</span>
-                    </div>`;
-      })
-      .join('');
-
-    const ingredientList = `<div class="ingredient-list">${ingredientItems}</div>`;
-    const ingredientListPlaceholder = modalContainer.querySelector('.ingredient-list-placeholder');
-    ingredientListPlaceholder.innerHTML = ingredientList;
 
     document.body.classList.add('my-body-noscroll-class');
 
