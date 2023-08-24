@@ -50,59 +50,69 @@ function addCardsInHtml(result) {
 function createMarkup(recipes) {
   return recipes
     .map(el => {
-      let iconsUrl = new URL('../img/icons.svg', import.meta.url);
+      let iconsUrl = new URL('/src/img/icons.svg', import.meta.url);
 
       const numStars = Math.round(el.rating);
       let stars = ``;
-      console.log(iconsUrl.pathname);
-      console.log(iconsUrl);
-
-      for (let i = 0; i < numStars; i++) {
-        stars += `<svg class="rat-icon act">
-              <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+      try {
+        console.log(iconsUrl);
+        console.log(iconsUrl.pathname);
+        console.log(el._id);
+        console.log(el.preview);
+      } catch (error) {
+        console.log(error);
       }
 
-      if (numStars < 5) {
-        for (i = 0; i < 5 - numStars; i++) {
-          stars += `<svg class="rat-icon ">
-              <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
-        }
-      }
-      // console.log(stars);
+      // for (let i = 0; i < numStars; i++) {
+      //   stars += `<svg class="rat-icon act">
+      //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+      // }
 
-      return `
-      <li class="recipe-item"> 
-        <div class="photo-recipe-card " style="background-image: linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
-          el.preview
-        }'); background-repeat: no-repeat; background-size: cover;">
-        <button class="fav-btn" >
-        <svg class="fav-icon activ" data-id="${el._id}">
-            <use href="${iconsUrl.pathname}#icon-heart-full"></use>
-          </svg>
-        </button>
+      // if (numStars < 5) {
+      //   for (i = 0; i < 5 - numStars; i++) {
+      //     stars += `<svg class="rat-icon ">
+      //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+      //   }
+      // }
 
-        <div class="info-recipe-card  " >
-          <h2 class="title-recipe-card">
-            ${el.title}
-          </h2>
-          <p class="descr-recipe-card">
-            ${el.description.slice(0, 94)}...
-          </p>
-          <div class="thum-raying-card">
-            <div class="rating-recipe-card">
-            <span class="rating-value ">${el.rating.toFixed(1)}</span>
-          ${stars}
-      
-          </div>
-          <button class="see-recipe-card" data-id="${
-            el._id
-          }">See recipe</button>
-          </div>
-        </div>
-      </div>
-      </li>`;
+      return `<p>Watch</p>`;
     })
     .join('');
+  // console.log(stars);
+
+  //   return `
+  //   <li class="recipe-item">
+  //     <div class="photo-recipe-card " style="background-image: linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
+  //       el.preview
+  //     }'); background-repeat: no-repeat; background-size: cover;">
+  //     <button class="fav-btn" >
+  //     <svg class="fav-icon activ" data-id="${el._id}">
+  //         <use href="${iconsUrl.pathname}#icon-heart-full"></use>
+  //       </svg>
+  //     </button>
+
+  //     <div class="info-recipe-card  " >
+  //       <h2 class="title-recipe-card">
+  //         ${el.title}
+  //       </h2>
+  //       <p class="descr-recipe-card">
+  //         ${el.description.slice(0, 94)}...
+  //       </p>
+  //       <div class="thum-raying-card">
+  //         <div class="rating-recipe-card">
+  //         <span class="rating-value ">${el.rating.toFixed(1)}</span>
+  //       ${stars}
+
+  //       </div>
+  //       <button class="see-recipe-card" data-id="${
+  //         el._id
+  //       }">See recipe</button>
+  //       </div>
+  //     </div>
+  //   </div>
+  //   </li>`;
+  // })
+  // .join('');
 }
 
 // фільтр
