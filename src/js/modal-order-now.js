@@ -7,7 +7,6 @@ const elements = {
   shoppingCartBtn: document.querySelector('.shopping-cart'),
   backdrop: document.querySelector('.backdrop'),
   body: document.querySelector('body'),
-  telInput: document.querySelector('.tel-input'),
 };
 
 if (elements.heroOrderBtn) {
