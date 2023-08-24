@@ -25,7 +25,6 @@ function ratioModalOpen(e) {
   elem.modalCloseBtn.addEventListener('click', ratioModalClose);
 
   recipeID = recipe.dataset.id;
-  console.log(recipeID);
   stars(5);
   const starEl = document.querySelector('.stars-ratio');
   starEl.addEventListener('mousemove', starRating);
@@ -37,11 +36,13 @@ function ratioModalClose(e) {
   elem.modalCloseBtn.removeEventListener('click', ratioModalClose);
 }
 
+Notiflix.Notify.init({ zindex: 99999 });
+
 async function Fetch(recipeID, rating) {
   const URL = `https://tasty-treats-backend.p.goit.global/api/recipes/${recipeID}/${rating}`;
 
   return await axios
-    .post(URL, null)
+    .post(URL)
     .then(function (notif) {
       Notiflix.Notify.success('Post Success');
     })
@@ -51,7 +52,8 @@ async function Fetch(recipeID, rating) {
     });
 }
 
-function submitForm() {
+function submitForm(e) {
+  e.preventDefault();
   let rec = recipeID;
   let ratt = rating;
   Fetch(rec, ratt);
