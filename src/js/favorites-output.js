@@ -1,7 +1,6 @@
 // ================================
 // сторінка favorite =============
 
-const screenWidth = window.innerWidth;
 const categoryFilter = document.querySelector('.favorite-categories');
 const recipeList = document.querySelector('.card-recipe-favorite');
 const categorySelect = document.querySelector('.category-select');
@@ -28,7 +27,13 @@ let currentPage = 1;
 let itemsPerPage = 6;
 
 function screenWidthFunct() {
-  if (screenWidth >= 768 <= 1280) {
+  const screenWidth = window.innerWidth;
+
+  console.log('screenWidth:', screenWidth);
+  console.log('itemsPerPage', itemsPerPage);
+  if (screenWidth < 768) {
+    itemsPerPage = 6;
+  } else if (screenWidth >= 768 && 1280 > screenWidth) {
     itemsPerPage = 9;
   } else if (screenWidth >= 1280) {
     itemsPerPage = 12;
@@ -41,22 +46,12 @@ let allElements;
 let totalPages;
 
 //запуск
-function run() {
-  if (FAVORITE_RECIPE && FAVORITE_RECIPE.length) {
-    allElements = FAVORITE_RECIPE.length;
+function run(arrayOfObjects) {
+  if (arrayOfObjects && arrayOfObjects.length) {
+    allElements = arrayOfObjects.length;
     totalPages = Math.ceil(allElements / itemsPerPage);
-    if (allElements <= itemsPerPage) {
-      paginationList.style.display = 'none';
-    } else {
-      refs.btnOther.textContent = totalPages;
-    }
-    if (totalPages <= 3) {
-      refs.btnThird.style.display = 'none';
-    }
-    if (totalPages <= 2) {
-      refs.btnSecond.style.display = 'none';
-    }
-    renderMarkup(sliceMarkupFun(FAVORITE_RECIPE)); //завантаження списку на сторінку з локал сторедж
+
+    renderMarkup(arrayOfObjects); //завантаження списку на сторінку з локал сторедж
   } else {
     paginationList.style.display = 'none';
     categoryFilter.style.display = 'none'; // приховує фільтр по категорії
@@ -64,7 +59,22 @@ function run() {
   }
 }
 
+function createBtn() {
+  if (allElements <= itemsPerPage) {
+    return (paginationList.style.display = 'none');
+  }
+
+  if (1 < totalPages <= 3) {
+    refs.btnThird.style.display = 'none';
+  }
+  if (totalPages <= 2) {
+    refs.btnSecond.style.display = 'none';
+  }
+  refs.btnOther.textContent = totalPages;
+}
+
 function sliceMarkupFun(markup) {
+  createBtn();
   screenWidthFunct();
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -73,9 +83,9 @@ function sliceMarkupFun(markup) {
 }
 
 // рендер html, відображає на сторінці
-function renderMarkup(slicedMarkup) {
+function renderMarkup(markup) {
   recipeList.innerHTML = ' ';
-  addCardsInHtml(slicedMarkup);
+  addCardsInHtml(sliceMarkupFun(markup));
 }
 
 function addCardsInHtml(result) {
@@ -139,15 +149,14 @@ categorySelect.addEventListener('change', handlerCategorySelect);
 // // фільтр
 function handlerCategorySelect(event) {
   const selectedCategory = event.target.value;
-  console.log(selectedCategory);
   if (selectedCategory === '0') {
-    renderMarkup(sliceMarkupFun(FAVORITE_RECIPE));
+    renderMarkup(FAVORITE_RECIPE);
   } else {
     const filteredRecipes = FAVORITE_RECIPE.filter(
       recipe => recipe.category === selectedCategory
     );
-    console.log(filteredRecipes);
     renderMarkup(filteredRecipes);
+    console.log(renderMarkup(filteredRecipes));
   }
 }
 
@@ -168,13 +177,13 @@ paginationList.addEventListener('click', event => {
 });
 
 refs.btnNext.addEventListener('click', () => {
-  if (currentPage === totalPages) {
+  if (currentPage !== totalPages) {
     currentPage += 1;
+    renderingBtn();
   }
-  renderingBtn();
 });
 refs.btnPrev.addEventListener('click', () => {
-  if (currentPage < 1) {
+  if (currentPage !== 1) {
     currentPage -= 1;
     renderingBtn();
   }
@@ -183,7 +192,7 @@ refs.btnPrev.addEventListener('click', () => {
 function renderingBtn() {
   deactiveBtn();
   activeBtn();
-  renderMarkup(sliceMarkupFun(FAVORITE_RECIPE));
+  renderMarkup(FAVORITE_RECIPE);
 }
 
 function activeBtn() {
@@ -203,6 +212,10 @@ function activeBtn() {
   if (currentPage === totalPages) {
     refs.btnOther.classList.add('act');
   }
+  if (currentPage >= totalPages) {
+    refs.btnNext.classList.add('bc');
+    refs.btnEnd.classList.add('bc');
+  }
 }
 function deactiveBtn() {
   refs.btnPrev.classList.remove('act');
@@ -213,13 +226,10 @@ function deactiveBtn() {
   if (currentPage >= totalPages) {
     refs.btnNext.classList.remove('act');
     refs.btnEnd.classList.remove('act');
-
-    refs.btnNext.classList.add('bc');
-    refs.btnEnd.classList.add('bc');
   }
   if (currentPage !== totalPages) {
     refs.btnOther.classList.remove('act');
   }
 }
 
-run();
+run(FAVORITE_RECIPE);
