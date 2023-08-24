@@ -86,7 +86,7 @@ function createMarkup(recipes) {
       }'); background-repeat: no-repeat; background-size: cover;">
       <button class="fav-btn" >
       <svg class="fav-icon activ" data-id="${el._id}">
-          <use href=""></use>
+          <use href="${iconsUrl.pathname}#icon-heart-full"></use>
         </svg>
       </button>
 
@@ -117,7 +117,7 @@ function handlerCategorySelect(event) {
   const selectedCategory = event.target.value;
   console.log(selectedCategory);
   if (selectedCategory === '0') {
-    renderMarkup(slicedMarkup);
+    renderMarkup(FAVORITE_RECIPE);
   } else {
     const filteredRecipes = FAVORITE_RECIPE.filter(
       recipe => recipe.category === selectedCategory
