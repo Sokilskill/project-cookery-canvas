@@ -50,7 +50,7 @@ body.dark-theme h2 {
   color: white;
 }
 
-body.dark-theme .close {
+body.dark-theme .close-button {
   color: white;
 }
 
@@ -258,4 +258,8 @@ body.dark-theme .scroll-to-top-btn {
 body.dark-theme .scroll-to-top-btn:before {
   border-bottom: 4px solid white;
   border-left: 4px solid white;
+}
+
+body.dark-theme .photo-recipe-card {
+  background: linear-gradient(#05050500, #050505);
 }
