@@ -45,35 +45,35 @@ function renderMarkup(markup) {
 
 // створює список карток
 function createMarkup(recipes) {
-  recipeList.insertAdjacentHTML(
-    'beforeend',
-    recipes
-      .map(el => {
-        let newUrl = new URL('../img/icons.svg', import.meta.url);
+  try {
+    recipeList.insertAdjacentHTML(
+      'beforeend',
+      recipes
+        .map(el => {
+          let newUrl = new URL('../img/icons.svg', import.meta.url);
 
-        const numStars = Math.round(el.rating);
-        let stars = '';
-        // console.log(newUrl.pathname);
+          const numStars = Math.round(el.rating);
+          let stars = ``;
+          // console.log(newUrl.pathname);
 
-        for (let i = 0; i < numStars; i++) {
-          stars += `<svg class="rat-icon act">
-              <use href="${newUrl.pathname}#icon-Star"></use></svg>`;
-        }
-
-        if (numStars < 5) {
-          for (i = 0; i < 5 - numStars; i++) {
-            stars += `<svg class="rat-icon ">
+          for (let i = 0; i < numStars; i++) {
+            stars += `<svg class="rat-icon act">
               <use href="${newUrl.pathname}#icon-Star"></use></svg>`;
           }
-        }
-        //   console.log(stars);
 
-        return `
+          if (numStars < 5) {
+            for (i = 0; i < 5 - numStars; i++) {
+              stars += `<svg class="rat-icon ">
+              <use href="${newUrl.pathname}#icon-Star"></use></svg>`;
+            }
+          }
+          console.log(stars);
+
+          return `
       <li class="recipe-item"> 
-        <div class="photo-recipe-card " style="background:linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ),
-         url('${
-           el.preview
-         }'); background-repeat: no-repeat; background-size:cover;">
+        <div class="photo-recipe-card " style="background: linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
+          el.preview
+        }'); background-repeat: no-repeat; background-size: cover;">
         <button class="fav-btn" >
         <svg class="fav-icon activ" data-id="${el._id}">
             <use href="${newUrl.pathname}#icon-heart-full"></use>
@@ -99,11 +99,13 @@ function createMarkup(recipes) {
           </div>
         </div>
       </div>
-      </li>
-     `;
-      })
-      .join('')
-  );
+      </li>`;
+        })
+        .join('')
+    );
+  } catch (errorMessageEl) {
+    console.log(errorMessageEl);
+  }
 }
 
 // фільтр
