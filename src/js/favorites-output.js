@@ -31,7 +31,7 @@ const totalPages = Math.ceil(allElements / itemsPerPage);
 
 //запуск
 function run() {
-  if (FAVORITE_RECIPE) {
+  if (FAVORITE_RECIPE && FAVORITE_RECIPE.length) {
     allElements = FAVORITE_RECIPE.length;
     categorySelect.addEventListener('change', handlerCategorySelect);
     renderMarkup(FAVORITE_RECIPE); //завантаження списку на сторінку з локал сторедж

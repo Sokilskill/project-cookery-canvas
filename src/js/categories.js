@@ -96,7 +96,7 @@ function renderCategoriesHome(categories) {
 
 function renderCategoriesFavorites(categories) {
   const categoriesFavorites = JSON.parse(
-    localStorage.getItem('favoriteRecipes')
+    (localStorage.getItem('FAVORITE_RECIPE')??"[]")
   ).map(item => {
     return item.category;
   });
@@ -112,6 +112,9 @@ function renderCategoriesFavorites(categories) {
     }
   });
   setScroll();
+  // if(!categoriesFavorites.length){
+  //   categoryFavorites.style.display = 'none';
+  // }
 }
 
 function setScroll() {
