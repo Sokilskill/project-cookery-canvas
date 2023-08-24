@@ -56,13 +56,13 @@ function createMarkup(recipes) {
 
       for (let i = 0; i < numStars; i++) {
         stars += `<svg class="rat-icon act">
-              <use href="#icon-Star"></use></svg>`;
+              <use href=""></use></svg>`;
       }
 
       if (numStars < 5) {
         for (i = 0; i < 5 - numStars; i++) {
           stars += `<svg class="rat-icon ">
-              <use href="#icon-Star"></use></svg>`;
+              <use href=""></use></svg>`;
         }
       }
 
@@ -73,7 +73,7 @@ function createMarkup(recipes) {
       }'); background-repeat: no-repeat; background-size: cover;">
       <button class="fav-btn" >
       <svg class="fav-icon activ" data-id="${el._id}">
-          <use href="#icon-heart-full"></use>
+          <use href=""></use>
         </svg>
       </button>
 
