@@ -51,11 +51,8 @@
   }
 }
 
-.disactive-message.no-one {
-  display: none;
-}
-
 .no-one {
+  display: none;
   padding: 257px 0;
 }
 .no-one.close {

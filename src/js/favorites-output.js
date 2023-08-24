@@ -1,6 +1,7 @@
 // ================================
 // сторінка favorite =============
 
+const screenWidth = window.innerWidth;
 const categoryFilter = document.querySelector('.favorite-categories');
 const recipeList = document.querySelector('.card-recipe-favorite');
 const categorySelect = document.querySelector('.category-select');
@@ -24,32 +25,55 @@ const FAVORITE_RECIPE = JSON.parse(localStorage.getItem('FAVORITE_RECIPE'));
 console.log(FAVORITE_RECIPE);
 
 let currentPage = 1;
-let itemsPerPage = 12;
+let itemsPerPage = 6;
+console.log(screenWidth === 768);
+
+function screenWidthFunct() {
+  if (screenWidth >= 768) {
+    itemsPerPage = 9;
+  } else if (screenWidth >= 1280) {
+    itemsPerPage = 12;
+  }
+  console.log(itemsPerPage);
+}
 
 let allElements;
-const totalPages = Math.ceil(allElements / itemsPerPage);
+let totalPages;
 
 //запуск
 function run() {
   if (FAVORITE_RECIPE) {
+    screenWidthFunct();
     allElements = FAVORITE_RECIPE.length;
-    categorySelect.addEventListener('change', handlerCategorySelect);
-    renderMarkup(FAVORITE_RECIPE); //завантаження списку на сторінку з локал сторедж
-    errorMessageEl.classList.add('disactive-message'); //відключає повідомлення про пустий список
+    totalPages = Math.ceil(allElements / itemsPerPage);
+    if (allElements <= itemsPerPage) {
+      paginationList.style.display = 'none';
+    } else {
+      refs.btnOther.textContent = totalPages;
+    }
+    if (totalPages <= 3) {
+      refs.btnThird.style.display = 'none';
+    }
+    if (totalPages <= 2) {
+      refs.btnSecond.style.display = 'none';
+    }
+    renderMarkup(sliceMarkupFun(FAVORITE_RECIPE)); //завантаження списку на сторінку з локал сторедж
   } else {
     paginationList.style.display = 'none';
     categoryFilter.style.display = 'none'; // приховує фільтр по категорії
-    errorMessageEl.classList.remove('disactive-message');
+    errorMessageEl.style.display = 'block'; //повідомлення про пустий список
   }
 }
 
-run();
-
-// рендер html, відображає на сторінці
-function renderMarkup(markup) {
+function sliceMarkupFun(markup) {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const slicedMarkup = markup.slice(startIndex, endIndex);
+  return slicedMarkup;
+}
+
+// рендер html, відображає на сторінці
+function renderMarkup(slicedMarkup) {
   recipeList.innerHTML = ' ';
   addCardsInHtml(slicedMarkup);
 }
@@ -57,7 +81,7 @@ function renderMarkup(markup) {
 function addCardsInHtml(result) {
   recipeList.insertAdjacentHTML('beforeend', createMarkup(result));
 }
-// створює список карток
+// // створює список карток
 
 function createMarkup(recipes) {
   return recipes
@@ -110,57 +134,92 @@ function createMarkup(recipes) {
     .join('');
 }
 
-// фільтр
+categorySelect.addEventListener('change', handlerCategorySelect);
+
+// // фільтр
 function handlerCategorySelect(event) {
   const selectedCategory = event.target.value;
   console.log(selectedCategory);
   if (selectedCategory === '0') {
-    renderMarkup(FAVORITE_RECIPE);
+    renderMarkup(sliceMarkupFun(FAVORITE_RECIPE));
   } else {
     const filteredRecipes = FAVORITE_RECIPE.filter(
       recipe => recipe.category === selectedCategory
     );
     console.log(filteredRecipes);
-
-    // const filteredMarkup = createMarkup(filteredRecipes);
     renderMarkup(filteredRecipes);
   }
 }
 
-//пагінація
+// //пагінація
 paginationList.addEventListener('click', event => {
   if (event.target.classList.contains('btn-list')) {
     if (event.target.classList.contains('btn-first')) {
       currentPage = 1;
-      event.target.classList.add('act');
-      refs.btnSecond.classList.remove('act');
-      refs.btnThird.classList.remove('act');
     } else if (event.target.classList.contains('btn-second')) {
       currentPage = 2;
-      event.target.classList.add('act');
-      refs.btnFirst.classList.remove('act');
-      refs.btnThird.classList.remove('act');
     } else if (event.target.classList.contains('btn-third')) {
       currentPage = 3;
-      event.target.classList.add('act');
-      refs.btnSecond.classList.remove('act');
-      refs.btnSecond.classList.remove('act');
     } else if (event.target.classList.contains('btn-show-others')) {
       currentPage = totalPages;
-    } else if (event.target.classList.contains('btn-previous')) {
-      console.log(event.target);
-      console.log('currentPage', currentPage);
-
-      if (currentPage > 1) {
-        currentPage--;
-      }
-    } else if (event.target.classList.contains('btn-next')) {
-      if (currentPage < totalPages) {
-        currentPage++;
-      }
-    } else {
-      currentPage = parseInt(event.target.textContent);
     }
-    renderMarkup(FAVORITE_RECIPE);
+    renderingBtn();
   }
 });
+
+refs.btnNext.addEventListener('click', () => {
+  if (currentPage === totalPages) {
+    currentPage += 1;
+  }
+  renderingBtn();
+});
+refs.btnPrev.addEventListener('click', () => {
+  if (currentPage < 1) {
+    currentPage -= 1;
+    renderingBtn();
+  }
+});
+
+function renderingBtn() {
+  deactiveBtn();
+  activeBtn();
+  renderMarkup(sliceMarkupFun(FAVORITE_RECIPE));
+}
+
+function activeBtn() {
+  if (currentPage > 1) {
+    refs.btnPrev.classList.add('act');
+    refs.btnBegin.classList.add('act');
+  }
+  if (currentPage === 1) {
+    refs.btnFirst.classList.add('act');
+  }
+  if (currentPage === 2) {
+    refs.btnSecond.classList.add('act');
+  }
+  if (currentPage === 3) {
+    refs.btnThird.classList.add('act');
+  }
+  if (currentPage === totalPages) {
+    refs.btnOther.classList.add('act');
+  }
+}
+function deactiveBtn() {
+  refs.btnPrev.classList.remove('act');
+  refs.btnBegin.classList.remove('act');
+  refs.btnFirst.classList.remove('act');
+  refs.btnSecond.classList.remove('act');
+  refs.btnThird.classList.remove('act');
+  if (currentPage >= totalPages) {
+    refs.btnNext.classList.remove('act');
+    refs.btnEnd.classList.remove('act');
+
+    refs.btnNext.classList.add('bc');
+    refs.btnEnd.classList.add('bc');
+  }
+  if (currentPage !== totalPages) {
+    refs.btnOther.classList.remove('act');
+  }
+}
+
+run();
