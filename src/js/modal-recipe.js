@@ -1,15 +1,5 @@
-const recipe_list = document.querySelector('.popular-recipe-list');
 const modalContainer = document.getElementById('modalContainer');
 let player;
-
-
-recipe_list.addEventListener('click', async function (event) {
-  const clickedRecipe = event.target.closest('.popular-recipe-list-li');
-  if (clickedRecipe) {
-    const recipeID = clickedRecipe.dataset.recipeId;
-    openRecipeModal(recipeID);
-  }
-});
 
 document.body.addEventListener('click', async function (event) {
   if (event.target.classList.contains('see-recipe-card')) {
@@ -17,6 +7,17 @@ document.body.addEventListener('click', async function (event) {
     openRecipeModal(recipeID);
   }
 });
+
+const recipe_list = document.querySelector('.popular-recipe-list');
+if (recipe_list) {
+  recipe_list.addEventListener('click', async function (event) {
+    const clickedRecipe = event.target.closest('.popular-recipe-list-li');
+    if (clickedRecipe) {
+      const recipeID = clickedRecipe.dataset.recipeId;
+      openRecipeModal(recipeID);
+    }
+  });
+}
 
 async function openRecipeModal(recipeID) {
   try {
@@ -77,7 +78,7 @@ async function openRecipeModal(recipeID) {
     modalContainer.scrollTop = 0;
     const modalRect = modalContainer.getBoundingClientRect();
     if (modalRect.bottom > window.innerHeight) {
-      modalContainer.style.top = `${window.innerHeight - modalRect.height}px`;
+      modalContainer.style.top = `0px`;
     }
 
     const addToFavoriteBtn = modalContainer.querySelector('.addToFavorite');
