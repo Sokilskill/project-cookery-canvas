@@ -78,6 +78,16 @@ function createMarkup(recipes) {
       //   }
       // }
 
+      for (let i = 0; i < numStars; i++) {
+        stars += `<p>1</p>`;
+      }
+
+      if (numStars < 5) {
+        for (let i = 0; i < 5 - numStars; i++) {
+          stars += `<p>2</p>`;
+        }
+      }
+
       return `
     <li class="recipe-item">
       <div class="photo-recipe-card " style="background-image: linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
