@@ -82,7 +82,9 @@
     margin-right: 5px;
 }
 
-.stars-ratio {}
+.stars-ratio {
+    margin-bottom: 32px;
+}
 
 .btn-ratio-send {
     display: block;
@@ -93,7 +95,7 @@
     border-radius: 15px;
     line-height: 2.18;
     margin: 0 auto;
-    margin-top: 40px;
+    margin-top: 16px;
     transition: color var(--common-time-func);
     font-size: 14px;
     font-weight: 500;
@@ -114,50 +116,4 @@
     margin-bottom: 4px;
     text-transform: uppercase;
     color: var(--secondary-text-color);
-}
-
-.rate {
-    display: flex;
-    align-items: center;
-    flex-direction: row-reverse;
-    justify-content: left;
-    float: left;
-    height: 46px;
-    padding: 0 10px;
-}
-
-.rate:not(:checked)>input {
-    position: absolute;
-    top: -9999px;
-}
-
-.rate:not(:checked)>label {
-    float: right;
-    width: 1em;
-    overflow: hidden;
-    white-space: nowrap;
-    cursor: pointer;
-    font-size: 30px;
-    color: #ccc;
-}
-
-.rate:not(:checked)>label:before {
-    content: '★ ';
-}
-
-.rate>input:checked~label {
-    color: #ffc700;
-}
-
-.rate:not(:checked)>label:hover,
-.rate:not(:checked)>label:hover~label {
-    color: #deb217;
-}
-
-.rate>input:checked+label:hover,
-.rate>input:checked+label:hover~label,
-.rate>input:checked~label:hover,
-.rate>input:checked~label:hover~label,
-.rate>label:hover~input:checked~label {
-    color: #c59b08;
 }

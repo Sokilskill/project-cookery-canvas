@@ -47,9 +47,7 @@ async function Fetch(recipeID, rating) {
     })
 
     .catch(function (error) {
-      Notiflix.Notify.failure(
-        `${error.response.data.message}, please try again later`
-      );
+      Notiflix.Notify.failure(`please try again later`);
     });
 }
 
