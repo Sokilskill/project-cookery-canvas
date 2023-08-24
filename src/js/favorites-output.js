@@ -50,7 +50,7 @@ function renderMarkup(markup) {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const slicedMarkup = markup.slice(startIndex, endIndex);
-  // recipeList.innerHTML = '';
+  recipeList.innerHTML = ' ';
   console.log(recipeList.innerHTML);
   addCardsInHtml(slicedMarkup);
 }
