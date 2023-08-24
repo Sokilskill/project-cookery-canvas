@@ -4,11 +4,11 @@ import Notiflix from 'notiflix';
 import { debounce } from 'throttle-debounce';
 const BASE_URL = 'https://tasty-treats-backend.p.goit.global/api/';
 import Pagination from './pagination';
-import LocalStorage from './localStorage'
+import LocalStorage from './localStorage';
 const pagination = new Pagination();
 const localData = new LocalStorage();
-const FAVORITES = 'favorites'
-const FAVORITES_RECIPES = 'favoriteRecipes ';
+const FAVORITES = 'favorites';
+const FAVORITES_RECIPES = 'FAVORITE_RECIPE';
 
 if (!localStorage.getItem(FAVORITES_RECIPES)) {
   localStorage.setItem(FAVORITES_RECIPES, JSON.stringify(localData.getLoc()));
@@ -98,20 +98,15 @@ function onSub(e) {
   e.preventDefault();
 }
 
-
-
 function onClickRecipeList(e) {
   const idTarget = e.target.parentNode.dataset.id;
   const classPar = e.target.parentNode.classList;
   console.log(idTarget);
   // let actualObj = null;
 
-  
-
   if (e.target.parentNode.classList.contains('fav-icon')) {
     // console.log(pagination.getLoc().includes(idTarget));
     if (pagination.getLoc().includes(idTarget)) {
-
       localData.delItmLoc(idTarget);
       localStorage.setItem(
         FAVORITES_RECIPES,
@@ -130,14 +125,13 @@ function onClickRecipeList(e) {
           JSON.stringify(localData.getLoc())
         );
       });
-      
+
       pagination.pushLoc(idTarget);
       localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
       // classPar.remove('dis');
       classPar.add('activ');
     }
 
-    
     // if (pagination.getLoc().includes(idTarget)) {
     //   pagination.delItmLoc(idTarget);
     //   localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
@@ -149,7 +143,6 @@ function onClickRecipeList(e) {
     //   // classPar.remove('dis');
     //   classPar.add('activ');
     // }
-    
   }
 }
 
