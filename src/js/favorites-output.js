@@ -59,16 +59,13 @@ function addCardsInHtml(result) {
   recipeList.insertAdjacentHTML('beforeend', createMarkup(result));
 }
 // створює список карток
+const iconsUrl = new URL('../img/icons.svg', import.meta.url);
+
 function createMarkup(recipes) {
   return recipes
     .map(el => {
-      let iconsUrl;
-      iconsUrl = new URL('../img/icons.svg', import.meta.url);
       const numStars = Math.round(el.rating);
       let stars = ``;
-      console.log(iconsUrl);
-      console.log(iconsUrl.href);
-      console.log(iconsUrl.pathname);
 
       // for (let i = 0; i < numStars; i++) {
       //   stars += `<svg class="rat-icon act">
