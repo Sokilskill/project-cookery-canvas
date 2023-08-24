@@ -9,7 +9,7 @@ const elem = {
   body: document.querySelector('body'),
   giveRatioBtn: document.querySelector('.giveRating'),
 };
-let recipeID = null;
+let recipeID = '';
 let rating = 0;
 
 document.body.addEventListener('click', e => {
@@ -26,9 +26,8 @@ function ratioModalOpen(e) {
 
   recipeID = recipe.dataset.id;
   console.log(recipeID);
-  stars();
+  stars(5);
   const starEl = document.querySelector('.stars-ratio');
-  console.log(starEl);
   starEl.addEventListener('mousemove', starRating);
 
   elem.form.addEventListener('submit', submitForm);
@@ -38,11 +37,11 @@ function ratioModalClose(e) {
   elem.modalCloseBtn.removeEventListener('click', ratioModalClose);
 }
 
-async function addFetch(recipeID, rating) {
+async function Fetch(recipeID, rating) {
   const URL = `https://tasty-treats-backend.p.goit.global/api/recipes/${recipeID}/${rating}`;
 
   return await axios
-    .post(URL)
+    .post(URL, null)
     .then(function (notif) {
       Notiflix.Notify.success('Post Success');
     })
@@ -55,19 +54,20 @@ async function addFetch(recipeID, rating) {
 }
 
 function submitForm() {
-  addFetch(recipeID, rating);
+  let rec = recipeID;
+  let ratt = rating;
+  Fetch(rec, ratt);
 }
 
 function starRating(e) {
   if (e.target.dataset.value) {
     stars(e.target.dataset.value);
-    rating = e.target.dataset.value;
   }
 }
 
 function stars(e) {
   let stars = ``;
-  rating = toNumber(e) || 5;
+  rating = toNumber(e);
   let useIcons;
   useIcons = new URL('../img/icons.svg', import.meta.url);
 
