@@ -29,6 +29,7 @@ const allElements = FAVORITE_RECIPE.length;
 const totalPages = Math.ceil(allElements / itemsPerPage);
 
 console.log(FAVORITE_RECIPE.length);
+console.log(totalPages);
 
 //запуск
 function run() {
@@ -51,7 +52,6 @@ function renderMarkup(markup) {
   const endIndex = startIndex + itemsPerPage;
   const slicedMarkup = markup.slice(startIndex, endIndex);
   recipeList.innerHTML = ' ';
-  console.log(recipeList.innerHTML);
   addCardsInHtml(slicedMarkup);
 }
 
@@ -65,16 +65,26 @@ function createMarkup(recipes) {
       let iconsUrl = new URL('../img/icons.svg', import.meta.url);
       const numStars = Math.round(el.rating);
       let stars = ``;
+      console.log(iconsUrl);
+      // for (let i = 0; i < numStars; i++) {
+      //   stars += `<svg class="rat-icon act">
+      //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+      // }
+
+      // if (numStars < 5) {
+      //   for (let i = 0; i < 5 - numStars; i++) {
+      //     stars += `<svg class="rat-icon ">
+      //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+      //   }
+      // }
 
       for (let i = 0; i < numStars; i++) {
-        stars += `<svg class="rat-icon act">
-              <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+        stars += `<p>1</p>`;
       }
 
       if (numStars < 5) {
         for (let i = 0; i < 5 - numStars; i++) {
-          stars += `<svg class="rat-icon ">
-              <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+          stars += `<p>2</p>`;
         }
       }
 
@@ -136,28 +146,22 @@ paginationList.addEventListener('click', event => {
       event.target.classList.add('act');
       refs.btnSecond.classList.remove('act');
       refs.btnThird.classList.remove('act');
-
-      renderMarkup(FAVORITE_RECIPE);
-      console.log(event.target);
     } else if (event.target.classList.contains('btn-second')) {
       currentPage = 2;
       event.target.classList.add('act');
       refs.btnFirst.classList.remove('act');
       refs.btnThird.classList.remove('act');
-      renderMarkup(FAVORITE_RECIPE);
-
-      console.log(currentPage);
     } else if (event.target.classList.contains('btn-third')) {
       currentPage = 3;
-      console.log(currentPage);
       event.target.classList.add('act');
       refs.btnSecond.classList.remove('act');
       refs.btnSecond.classList.remove('act');
-      renderMarkup(FAVORITE_RECIPE);
-      event.target.classList.add('act');
-    } else if (event.target.classList.contains('.btn-show-others')) {
+    } else if (event.target.classList.contains('btn-show-others')) {
       currentPage = totalPages;
     } else if (event.target.classList.contains('btn-previous')) {
+      console.log(event.target);
+      console.log('currentPage', currentPage);
+
       if (currentPage > 1) {
         currentPage--;
       }
@@ -168,7 +172,6 @@ paginationList.addEventListener('click', event => {
     } else {
       currentPage = parseInt(event.target.textContent);
     }
-
-    // renderMarkup(createMarkup);
+    renderMarkup(FAVORITE_RECIPE);
   }
 });
