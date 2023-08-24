@@ -135,14 +135,14 @@ function toggleFavorite(recipeID, recipeData) {
   const favorites = getFavoritesFromStorage();
   const favoriteRecipes = getFavoriteRecipesFromStorage();
 
-  const index = favorites.indexOf(recipeID);
+  const existingIndex = favoriteRecipes.findIndex(recipe => recipe._id === recipeID);
 
-  if (index === -1) {
+  if (existingIndex === -1) {
     favorites.push(recipeID);
-    favoriteRecipes[recipeID] = recipeData;
+    favoriteRecipes.push(recipeData);
   } else {
-    favorites.splice(index, 1);
-    delete favoriteRecipes[recipeID];
+    favorites.splice(existingIndex, 1);
+    favoriteRecipes.splice(existingIndex, 1);
   }
 
   saveFavoritesToStorage(favorites);
@@ -151,7 +151,7 @@ function toggleFavorite(recipeID, recipeData) {
 
 function getFavoriteRecipesFromStorage() {
   const favoriteRecipesJson = localStorage.getItem('FAVORITE_RECIPE');
-  return favoriteRecipesJson ? JSON.parse(favoriteRecipesJson) : {};
+  return favoriteRecipesJson ? JSON.parse(favoriteRecipesJson) : [];
 }
 
 function saveFavoriteRecipesToStorage(favoriteRecipes) {
