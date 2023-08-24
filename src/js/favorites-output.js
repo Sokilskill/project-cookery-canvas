@@ -40,6 +40,8 @@ function resizePage() {
 function run(arrayOfObjects) {
   if (arrayOfObjects && arrayOfObjects.length) {
     allElements = arrayOfObjects.length;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
     screenWidthFunct();
     totalPages = Math.ceil(allElements / itemsPerPage);
     renderMarkup(arrayOfObjects); //завантаження списку на сторінку з локал сторедж
@@ -76,6 +78,7 @@ function createBtn() {
 
 function sliceMarkupFun(markup) {
   createBtn();
+
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const slicedMarkup = markup.slice(startIndex, endIndex);
@@ -104,7 +107,7 @@ function createMarkup(recipes) {
 
       return `
     <li class="recipe-item">
-      <div class="photo-recipe-card " style="background-image: linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
+      <div class="photo-recipe-card " style="background: linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
         el.preview
       }'); background-repeat: no-repeat; background-size: cover;">
       <button class="fav-btn" >
@@ -146,8 +149,8 @@ function handlerCategorySelect(event) {
     const filteredRecipes = FAVORITE_RECIPE.filter(
       recipe => recipe.category === selectedCategory
     );
-    console.log(filteredRecipes);
-
+    // console.log(filteredRecipes);
+    currentPage = 1;
     run(filteredRecipes);
   }
 }
@@ -168,17 +171,28 @@ paginationList.addEventListener('click', event => {
   }
 });
 
+refs.btnBegin.addEventListener('click', () => {
+  currentPage = 1;
+  renderingBtn;
+});
+
+refs.btnPrev.addEventListener('click', () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderingBtn();
+  }
+});
+
 refs.btnNext.addEventListener('click', () => {
   if (currentPage !== totalPages) {
     currentPage += 1;
     renderingBtn();
   }
 });
-refs.btnPrev.addEventListener('click', () => {
-  if (currentPage !== 1) {
-    currentPage -= 1;
-    renderingBtn();
-  }
+
+refs.btnEnd.addEventListener('click', () => {
+  currentPage = totalPages;
+  renderingBtn();
 });
 
 function renderingBtn() {

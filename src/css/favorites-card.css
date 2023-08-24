@@ -15,6 +15,10 @@
   gap: 24px;
   margin-bottom: 40px;
 }
+body.active .photo-recipe-card {
+  width: 335px;
+  height: 335px;
+}
 
 @media screen and (min-width: 768px) {
   .favorites-card {
