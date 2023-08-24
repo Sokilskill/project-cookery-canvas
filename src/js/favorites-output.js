@@ -42,8 +42,9 @@ let totalPages;
 
 //запуск
 function run() {
-  if (FAVORITE_RECIPE) {
-    screenWidthFunct();
+
+  if (FAVORITE_RECIPE && FAVORITE_RECIPE.length) {
+
     allElements = FAVORITE_RECIPE.length;
     totalPages = Math.ceil(allElements / itemsPerPage);
     if (allElements <= itemsPerPage) {
