@@ -26,15 +26,15 @@ console.log(FAVORITE_RECIPE);
 
 let currentPage = 1;
 let itemsPerPage = 6;
-console.log(screenWidth === 768);
 
 function screenWidthFunct() {
-  if (screenWidth >= 768) {
+  if (screenWidth >= 768 <= 1280) {
     itemsPerPage = 9;
   } else if (screenWidth >= 1280) {
     itemsPerPage = 12;
   }
-  console.log(itemsPerPage);
+  console.log('screenWidth:', screenWidth);
+  console.log('itemsPerPage', itemsPerPage);
 }
 
 let allElements;
@@ -42,9 +42,7 @@ let totalPages;
 
 //запуск
 function run() {
-
   if (FAVORITE_RECIPE && FAVORITE_RECIPE.length) {
-
     allElements = FAVORITE_RECIPE.length;
     totalPages = Math.ceil(allElements / itemsPerPage);
     if (allElements <= itemsPerPage) {
@@ -67,6 +65,7 @@ function run() {
 }
 
 function sliceMarkupFun(markup) {
+  screenWidthFunct();
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const slicedMarkup = markup.slice(startIndex, endIndex);
