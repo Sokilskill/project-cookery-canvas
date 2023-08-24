@@ -77,6 +77,17 @@ body.dark-theme .instruction-text {
   color: rgba(255, 255, 255, 0.80);
 }
 
+/* Modal Add rating */
+
+body.dark-theme .modal-ratio {
+  background-color: var(--secondary-text-color);
+}
+
+body.dark-theme .stars-ratio,
+body.dark-theme .modal-ratio-title {
+  color: white;
+}
+
 /* Header */
 
 body.dark-theme .nav-link-favorites,
