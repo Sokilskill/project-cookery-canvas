@@ -7,9 +7,9 @@ const categorySelect = document.querySelector('.category-select');
 const errorMessageEl = document.querySelector('.js-noone');
 const paginationList = document.querySelector('.page-pagination-list');
 
-// favoriteRecipes сюди додавати після натискання кнопки додати в улюблені
-const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-console.log(favoriteRecipes);
+// FAVORITE_RECIPE сюди додавати після натискання кнопки додати в улюблені
+const FAVORITE_RECIPE = JSON.parse(localStorage.getItem('FAVORITE_RECIPE'));
+console.log(FAVORITE_RECIPE);
 
 let allElements;
 let currentPage = 1;
@@ -17,11 +17,11 @@ let itemsPerPage = 12;
 
 //запуск
 function run() {
-  if (favoriteRecipes) {
-    allElements = favoriteRecipes.length;
-    console.log(favoriteRecipes.length);
+  if (FAVORITE_RECIPE) {
+    allElements = FAVORITE_RECIPE.length;
+    console.log(FAVORITE_RECIPE.length);
     categorySelect.addEventListener('change', handlerCategorySelect);
-    renderMarkup(favoriteRecipes); //завантаження списку на сторінку з локал сторедж
+    renderMarkup(FAVORITE_RECIPE); //завантаження списку на сторінку з локал сторедж
     errorMessageEl.classList.add('disactive-message'); //відключає повідомлення про пустий список
   } else {
     paginationList.style.display = 'none';
@@ -66,8 +66,6 @@ function createMarkup(recipes) {
         }
       }
 
-      // console.log(stars);
-
       return `
     <li class="recipe-item">
       <div class="photo-recipe-card " style="background-image: linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
@@ -106,10 +104,10 @@ function handlerCategorySelect(event) {
   const selectedCategory = event.target.value;
   console.log(selectedCategory);
   if (selectedCategory === '0') {
-    // const allRecipesMarkup = createMarkup(favoriteRecipes);
-    return renderMarkup(favoriteRecipes);
+    // const allRecipesMarkup = createMarkup(FAVORITE_RECIPE);
+    return renderMarkup(FAVORITE_RECIPE);
   } else {
-    const filteredRecipes = favoriteRecipes.filter(
+    const filteredRecipes = FAVORITE_RECIPE.filter(
       recipe => recipe.category === selectedCategory
     );
     console.log(filteredRecipes);
