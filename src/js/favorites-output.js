@@ -71,7 +71,7 @@ function createMarkup(recipes) {
 
       return `
       <li class="recipe-item"> 
-        <div class="photo-recipe-card " style="background: linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
+        <div class="photo-recipe-card " style="background-image: linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
           el.preview
         }'); background-repeat: no-repeat; background-size: cover;">
         <button class="fav-btn" >
