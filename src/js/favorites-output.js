@@ -51,18 +51,18 @@ function createMarkup(recipes) {
   try {
     return recipes
       .map(el => {
-        let iconsUrl = new URL('/src/img/icons.svg', import.meta.url);
-        let iconsUrl2 = new URL('../img/icons.svg', import.meta.url);
-        const numStars = Math.round(el.rating);
-        let stars = ``;
+        // let iconsUrl = new URL('/src/img/icons.svg', import.meta.url);
+        // let iconsUrl2 = new URL('../img/icons.svg', import.meta.url);
+        // const numStars = Math.round(el.rating);
+        // let stars = ``;
 
-        console.log(iconsUrl);
-        console.log(iconsUrl.pathname);
+        // console.log(iconsUrl);
+        // console.log(iconsUrl.pathname);
         console.log(el._id);
         console.log(el.preview);
 
-        console.log(iconsUrl2);
-        console.log(iconsUrl2.pathname);
+        // console.log(iconsUrl2);
+        // console.log(iconsUrl2.pathname);
 
         // for (let i = 0; i < numStars; i++) {
         //   stars += `<svg class="rat-icon act">
