@@ -26,15 +26,13 @@ console.log(FAVORITE_RECIPE);
 let currentPage = 1;
 let itemsPerPage = 12;
 
-const allElements = FAVORITE_RECIPE.length;
+let allElements;
 const totalPages = Math.ceil(allElements / itemsPerPage);
-
-console.log(FAVORITE_RECIPE.length);
-console.log(totalPages);
 
 //запуск
 function run() {
   if (FAVORITE_RECIPE) {
+    allElements = FAVORITE_RECIPE.length;
     categorySelect.addEventListener('change', handlerCategorySelect);
     renderMarkup(FAVORITE_RECIPE); //завантаження списку на сторінку з локал сторедж
     errorMessageEl.classList.add('disactive-message'); //відключає повідомлення про пустий список
