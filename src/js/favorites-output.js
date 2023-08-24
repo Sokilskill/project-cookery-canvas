@@ -54,17 +54,17 @@ function createMarkup(recipes) {
       const numStars = Math.round(el.rating);
       let stars = ``;
 
-      for (let i = 0; i < numStars; i++) {
-        stars += `<svg class="rat-icon act">
-              <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
-      }
+      // for (let i = 0; i < numStars; i++) {
+      //   stars += `<svg class="rat-icon act">
+      //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+      // }
 
-      if (numStars < 5) {
-        for (let i = 0; i < 5 - numStars; i++) {
-          stars += `<svg class="rat-icon ">
-              <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
-        }
-      }
+      // if (numStars < 5) {
+      //   for (let i = 0; i < 5 - numStars; i++) {
+      //     stars += `<svg class="rat-icon ">
+      //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+      //   }
+      // }
 
       return `
     <li class="recipe-item">
@@ -73,7 +73,7 @@ function createMarkup(recipes) {
       }'); background-repeat: no-repeat; background-size: cover;">
       <button class="fav-btn" >
       <svg class="fav-icon activ" data-id="${el._id}">
-          <use href="${iconsUrl.pathname}#icon-heart-full"></use>
+          <use href=""></use>
         </svg>
       </button>
 
@@ -123,15 +123,19 @@ paginationList.addEventListener('click', event => {
     if (event.target.classList.contains('btn-first')) {
       currentPage = 1;
       event.target.classList.add('act');
+      renderMarkup(FAVORITE_RECIPE);
       console.log(event.target);
     } else if (event.target.classList.contains('btn-second')) {
       currentPage = 2;
       event.target.classList.add('act');
+      renderMarkup(FAVORITE_RECIPE);
 
       console.log(currentPage);
     } else if (event.target.classList.contains('btn-third')) {
       currentPage = 3;
       console.log(currentPage);
+      event.target.classList.add('act');
+      renderMarkup(FAVORITE_RECIPE);
       event.target.classList.add('act');
     } else if (event.target.classList.contains('.btn-show-others')) {
       currentPage = totalPages;
