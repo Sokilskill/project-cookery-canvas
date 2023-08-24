@@ -95,13 +95,64 @@ function renderCategoriesHome(categories) {
 }
 
 function renderCategoriesFavorites(categories) {
+  const categoriesFavorites = JSON.parse(
+    localStorage.getItem('favoriteRecipes')
+  ).map(item => {
+    return item.category;
+  });
   categories.forEach(category => {
-    const htmlButton = `
+    if (categoriesFavorites.includes(category.name)) {
+      const htmlButton = `
         <li class="favorite-category-item"><button data-value="${category.name}" class="favorite-categories-btn">${category.name}</button></li>
               `;
-    const htmlOption = `<option value = "${category.name}">${category.name}</option>`;
+      const htmlOption = `<option value = "${category.name}">${category.name}</option>`;
 
-    categoryFavorites.insertAdjacentHTML('beforeend', htmlButton);
-    categorySelect.insertAdjacentHTML('beforeend', htmlOption);
+      categoryFavorites.insertAdjacentHTML('beforeend', htmlButton);
+      categorySelect.insertAdjacentHTML('beforeend', htmlOption);
+    }
   });
+  setScroll();
+}
+
+function setScroll() {
+  categoryFavorites.style.cursor = 'grab';
+
+  let pos = { top: 0, left: 0, x: 0, y: 0 };
+
+  const mouseDownHandler = function (e) {
+    categoryFavorites.style.cursor = 'grabbing';
+    categoryFavorites.style.userSelect = 'none';
+
+    pos = {
+      left: categoryFavorites.scrollLeft,
+      top: categoryFavorites.scrollTop,
+      // Get the current mouse position
+      x: e.clientX,
+      y: e.clientY,
+    };
+
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
+  };
+
+  const mouseMoveHandler = function (e) {
+    // How far the mouse has been moved
+    const dx = e.clientX - pos.x;
+    const dy = e.clientY - pos.y;
+
+    // Scroll the element
+    categoryFavorites.scrollTop = pos.top - dy;
+    categoryFavorites.scrollLeft = pos.left - dx;
+  };
+
+  const mouseUpHandler = function () {
+    categoryFavorites.style.cursor = 'grab';
+    categoryFavorites.style.removeProperty('user-select');
+
+    document.removeEventListener('mousemove', mouseMoveHandler);
+    document.removeEventListener('mouseup', mouseUpHandler);
+  };
+
+  // Attach the handler
+  categoryFavorites.addEventListener('mousedown', mouseDownHandler);
 }
