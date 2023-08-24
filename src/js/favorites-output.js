@@ -39,7 +39,7 @@ function renderMarkup(markup) {
   const endIndex = startIndex + itemsPerPage;
   const slicedMarkup = markup.slice(startIndex, endIndex);
 
-  recipeList.innerHTML = '';
+  // recipeList.innerHTML = '';
   addCardsInHtml(slicedMarkup);
 }
 
@@ -50,9 +50,9 @@ function addCardsInHtml(result) {
 function createMarkup(recipes) {
   return recipes
     .map(el => {
-      let iconsUrl = new URL('../img/icons.svg', import.meta.url);
+      // let iconsUrl = new URL('../img/icons.svg', import.meta.url);
       const numStars = Math.round(el.rating);
-      let stars = ``;
+      let stars = '';
 
       // for (let i = 0; i < numStars; i++) {
       //   stars += `<svg class="rat-icon act">
@@ -87,7 +87,6 @@ function createMarkup(recipes) {
         <div class="thum-raying-card">
           <div class="rating-recipe-card">
           <span class="rating-value ">${el.rating.toFixed(1)}</span>
-        ${stars}
 
         </div>
         <button class="see-recipe-card" data-id="${el._id}">See recipe</button>
