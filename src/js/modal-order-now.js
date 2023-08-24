@@ -7,7 +7,6 @@ const elements = {
   shoppingCartBtn: document.querySelector('.shopping-cart'),
   backdrop: document.querySelector('.backdrop'),
   body: document.querySelector('body'),
-  telInput: document.querySelector('.tel-input'),
 };
 
 if (elements.heroOrderBtn) {
@@ -58,11 +57,21 @@ function modalClose(e) {
     Tell: elements.form[1].value,
     Comment: elements.form[3].value,
   };
-  localStorage.setItem('orderNowData', JSON.stringify(data));
+
+  if (
+    data.Name.length > 0 ||
+    data.Email.length > 0 ||
+    data.Tell.length > 0 ||
+    data.Comment.length > 0
+  ) {
+    localStorage.setItem('orderNowData', JSON.stringify(data));
+  } else {
+    localStorage.removeItem('orderNowData');
+  }
 }
 
 function post(e) {
-  // e.preventDefault();
+  e.preventDefault();
   const data = {
     Name: elements.form[0].value,
     Email: elements.form[1].value,
@@ -70,9 +79,12 @@ function post(e) {
     Comment: elements.form[3].value,
   };
 
-  addFetch(data);
-  localStorage.removeItem('orderNowData', JSON.stringify(data));
-  elements.form.reset();
+  addFetch(data).then(response => {
+    if (response.status === ok) {
+      localStorage.removeItem('orderNowData', JSON.stringify(data));
+      elements.form.reset();
+    }
+  });
 }
 
 elements.form.addEventListener('submit', post);

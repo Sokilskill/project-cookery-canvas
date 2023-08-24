@@ -76,8 +76,6 @@
 
 .modal-close-btn:hover,
 .modal-close-btn:focus {
-
-
     background-color: var(--main-text-color);
 }
 

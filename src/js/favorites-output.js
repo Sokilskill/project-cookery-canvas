@@ -24,42 +24,74 @@ const FAVORITE_RECIPE = JSON.parse(localStorage.getItem('FAVORITE_RECIPE'));
 console.log(FAVORITE_RECIPE);
 
 let currentPage = 1;
-let itemsPerPage = 12;
+let itemsPerPage = 6;
 
-const allElements = FAVORITE_RECIPE.length;
-const totalPages = Math.ceil(allElements / itemsPerPage);
+function screenWidthFunct() {
+  const screenWidth = window.innerWidth;
 
-console.log(FAVORITE_RECIPE.length);
-console.log(totalPages);
+  console.log('screenWidth:', screenWidth);
+  console.log('itemsPerPage', itemsPerPage);
+  if (screenWidth < 768) {
+    itemsPerPage = 6;
+  } else if (screenWidth >= 768 && 1280 > screenWidth) {
+    itemsPerPage = 9;
+  } else if (screenWidth >= 1280) {
+    itemsPerPage = 12;
+  }
+  console.log('screenWidth:', screenWidth);
+  console.log('itemsPerPage', itemsPerPage);
+}
+
+let allElements;
+let totalPages;
 
 //запуск
-function run() {
-  if (FAVORITE_RECIPE) {
-    categorySelect.addEventListener('change', handlerCategorySelect);
-    renderMarkup(FAVORITE_RECIPE); //завантаження списку на сторінку з локал сторедж
-    errorMessageEl.classList.add('disactive-message'); //відключає повідомлення про пустий список
+function run(arrayOfObjects) {
+  if (arrayOfObjects && arrayOfObjects.length) {
+    allElements = arrayOfObjects.length;
+    totalPages = Math.ceil(allElements / itemsPerPage);
+
+    renderMarkup(arrayOfObjects); //завантаження списку на сторінку з локал сторедж
   } else {
     paginationList.style.display = 'none';
     categoryFilter.style.display = 'none'; // приховує фільтр по категорії
-    errorMessageEl.classList.remove('disactive-message');
+    errorMessageEl.style.display = 'block'; //повідомлення про пустий список
   }
 }
 
-run();
+function createBtn() {
+  if (allElements <= itemsPerPage) {
+    return (paginationList.style.display = 'none');
+  }
 
-// рендер html, відображає на сторінці
-function renderMarkup(markup) {
+  if (1 < totalPages <= 3) {
+    refs.btnThird.style.display = 'none';
+  }
+  if (totalPages <= 2) {
+    refs.btnSecond.style.display = 'none';
+  }
+  refs.btnOther.textContent = totalPages;
+}
+
+function sliceMarkupFun(markup) {
+  createBtn();
+  screenWidthFunct();
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const slicedMarkup = markup.slice(startIndex, endIndex);
+  return slicedMarkup;
+}
+
+// рендер html, відображає на сторінці
+function renderMarkup(markup) {
   recipeList.innerHTML = ' ';
-  addCardsInHtml(slicedMarkup);
+  addCardsInHtml(sliceMarkupFun(markup));
 }
 
 function addCardsInHtml(result) {
   recipeList.insertAdjacentHTML('beforeend', createMarkup(result));
 }
-// створює список карток
+// // створює список карток
 
 function createMarkup(recipes) {
   return recipes
@@ -86,7 +118,7 @@ function createMarkup(recipes) {
       }'); background-repeat: no-repeat; background-size: cover;">
       <button class="fav-btn" >
       <svg class="fav-icon activ" data-id="${el._id}">
-          <use href=""></use>
+          <use href="${iconsUrl.pathname}#icon-heart-full"></use>
         </svg>
       </button>
 
@@ -112,57 +144,92 @@ function createMarkup(recipes) {
     .join('');
 }
 
-// фільтр
+categorySelect.addEventListener('change', handlerCategorySelect);
+
+// // фільтр
 function handlerCategorySelect(event) {
   const selectedCategory = event.target.value;
-  console.log(selectedCategory);
   if (selectedCategory === '0') {
-    renderMarkup(slicedMarkup);
+    renderMarkup(FAVORITE_RECIPE);
   } else {
     const filteredRecipes = FAVORITE_RECIPE.filter(
       recipe => recipe.category === selectedCategory
     );
-    console.log(filteredRecipes);
-
-    // const filteredMarkup = createMarkup(filteredRecipes);
     renderMarkup(filteredRecipes);
+    console.log(renderMarkup(filteredRecipes));
   }
 }
 
-//пагінація
+// //пагінація
 paginationList.addEventListener('click', event => {
   if (event.target.classList.contains('btn-list')) {
     if (event.target.classList.contains('btn-first')) {
       currentPage = 1;
-      event.target.classList.add('act');
-      refs.btnSecond.classList.remove('act');
-      refs.btnThird.classList.remove('act');
     } else if (event.target.classList.contains('btn-second')) {
       currentPage = 2;
-      event.target.classList.add('act');
-      refs.btnFirst.classList.remove('act');
-      refs.btnThird.classList.remove('act');
     } else if (event.target.classList.contains('btn-third')) {
       currentPage = 3;
-      event.target.classList.add('act');
-      refs.btnSecond.classList.remove('act');
-      refs.btnSecond.classList.remove('act');
     } else if (event.target.classList.contains('btn-show-others')) {
       currentPage = totalPages;
-    } else if (event.target.classList.contains('btn-previous')) {
-      console.log(event.target);
-      console.log('currentPage', currentPage);
-
-      if (currentPage > 1) {
-        currentPage--;
-      }
-    } else if (event.target.classList.contains('btn-next')) {
-      if (currentPage < totalPages) {
-        currentPage++;
-      }
-    } else {
-      currentPage = parseInt(event.target.textContent);
     }
-    renderMarkup(FAVORITE_RECIPE);
+    renderingBtn();
   }
 });
+
+refs.btnNext.addEventListener('click', () => {
+  if (currentPage !== totalPages) {
+    currentPage += 1;
+    renderingBtn();
+  }
+});
+refs.btnPrev.addEventListener('click', () => {
+  if (currentPage !== 1) {
+    currentPage -= 1;
+    renderingBtn();
+  }
+});
+
+function renderingBtn() {
+  deactiveBtn();
+  activeBtn();
+  renderMarkup(FAVORITE_RECIPE);
+}
+
+function activeBtn() {
+  if (currentPage > 1) {
+    refs.btnPrev.classList.add('act');
+    refs.btnBegin.classList.add('act');
+  }
+  if (currentPage === 1) {
+    refs.btnFirst.classList.add('act');
+  }
+  if (currentPage === 2) {
+    refs.btnSecond.classList.add('act');
+  }
+  if (currentPage === 3) {
+    refs.btnThird.classList.add('act');
+  }
+  if (currentPage === totalPages) {
+    refs.btnOther.classList.add('act');
+  }
+  if (currentPage >= totalPages) {
+    refs.btnNext.classList.add('bc');
+    refs.btnEnd.classList.add('bc');
+  }
+}
+function deactiveBtn() {
+  refs.btnPrev.classList.remove('act');
+  refs.btnBegin.classList.remove('act');
+  refs.btnFirst.classList.remove('act');
+  refs.btnSecond.classList.remove('act');
+  refs.btnThird.classList.remove('act');
+  if (currentPage >= totalPages) {
+    refs.btnNext.classList.remove('act');
+    refs.btnEnd.classList.remove('act');
+  }
+  if (currentPage !== totalPages) {
+    refs.btnOther.classList.remove('act');
+  }
+}
+
+run(FAVORITE_RECIPE);
