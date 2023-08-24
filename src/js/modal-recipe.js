@@ -2,6 +2,7 @@ const recipe_list = document.querySelector('.popular-recipe-list');
 const modalContainer = document.getElementById('modalContainer');
 let player;
 
+
 recipe_list.addEventListener('click', async function (event) {
   const clickedRecipe = event.target.closest('.popular-recipe-list-li');
   if (clickedRecipe) {
@@ -81,9 +82,10 @@ async function openRecipeModal(recipeID) {
 
     const addToFavoriteBtn = modalContainer.querySelector('.addToFavorite');
     addToFavoriteBtn.addEventListener('click', function () {
-      toggleFavorite(recipeID);
+      toggleFavorite(recipeID, data);
       updateFavoriteButtonText(addToFavoriteBtn, recipeID);
     });
+
     updateFavoriteButtonText(addToFavoriteBtn, recipeID);
 
     window.addEventListener('click', function (event) {
@@ -129,17 +131,32 @@ document.addEventListener('keydown', function (event) {
   }
 });
 
-function toggleFavorite(recipeID) {
+function toggleFavorite(recipeID, recipeData) {
   const favorites = getFavoritesFromStorage();
+  const favoriteRecipes = getFavoriteRecipesFromStorage();
+
   const index = favorites.indexOf(recipeID);
 
   if (index === -1) {
     favorites.push(recipeID);
+    favoriteRecipes[recipeID] = recipeData;
   } else {
     favorites.splice(index, 1);
+    delete favoriteRecipes[recipeID];
   }
 
   saveFavoritesToStorage(favorites);
+  saveFavoriteRecipesToStorage(favoriteRecipes);
+}
+
+function getFavoriteRecipesFromStorage() {
+  const favoriteRecipesJson = localStorage.getItem('FAVORITE_RECIPE');
+  return favoriteRecipesJson ? JSON.parse(favoriteRecipesJson) : {};
+}
+
+function saveFavoriteRecipesToStorage(favoriteRecipes) {
+  const favoriteRecipesJson = JSON.stringify(favoriteRecipes);
+  localStorage.setItem('FAVORITE_RECIPE', favoriteRecipesJson);
 }
 
 function updateFavoriteButtonText(button, recipeID) {
