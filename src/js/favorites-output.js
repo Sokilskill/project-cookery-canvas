@@ -50,19 +50,19 @@ function addCardsInHtml(result) {
 function createMarkup(recipes) {
   return recipes
     .map(el => {
-      let iconsUrl = new URL('../img/icons.svg', import.meta.url);
+      // let iconsUrl = new URL('../img/icons.svg', import.meta.url);
       const numStars = Math.round(el.rating);
       let stars = ``;
 
       for (let i = 0; i < numStars; i++) {
         stars += `<svg class="rat-icon act">
-              <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+              <use href="#icon-Star"></use></svg>`;
       }
 
       if (numStars < 5) {
         for (i = 0; i < 5 - numStars; i++) {
           stars += `<svg class="rat-icon ">
-              <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+              <use href="#icon-Star"></use></svg>`;
         }
       }
 
@@ -73,7 +73,7 @@ function createMarkup(recipes) {
       }'); background-repeat: no-repeat; background-size: cover;">
       <button class="fav-btn" >
       <svg class="fav-icon activ" data-id="${el._id}">
-          <use href="${iconsUrl.pathname}#icon-heart-full"></use>
+          <use href="#icon-heart-full"></use>
         </svg>
       </button>
 
