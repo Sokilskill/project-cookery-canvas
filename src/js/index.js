@@ -6,3 +6,4 @@ import './dark-theme.js';
 import './categories.js';
 import './modal-recipe.js';
 import './filter.js';
+import './modal-ratio';

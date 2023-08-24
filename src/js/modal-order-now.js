@@ -7,7 +7,6 @@ const elements = {
   shoppingCartBtn: document.querySelector('.shopping-cart'),
   backdrop: document.querySelector('.backdrop'),
   body: document.querySelector('body'),
-  telInput: document.querySelector('.tel-input'),
 };
 
 if (elements.heroOrderBtn) {
@@ -62,7 +61,7 @@ function modalClose(e) {
 }
 
 function post(e) {
-  // e.preventDefault();
+  e.preventDefault();
   const data = {
     Name: elements.form[0].value,
     Email: elements.form[1].value,
