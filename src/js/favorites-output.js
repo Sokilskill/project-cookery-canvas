@@ -48,36 +48,40 @@ function addCardsInHtml(result) {
 }
 // створює список карток
 function createMarkup(recipes) {
-  return recipes
-    .map(el => {
-      let iconsUrl = new URL('/src/img/icons.svg', import.meta.url);
+  try {
+    return recipes
+      .map(el => {
+        let iconsUrl = new URL('/src/img/icons.svg', import.meta.url);
+        let iconsUrl2 = new URL('../img/icons.svg', import.meta.url);
+        const numStars = Math.round(el.rating);
+        let stars = ``;
 
-      const numStars = Math.round(el.rating);
-      let stars = ``;
-      try {
         console.log(iconsUrl);
         console.log(iconsUrl.pathname);
         console.log(el._id);
         console.log(el.preview);
-      } catch (error) {
-        console.log(error);
-      }
 
-      // for (let i = 0; i < numStars; i++) {
-      //   stars += `<svg class="rat-icon act">
-      //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
-      // }
+        console.log(iconsUrl2);
+        console.log(iconsUrl2.pathname);
 
-      // if (numStars < 5) {
-      //   for (i = 0; i < 5 - numStars; i++) {
-      //     stars += `<svg class="rat-icon ">
-      //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
-      //   }
-      // }
+        // for (let i = 0; i < numStars; i++) {
+        //   stars += `<svg class="rat-icon act">
+        //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+        // }
 
-      return `<p>Watch</p>`;
-    })
-    .join('');
+        // if (numStars < 5) {
+        //   for (i = 0; i < 5 - numStars; i++) {
+        //     stars += `<svg class="rat-icon ">
+        //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
+        //   }
+        // }
+
+        return `<p>Watch</p>`;
+      })
+      .join('');
+  } catch (error) {
+    console.log(error);
+  }
   // console.log(stars);
 
   //   return `
