@@ -57,7 +57,17 @@ function modalClose(e) {
     Tell: elements.form[1].value,
     Comment: elements.form[3].value,
   };
-  localStorage.setItem('orderNowData', JSON.stringify(data));
+
+  if (
+    data.Name.length > 0 ||
+    data.Email.length > 0 ||
+    data.Tell.length > 0 ||
+    data.Comment.length > 0
+  ) {
+    localStorage.setItem('orderNowData', JSON.stringify(data));
+  } else {
+    localStorage.removeItem('orderNowData');
+  }
 }
 
 function post(e) {
@@ -69,9 +79,12 @@ function post(e) {
     Comment: elements.form[3].value,
   };
 
-  addFetch(data);
-  localStorage.removeItem('orderNowData', JSON.stringify(data));
-  elements.form.reset();
+  addFetch(data).then(response => {
+    if (response.status === ok) {
+      localStorage.removeItem('orderNowData', JSON.stringify(data));
+      elements.form.reset();
+    }
+  });
 }
 
 elements.form.addEventListener('submit', post);

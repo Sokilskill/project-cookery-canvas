@@ -57,6 +57,10 @@
     flex-direction: column;
 }
 
+.ratio-icon {
+    fill: #D9D9D9;
+}
+
 .ratio-close-btn {
     display: flex;
     justify-content: center;

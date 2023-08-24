@@ -19,6 +19,11 @@ document.body.addEventListener('click', e => {
 });
 
 function ratioModalOpen(e) {
+  window.onclick = function (event) {
+    if (event.target === elem.backdrop) {
+      ratioModalClose();
+    }
+  };
   elem.backdrop.classList.remove('is-hidden');
   elem.modalCloseBtn = document.querySelector('.ratio-close-btn');
   const recipe = document.querySelector('.modal-content');
@@ -73,80 +78,80 @@ function stars(e) {
 
   if (rating >= 4.5) {
     stars = `<span class="ratio-count">${rating}</span>
-        <svg class="rat-icon act" data-value="1">
+        <svg class="rat-icon ratio-icon act" data-value="1">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act" data-value="2">
+            </svg><svg class="rat-icon ratio-icon act" data-value="2">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act" data-value="3">
+            </svg><svg class="rat-icon ratio-icon act" data-value="3">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act" data-value="4">
+            </svg><svg class="rat-icon ratio-icon act" data-value="4">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act" data-value="5">
+            </svg><svg class="rat-icon ratio-icon act" data-value="5">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
   } else if (rating >= 4 || rating >= 3.5) {
     stars = `<span class="ratio-count">${rating}</span>
-        <svg class="rat-icon act" data-value="1">
+        <svg class="rat-icon ratio-icon act" data-value="1">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act" data-value="2">
+            </svg><svg class="rat-icon ratio-icon act" data-value="2">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act" data-value="3">
+            </svg><svg class="rat-icon ratio-icon act" data-value="3">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act" data-value="4">
+            </svg><svg class="rat-icon ratio-icon act" data-value="4">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="5">
+            </svg><svg class="rat-icon ratio-icon" data-value="5">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
   } else if (rating >= 3 || rating >= 2.5) {
     stars = `<span class="ratio-count">${rating}</span>
-        <svg class="rat-icon act" data-value="1">
+        <svg class="rat-icon ratio-icon act" data-value="1">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act" data-value="2">
+            </svg><svg class="rat-icon ratio-icon act" data-value="2">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act" data-value="3">
+            </svg><svg class="rat-icon ratio-icon act" data-value="3">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon" data-value="4"v>
+            </svg><svg class="rat-icon ratio-icon" data-value="4"v>
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon" data-value="5">
+            </svg><svg class="rat-icon ratio-icon" data-value="5">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
   } else if (rating >= 2 || rating >= 1.5) {
     stars = `<span class="ratio-count">${rating}</span>
-        <svg class="rat-icon act" data-value="1">
+        <svg class="rat-icon  ratio-icon act" data-value="1">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act" data-value="2">
+            </svg><svg class="rat-icon  ratio-icon act" data-value="2">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="3">
+            </svg><svg class="rat-icon  ratio-icon" data-value="3">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="4">
+            </svg><svg class="rat-icon  ratio-icon" data-value="4">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="5">
+            </svg><svg class="rat-icon  ratio-icon" data-value="5">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
   } else if (rating >= 1) {
     stars = `<span class="ratio-count">${rating}</span>
-        <svg class="rat-icon act" data-value="1">
+        <svg class="rat-icon act ratio-icon act" data-value="1">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="2">
+            </svg><svg class="rat-icon  ratio-icon" data-value="2">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="3">
+            </svg><svg class="rat-icon  ratio-icon" data-value="3">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="4">
+            </svg><svg class="rat-icon  ratio-icon" data-value="4">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="5">
+            </svg><svg class="rat-icon  ratio-icon" data-value="5">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
   } else {
     stars = `<span class="ratio-count">${rating}</span>
-        <svg class="rat-icon " data-value="1">
+        <svg class="rat-icon ratio-icon" data-value="1">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="2">
+            </svg><svg class="rat-icon ratio-icon" data-value="2">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="3">
+            </svg><svg class="rat-icon ratio-icon" data-value="3">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="4">
+            </svg><svg class="rat-icon ratio-icon" data-value="4">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon " data-value="5">
+            </svg><svg class="rat-icon ratio-icon" data-value="5">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
   }
