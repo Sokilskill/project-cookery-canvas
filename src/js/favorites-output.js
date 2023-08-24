@@ -40,36 +40,36 @@ function renderMarkup(markup) {
   const slicedMarkup = markup.slice(startIndex, endIndex);
 
   recipeList.innerHTML = '';
-  createMarkup(slicedMarkup);
+  addCardsInHtml(slicedMarkup);
 }
 
+function addCardsInHtml(result) {
+  recipeList.insertAdjacentHTML('beforeend', createMarkup(result));
+}
 // створює список карток
 function createMarkup(recipes) {
-  try {
-    recipeList.insertAdjacentHTML(
-      'beforeend',
-      recipes
-        .map(el => {
-          let newUrl = new URL('../img/icons.svg', import.meta.url);
+  return recipes
+    .map(el => {
+      let newUrl = new URL('../img/icons.svg', import.meta.url);
 
-          const numStars = Math.round(el.rating);
-          let stars = ``;
-          // console.log(newUrl.pathname);
+      const numStars = Math.round(el.rating);
+      let stars = ``;
+      // console.log(newUrl.pathname);
 
-          for (let i = 0; i < numStars; i++) {
-            stars += `<svg class="rat-icon act">
+      for (let i = 0; i < numStars; i++) {
+        stars += `<svg class="rat-icon act">
               <use href="${newUrl.pathname}#icon-Star"></use></svg>`;
-          }
+      }
 
-          if (numStars < 5) {
-            for (i = 0; i < 5 - numStars; i++) {
-              stars += `<svg class="rat-icon ">
+      if (numStars < 5) {
+        for (i = 0; i < 5 - numStars; i++) {
+          stars += `<svg class="rat-icon ">
               <use href="${newUrl.pathname}#icon-Star"></use></svg>`;
-            }
-          }
-          console.log(stars);
+        }
+      }
+      console.log(stars);
 
-          return `
+      return `
       <li class="recipe-item"> 
         <div class="photo-recipe-card " style="background: linear-gradient( 1deg, rgba(5, 5, 5, 0.6) 50%, rgba(5, 5, 5, 0) 100% ), url('${
           el.preview
@@ -100,12 +100,8 @@ function createMarkup(recipes) {
         </div>
       </div>
       </li>`;
-        })
-        .join('')
-    );
-  } catch (errorMessageEl) {
-    console.log(errorMessageEl);
-  }
+    })
+    .join('');
 }
 
 // фільтр
