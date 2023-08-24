@@ -392,7 +392,7 @@
   border: none;
 }
 
-.btn-list.act {
+.act {
   background-color: var(--main-text-color);
   fill: var(--secondary-text-color);
   border: none;

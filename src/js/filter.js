@@ -195,6 +195,8 @@ function defaultValuePaginat() {
 
 function onClickBegininPage(e) {
   if (pagination.page > 1) {
+    // refs.btnBegin.classList.remove('bc') ====================================== делаем
+    // refs.btnBegin.classList.add('act');
     clearCardsList();
     pagination.pages = 1;
     getAllRecipes().then(r => {
