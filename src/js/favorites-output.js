@@ -6,6 +6,7 @@ const recipeList = document.querySelector('.card-recipe-favorite');
 const categorySelect = document.querySelector('.category-select');
 const errorMessageEl = document.querySelector('.js-noone');
 const paginationList = document.querySelector('.page-pagination-list');
+const iconsUrl = new URL('../img/icons.svg', import.meta.url);
 
 const refs = {
   btnBegin: document.querySelector('.btn-beginning'),
@@ -59,7 +60,6 @@ function addCardsInHtml(result) {
   recipeList.insertAdjacentHTML('beforeend', createMarkup(result));
 }
 // створює список карток
-const iconsUrl = new URL('../img/icons.svg', import.meta.url);
 
 function createMarkup(recipes) {
   return recipes
@@ -67,25 +67,15 @@ function createMarkup(recipes) {
       const numStars = Math.round(el.rating);
       let stars = ``;
 
-      // for (let i = 0; i < numStars; i++) {
-      //   stars += `<svg class="rat-icon act">
-      //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
-      // }
-
-      // if (numStars < 5) {
-      //   for (let i = 0; i < 5 - numStars; i++) {
-      //     stars += `<svg class="rat-icon ">
-      //         <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
-      //   }
-      // }
-
       for (let i = 0; i < numStars; i++) {
-        stars += `<p>1</p>`;
+        stars += `<svg class="rat-icon act">
+              <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
       }
 
       if (numStars < 5) {
         for (let i = 0; i < 5 - numStars; i++) {
-          stars += `<p>2</p>`;
+          stars += `<svg class="rat-icon ">
+              <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
         }
       }
 
