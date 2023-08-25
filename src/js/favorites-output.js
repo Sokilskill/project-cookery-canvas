@@ -36,7 +36,7 @@ function resizePage() {
   run(FAVORITE_RECIPE);
 }
 
-function run(arrayOfObjects) {
+export default function run(arrayOfObjects) {
   if (arrayOfObjects && arrayOfObjects.length) {
     allElements = arrayOfObjects.length;
     // window.scrollTo({ top: 0, behavior: 'smooth' });
