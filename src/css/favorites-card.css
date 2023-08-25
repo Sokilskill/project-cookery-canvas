@@ -1,5 +1,5 @@
 .picture-wrapp {
-  display: none;
+  display: block;
   margin-bottom: 40px;
 }
 .favorites-card {
@@ -31,7 +31,6 @@ body.active .photo-recipe-card {
 
 @media screen and (min-width: 768px) {
   .picture-wrapp {
-    display: block;
   }
 
   .card-recipe-favorite {
