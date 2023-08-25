@@ -1,0 +1,1 @@
+{"mappings":"gfAAAA,EAAA,S","sources":["src/js/index2.js"],"sourcesContent":["import './mobile-menu.js';\nimport './dark-theme.js';\nimport './categories.js';\nimport './modal-order-now.js';\nimport './favorites-output.js';\nimport './modal-ratio';\nimport './modal-recipe.js';\n\n"],"names":["parcelRequire"],"version":3,"file":"favorites.cbf34341.js.map"}
