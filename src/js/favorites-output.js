@@ -72,11 +72,9 @@ function createBtn() {
   } else {
     paginationList.style.display = 'flex';
   }
-  if (totalPages === 3) {
-    document.querySelector('.page-pagination-item-third').style.display =
-      'none';
-    refs.btnThird.style.display = 'none'; // =====================треба повісити клас
-  }
+  document.querySelector('.page-pagination-item-third').style.display = 'none';
+  // refs.btnThird.style.display = 'none'; // =====================треба повісити клас
+
   if (totalPages === 2) {
     refs.btnSecond.style.display = 'none';
   }
@@ -169,7 +167,7 @@ paginationList.addEventListener('click', event => {
       currentPage = 1;
     } else if (event.target.classList.contains('btn-second')) {
       if (event.target.textContent > 2) {
-        currentPage === event.target.textContent;
+        currentPage = event.target.textContent;
       } else {
         currentPage = 2;
       }
@@ -218,12 +216,16 @@ function activeBtn() {
   if (currentPage === 1) {
     refs.btnFirst.classList.add('act');
   }
+  if (currentPage === 1) {
+    refs.btnSecond.textContent = 2;
+  } else if (currentPage === totalPages) {
+    refs.btnSecond.textContent = totalPages - 1;
+  }
   if (
     currentPage === 2 ||
-    (currentPage > 2 && currentPage < totalPages && totalPages >= 2)
+    (currentPage > 2 && currentPage < totalPages && totalPages > 2)
   ) {
     refs.btnSecond.classList.add('act');
-
     refs.btnSecond.textContent = currentPage;
   }
   if (currentPage === 3) {
