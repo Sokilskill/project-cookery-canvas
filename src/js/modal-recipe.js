@@ -1,4 +1,7 @@
+import run from './favorites-output';
+
 // import onClickAddToFavoritInModal from './filter';
+
 const modalContainer = document.getElementById('modalContainer');
 let player;
 
@@ -53,14 +56,18 @@ async function openRecipeModal(recipeID) {
         </div>`;
     });
 
-    const ingredientList = `<div class="ingredient-list">${ingredientItems.join('')}</div>`;
+    const ingredientList = `<div class="ingredient-list">${ingredientItems.join(
+      ''
+    )}</div>`;
 
     modalContainer.innerHTML = `
       <div class="modal-content" data-id="${recipeID}">
           <span class="close-button">&times;</span>
           <h2 class="title-modal-recipe">${data.title}</h2>
           <div id="youtubePlayer"></div>
-          <p class="rating-and-time">${data.tags.map(tag => `<p class="tag-button">#${tag}</p>`).join('')} ${ratingAndTime}</p>
+          <p class="rating-and-time">${data.tags
+            .map(tag => `<p class="tag-button">#${tag}</p>`)
+            .join('')} ${ratingAndTime}</p>
           ${ingredientList}
           <p class="instruction-text">${data.instructions}</p>
           <button class="button addToFavorite">Add to Favorites</button>
@@ -89,7 +96,6 @@ async function openRecipeModal(recipeID) {
       // if (document.querySelector('.cards-recipe')) {
       //   onClickAddToFavoritInModal();
       // }
-      
     });
 
     updateFavoriteButtonText(addToFavoriteBtn, recipeID);
@@ -113,7 +119,6 @@ async function openRecipeModal(recipeID) {
     });
 
     document.body.classList.add('my-body-noscroll-class');
-
   } catch (error) {
     console.error('Error loading recipe data:', error);
   }
@@ -141,7 +146,9 @@ function toggleFavorite(recipeID, recipeData) {
   const favorites = getFavoritesFromStorage();
   const favoriteRecipes = getFavoriteRecipesFromStorage();
 
-  const existingIndex = favoriteRecipes.findIndex(recipe => recipe._id === recipeID);
+  const existingIndex = favoriteRecipes.findIndex(
+    recipe => recipe._id === recipeID
+  );
 
   if (existingIndex === -1) {
     favorites.push(recipeID);
@@ -162,13 +169,18 @@ function getFavoriteRecipesFromStorage() {
 
 function saveFavoriteRecipesToStorage(favoriteRecipes) {
   const favoriteRecipesJson = JSON.stringify(favoriteRecipes);
+
   localStorage.setItem('FAVORITE_RECIPE', favoriteRecipesJson);
+  const FAVORITE_RECIPE = JSON.parse(localStorage.getItem('FAVORITE_RECIPE'));
+  run(FAVORITE_RECIPE);
 }
 
 function updateFavoriteButtonText(button, recipeID) {
   const favorites = getFavoritesFromStorage();
   const isFavorite = favorites.includes(recipeID);
-  button.textContent = isFavorite ? 'Remove from Favorites' : 'Add to Favorites';
+  button.textContent = isFavorite
+    ? 'Remove from Favorites'
+    : 'Add to Favorites';
 }
 
 function getFavoritesFromStorage() {
