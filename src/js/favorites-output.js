@@ -4,6 +4,7 @@
 const categoryFilter = document.querySelector('.favorite-categories');
 const recipeList = document.querySelector('.card-recipe-favorite');
 const categorySelect = document.querySelector('.category-select');
+const favoritesPICTURE = document.querySelector('.picture-wrapp');
 const errorMessageEl = document.querySelector('.js-noone');
 const paginationList = document.querySelector('.page-pagination-list');
 const iconsUrl = new URL('../img/icons.svg', import.meta.url);
@@ -45,13 +46,16 @@ function run(arrayOfObjects) {
     screenWidthFunct();
     totalPages = Math.ceil(allElements / itemsPerPage);
     renderMarkup(arrayOfObjects); //завантаження списку на сторінку з локал сторедж
+    favoritesPICTURE.style.display = 'block';
+    favoritesPICTURE.style.margin = '0 0 40px 0';
+
   } else {
     paginationList.style.display = 'none';
     categoryFilter.style.display = 'none'; // приховує фільтр по категорії
     errorMessageEl.style.display = 'block'; //повідомлення про пустий список
   }
 }
-
+favoritesPICTURE
 // рендер html, відображає на сторінці
 function renderMarkup(markup) {
   const sliceMarkup = sliceMarkupFun(markup);
