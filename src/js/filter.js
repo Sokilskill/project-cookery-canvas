@@ -136,6 +136,8 @@ function onRemoveRecipe(e) {
 
 export default function onClickAddToFavoritInModal() {
   favorit = JSON.parse(localStorage.getItem(FAVORITES));
+  pagination.clearLoc();
+  pagination.allPushLoc(favorit);
   clearCardsList();
   defaultPage();
   getAllRecipes().then(r => {
@@ -151,7 +153,10 @@ export default function onClickAddToFavoritInModal() {
 function onClickRecipeList(e) {
   const idTarget = e.target.parentNode.dataset.id;
   const classPar = e.target.parentNode.classList;
-
+  favorit = JSON.parse(localStorage.getItem(FAVORITES));
+  pagination.clearLoc();
+  pagination.allPushLoc(favorit);
+  
   if (e.target.parentNode.classList.contains('fav-icon')) {
     if (pagination.getLoc().includes(idTarget)) {
       localData.delItmLoc(idTarget);
