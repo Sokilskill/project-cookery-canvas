@@ -211,9 +211,12 @@ function renderingBtn() {
 }
 
 function activeBtn() {
-  if (currentPage > 1) {
-    refs.btnPrev.classList.add('act');
-    refs.btnBegin.classList.add('act');
+  if (currentPage === 1) {
+    refs.btnPrev.classList.remove('act');
+    refs.btnBegin.classList.remove('act');
+
+    refs.btnPrev.classList.add('bc');
+    refs.btnBegin.classList.add('bc');
   }
   if (currentPage === 1) {
     refs.btnFirst.classList.add('act');
@@ -237,14 +240,21 @@ function activeBtn() {
     refs.btnOther.classList.add('act');
   }
   if (currentPage < totalPages) {
+    refs.btnNext.classList.remove('bc');
+    refs.btnEnd.classList.remove('bc');
     refs.btnNext.classList.add('act');
     refs.btnEnd.classList.add('act');
   }
 }
 
 function deactiveBtn() {
-  refs.btnPrev.classList.remove('act');
-  refs.btnBegin.classList.remove('act');
+  if (currentPage > 1) {
+    refs.btnPrev.classList.add('act');
+    refs.btnBegin.classList.add('act');
+    refs.btnPrev.classList.remove('bc');
+    refs.btnBegin.classList.remove('bc');
+  }
+
   refs.btnFirst.classList.remove('act');
   if (totalPages <= 3) {
     refs.btnSecond.textContent = 2;
@@ -254,6 +264,9 @@ function deactiveBtn() {
   if (currentPage === totalPages) {
     refs.btnNext.classList.remove('act');
     refs.btnEnd.classList.remove('act');
+
+    refs.btnNext.classList.add('bc');
+    refs.btnEnd.classList.add('bc');
   }
   if (currentPage !== totalPages) {
     refs.btnOther.classList.remove('act');
