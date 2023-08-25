@@ -92,7 +92,6 @@ getAllRecipes().then(r => {
   if (r) {
     createCards(r.results);
     appdateTotal(r.totalPages);
-    rmHidden(refs.pagBtn);
     defaultValuePaginat();
     hidLoader();
   }
@@ -935,6 +934,7 @@ function hidLoader() {
 function seePaginBtn() {
   addBc(refs.btnBegin);
   addBc(refs.btnPrev);
+  rmHidden(refs.pagBtn);
   if (pagination.total > 3) {
     defaultValuePaginat();
       return;
@@ -948,14 +948,16 @@ function seePaginBtn() {
       refs.btnOther.classList.add('hidden-itm');
       return;
     } else if (pagination.total === 1) {
-      defaultValuePaginat();
+    defaultValuePaginat();
+      hidden(refs.pagBtn);
       addBc(refs.btnNext);
       addBc(refs.btnEnd);
       refs.btnThird.classList.add('hidden-itm');
       refs.btnOther.classList.add('hidden-itm');
       refs.btnSecond.classList.add('hidden-itm');
       return;
-    } else {
+  } else {
+      hidden(refs.pagBtn);
       addBc(refs.btnNext);
       addBc(refs.btnEnd);
       refs.btnThird.classList.add('hidden-itm');
@@ -969,6 +971,7 @@ function seePaginBtn() {
 
 function onClickReloadFilter() {
   refs.inputEl.value = '';
+  pagination.req = '';
   favorit = JSON.parse(localStorage.getItem(FAVORITES));
   timeSelect.setSelected('<option data-placeholder="true" value=""></option>');
   areaSelect.setSelected('<option data-placeholder="true" value=""></option>');
