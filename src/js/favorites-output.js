@@ -47,6 +47,7 @@ function run(arrayOfObjects) {
     }
     renderMarkup(arrayOfObjects); //завантаження списку на сторінку з локал сторедж
   } else {
+    document.querySelector('.picture-wrapp').style.display = 'none';
     paginationList.style.display = 'none';
     categoryFilter.style.display = 'none'; // приховує фільтр по категорії
     errorMessageEl.style.display = 'block'; //повідомлення про пустий список
