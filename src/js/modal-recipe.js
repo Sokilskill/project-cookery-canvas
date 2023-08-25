@@ -1,5 +1,3 @@
-import run from './favorites-output';
-
 // import onClickAddToFavoritInModal from './filter';
 
 const modalContainer = document.getElementById('modalContainer');
@@ -172,7 +170,7 @@ function saveFavoriteRecipesToStorage(favoriteRecipes) {
 
   localStorage.setItem('FAVORITE_RECIPE', favoriteRecipesJson);
   const FAVORITE_RECIPE = JSON.parse(localStorage.getItem('FAVORITE_RECIPE'));
-  run(FAVORITE_RECIPE);
+  // run(FAVORITE_RECIPE);
 }
 
 function updateFavoriteButtonText(button, recipeID) {
