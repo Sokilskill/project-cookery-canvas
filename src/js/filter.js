@@ -138,6 +138,11 @@ export default function onClickAddToFavoritInModal() {
   favorit = JSON.parse(localStorage.getItem(FAVORITES));
   pagination.clearLoc();
   pagination.allPushLoc(favorit);
+  
+  favoritRecipes = JSON.parse(localStorage.getItem(FAVORITES_RECIPES));
+  localData.clearLoc();
+  localData.allPushLoc(favoritRecipes);
+
   clearCardsList();
   defaultPage();
   getAllRecipes().then(r => {
@@ -730,35 +735,35 @@ function addingCards(el) {
       }
 
       if (rating >= 4.5) {
-        stars = `<svg class="rat-icon active">
+        stars = `<svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 4 || rating >= 3.5) {
-        stars = `<svg class="rat-icon active">
+        stars = `<svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 3 || rating >= 2.5) {
-        stars = `<svg class="rat-icon active">
+        stars = `<svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon">
               <use href="${useIcons.pathname}#icon-Star"></use>
@@ -766,9 +771,9 @@ function addingCards(el) {
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 2 || rating >= 1.5) {
-        stars = `<svg class="rat-icon active">
+        stars = `<svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
               <use href="${useIcons.pathname}#icon-Star"></use>
@@ -778,7 +783,7 @@ function addingCards(el) {
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 1) {
-        stars = `<svg class="rat-icon active">
+        stars = `<svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
               <use href="${useIcons.pathname}#icon-Star"></use>
