@@ -41,6 +41,9 @@ body.active .photo-recipe-card {
     margin-right: 2px;
   }
 }
+body.active .page-pagination-list {
+  padding: 0;
+}
 
 @media screen and (min-width: 1280px) {
   .card-recipe-favorite {
