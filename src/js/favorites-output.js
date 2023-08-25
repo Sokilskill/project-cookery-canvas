@@ -44,6 +44,9 @@ function run(arrayOfObjects) {
 
     screenWidthFunct();
     totalPages = Math.ceil(allElements / itemsPerPage);
+    if (totalPages < currentPage) {
+      currentPage = 1;
+    }
     renderMarkup(arrayOfObjects); //завантаження списку на сторінку з локал сторедж
   } else {
     paginationList.style.display = 'none';
@@ -55,6 +58,8 @@ function run(arrayOfObjects) {
 // рендер html, відображає на сторінці
 function renderMarkup(markup) {
   const sliceMarkup = sliceMarkupFun(markup);
+  deactiveBtn();
+  activeBtn();
   recipeList.innerHTML = ' ';
   const createMarkupHtml = createMarkup(sliceMarkup);
   recipeList.insertAdjacentHTML('beforeend', createMarkupHtml);
@@ -67,10 +72,10 @@ function createBtn() {
   } else {
     paginationList.style.display = 'flex';
   }
-  if (1 < totalPages <= 3) {
-    refs.btnThird.style.display = 'none'; // =====================треба повісити клас
-  }
-  if (totalPages <= 2) {
+  document.querySelector('.page-pagination-item-third').style.display = 'none';
+  // refs.btnThird.style.display = 'none'; // =====================треба повісити клас
+
+  if (totalPages === 2) {
     refs.btnSecond.style.display = 'none';
   }
   refs.btnOther.textContent = totalPages;
@@ -161,7 +166,11 @@ paginationList.addEventListener('click', event => {
     if (event.target.classList.contains('btn-first')) {
       currentPage = 1;
     } else if (event.target.classList.contains('btn-second')) {
-      currentPage = 2;
+      if (event.target.textContent > 2) {
+        currentPage = event.target.textContent;
+      } else {
+        currentPage = 2;
+      }
     } else if (event.target.classList.contains('btn-third')) {
       currentPage = 3;
     } else if (event.target.classList.contains('btn-show-others')) {
@@ -196,8 +205,6 @@ refs.btnEnd.addEventListener('click', () => {
 });
 
 function renderingBtn() {
-  deactiveBtn();
-  activeBtn();
   run(FAVORITE_RECIPE);
 }
 
@@ -209,8 +216,17 @@ function activeBtn() {
   if (currentPage === 1) {
     refs.btnFirst.classList.add('act');
   }
-  if (currentPage === 2) {
+  if (currentPage === 1) {
+    refs.btnSecond.textContent = 2;
+  } else if (currentPage === totalPages) {
+    refs.btnSecond.textContent = totalPages - 1;
+  }
+  if (
+    currentPage === 2 ||
+    (currentPage > 2 && currentPage < totalPages && totalPages > 2)
+  ) {
     refs.btnSecond.classList.add('act');
+    refs.btnSecond.textContent = currentPage;
   }
   if (currentPage === 3) {
     refs.btnThird.classList.add('act');
@@ -228,6 +244,9 @@ function deactiveBtn() {
   refs.btnPrev.classList.remove('act');
   refs.btnBegin.classList.remove('act');
   refs.btnFirst.classList.remove('act');
+  if (totalPages <= 3) {
+    refs.btnSecond.textContent = 2;
+  }
   refs.btnSecond.classList.remove('act');
   refs.btnThird.classList.remove('act');
   if (currentPage === totalPages) {
