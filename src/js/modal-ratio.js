@@ -43,17 +43,20 @@ function ratioModalClose(e) {
 
 Notiflix.Notify.init({ zindex: 99999 });
 
-async function Fetch(recipeID, rating) {
-  const URL = `https://tasty-treats-backend.p.goit.global/api/recipes/${recipeID}/${rating}`;
-
+async function Fetch(recipeID, rating, email) {
+  const URL = `https://tasty-treats-backend.p.goit.global/api/recipes/${recipeID}/rating`;
+  let obj = {
+    rate: rating,
+    email: email,
+  };
   return await axios
-    .post(URL)
+    .patch(URL, obj)
     .then(function (notif) {
       Notiflix.Notify.success('Post Success');
     })
 
     .catch(function (error) {
-      Notiflix.Notify.failure(`please try again later`);
+      Notiflix.Notify.failure(`${error.response.data.message}`);
     });
 }
 
@@ -61,7 +64,8 @@ function submitForm(e) {
   e.preventDefault();
   let rec = recipeID;
   let ratt = rating;
-  Fetch(rec, ratt);
+  let email = elem.form[0].value;
+  Fetch(rec, ratt, email);
 }
 
 function starRating(e) {
