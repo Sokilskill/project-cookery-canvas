@@ -101,7 +101,7 @@ function createMarkup(recipes) {
       let stars = ``;
 
       for (let i = 0; i < numStars; i++) {
-        stars += `<svg class="rat-icon act">
+        stars += `<svg class="rat-icon act active">
               <use href="${iconsUrl.pathname}#icon-Star"></use></svg>`;
       }
 
