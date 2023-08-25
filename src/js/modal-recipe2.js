@@ -1,4 +1,5 @@
 // import onClickAddToFavoritInModal from './filter';
+import run from './favorites-output';
 
 const modalContainer = document.getElementById('modalContainer');
 let player;
@@ -92,8 +93,9 @@ async function openRecipeModal(recipeID) {
       toggleFavorite(recipeID, data);
       updateFavoriteButtonText(addToFavoriteBtn, recipeID);
       // if (document.querySelector('.cards-recipe')) {
-      //   onClickAddToFavoritInModal();
+      //
       // }
+      //   onClickAddToFavoritInModal();
     });
 
     updateFavoriteButtonText(addToFavoriteBtn, recipeID);
@@ -167,8 +169,10 @@ function getFavoriteRecipesFromStorage() {
 
 function saveFavoriteRecipesToStorage(favoriteRecipes) {
   const favoriteRecipesJson = JSON.stringify(favoriteRecipes);
-
   localStorage.setItem('FAVORITE_RECIPE', favoriteRecipesJson);
+
+  const FAVORITE_RECIPE = JSON.parse(localStorage.getItem('FAVORITE_RECIPE'));
+  run(FAVORITE_RECIPE);
 }
 
 function updateFavoriteButtonText(button, recipeID) {
