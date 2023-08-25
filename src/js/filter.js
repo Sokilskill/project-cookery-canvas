@@ -92,7 +92,7 @@ getAllRecipes().then(r => {
   if (r) {
     createCards(r.results);
     appdateTotal(r.totalPages);
-    rmHidden(refs.pagBtn);
+    // rmHidden(refs.pagBtn);
     defaultValuePaginat();
     hidLoader();
   }
@@ -934,15 +934,19 @@ function hidLoader() {
 function seePaginBtn() {
   addBc(refs.btnBegin);
   addBc(refs.btnPrev);
+  hidden(refs.pagBtn);
   if (pagination.total > 3) {
     defaultValuePaginat();
+    rmHidden(refs.pagBtn);
       return;
     } else if (pagination.total === 3) {
-      defaultValuePaginat();
+    defaultValuePaginat();
+    rmHidden(refs.pagBtn);
       refs.btnOther.classList.add('hidden-itm');
       return;
     } else if (pagination.total === 2) {
-      defaultValuePaginat();
+    defaultValuePaginat();
+    rmHidden(refs.pagBtn);
       refs.btnThird.classList.add('hidden-itm');
       refs.btnOther.classList.add('hidden-itm');
       return;
