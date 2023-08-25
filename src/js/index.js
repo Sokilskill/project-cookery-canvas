@@ -4,6 +4,6 @@ import './hero-api.js';
 import './favorite-recipes.js';
 import './dark-theme.js';
 import './categories.js';
-import './modal-recipe.js';
+import './modal-recipe-2.js';
 import './filter.js';
 import './modal-ratio';
