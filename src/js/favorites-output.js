@@ -36,12 +36,10 @@ function resizePage() {
   run(FAVORITE_RECIPE);
 }
 
-//запуск
 function run(arrayOfObjects) {
   if (arrayOfObjects && arrayOfObjects.length) {
     allElements = arrayOfObjects.length;
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-
+    // window.scrollTo({ top: 0, behavior: 'smooth' });
     screenWidthFunct();
     totalPages = Math.ceil(allElements / itemsPerPage);
     if (totalPages < currentPage) {
@@ -77,7 +75,10 @@ function createBtn() {
 
   if (totalPages === 2) {
     refs.btnSecond.style.display = 'none';
+    document.querySelector('.page-pagination-item-second').style.display =
+      'none';
   }
+
   refs.btnOther.textContent = totalPages;
 }
 
