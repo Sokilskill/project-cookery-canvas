@@ -138,6 +138,10 @@ export default function onClickAddToFavoritInModal() {
   favorit = JSON.parse(localStorage.getItem(FAVORITES));
   pagination.clearLoc();
   pagination.allPushLoc(favorit);
+
+  favoritRecipes = JSON.parse(localStorage.getItem(FAVORITES_RECIPES));
+  localData.clearLoc();
+  localData.allPushLoc(favorit);
   clearCardsList();
   defaultPage();
   getAllRecipes().then(r => {
