@@ -852,3 +852,69 @@ function addActive(itm) {
 function rmActive(itm) {
   itm.classList.remove('act');
 }
+
+function hidLoader() {
+  refs.loaderEl.classList.toggle('hidden-itm');
+}
+
+
+
+function seePaginBtn() {
+  addBc(refs.btnBegin);
+  addBc(refs.btnPrev);
+  if (pagination.total > 3) {
+    defaultValuePaginat();
+      return;
+    } else if (pagination.total === 3) {
+      defaultValuePaginat();
+      refs.btnOther.classList.add('hidden-itm');
+      return;
+    } else if (pagination.total === 2) {
+      defaultValuePaginat();
+      refs.btnThird.classList.add('hidden-itm');
+      refs.btnOther.classList.add('hidden-itm');
+      return;
+    } else if (pagination.total === 1) {
+      defaultValuePaginat();
+      addBc(refs.btnNext);
+      addBc(refs.btnEnd);
+      refs.btnThird.classList.add('hidden-itm');
+      refs.btnOther.classList.add('hidden-itm');
+      refs.btnSecond.classList.add('hidden-itm');
+      return;
+    } else {
+      addBc(refs.btnNext);
+      addBc(refs.btnEnd);
+      refs.btnThird.classList.add('hidden-itm');
+      refs.btnOther.classList.add('hidden-itm');
+      refs.btnSecond.classList.add('hidden-itm');
+      refs.btnFirst.classList.add('hidden-itm');
+      Notiflix.Notify.failure(`❌ There are no requests with such filters.`);
+    };
+}
+
+
+function onClickReloadFilter() {
+  refs.inputEl.value = '';
+  favorit = JSON.parse(localStorage.getItem(FAVORITES));
+  timeSelect.setSelected('<option data-placeholder="true" value=""></option>');
+  areaSelect.setSelected('<option data-placeholder="true" value=""></option>');
+  ingrSelect.setSelected('<option data-placeholder="true" value=""></option>');
+  
+
+  getAllRecipes().then(r => {
+    clearCardsList();
+    createCards(r.results);
+    appdateTotal(r.totalPages);
+    rmHiddAllBtn();
+    rmBc(refs.btnNext);
+    rmBc(refs.btnEnd);
+    seePaginBtn();
+  });
+}
+
+function onSub(e) {
+  e.preventDefault();
+}
+
+
