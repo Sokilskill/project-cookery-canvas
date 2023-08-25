@@ -92,7 +92,7 @@ getAllRecipes().then(r => {
   if (r) {
     createCards(r.results);
     appdateTotal(r.totalPages);
-    // rmHidden(refs.pagBtn);
+    rmHidden(refs.pagBtn);
     defaultValuePaginat();
     hidLoader();
   }
@@ -138,10 +138,6 @@ export default function onClickAddToFavoritInModal() {
   favorit = JSON.parse(localStorage.getItem(FAVORITES));
   pagination.clearLoc();
   pagination.allPushLoc(favorit);
-
-  favoritRecipes = JSON.parse(localStorage.getItem(FAVORITES_RECIPES));
-  localData.clearLoc();
-  localData.allPushLoc(favorit);
   clearCardsList();
   defaultPage();
   getAllRecipes().then(r => {
@@ -734,35 +730,35 @@ function addingCards(el) {
       }
 
       if (rating >= 4.5) {
-        stars = `<svg class="rat-icon act">
+        stars = `<svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act">
+            </svg><svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act">
+            </svg><svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act">
+            </svg><svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act">
+            </svg><svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 4 || rating >= 3.5) {
-        stars = `<svg class="rat-icon act">
+        stars = `<svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act">
+            </svg><svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act">
+            </svg><svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act">
+            </svg><svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 3 || rating >= 2.5) {
-        stars = `<svg class="rat-icon act">
+        stars = `<svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act">
+            </svg><svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act">
+            </svg><svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon">
               <use href="${useIcons.pathname}#icon-Star"></use>
@@ -770,9 +766,9 @@ function addingCards(el) {
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 2 || rating >= 1.5) {
-        stars = `<svg class="rat-icon act">
+        stars = `<svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon act">
+            </svg><svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
               <use href="${useIcons.pathname}#icon-Star"></use>
@@ -782,7 +778,7 @@ function addingCards(el) {
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 1) {
-        stars = `<svg class="rat-icon act">
+        stars = `<svg class="rat-icon active">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
               <use href="${useIcons.pathname}#icon-Star"></use>
@@ -934,19 +930,15 @@ function hidLoader() {
 function seePaginBtn() {
   addBc(refs.btnBegin);
   addBc(refs.btnPrev);
-  hidden(refs.pagBtn);
   if (pagination.total > 3) {
     defaultValuePaginat();
-    rmHidden(refs.pagBtn);
       return;
     } else if (pagination.total === 3) {
-    defaultValuePaginat();
-    rmHidden(refs.pagBtn);
+      defaultValuePaginat();
       refs.btnOther.classList.add('hidden-itm');
       return;
     } else if (pagination.total === 2) {
-    defaultValuePaginat();
-    rmHidden(refs.pagBtn);
+      defaultValuePaginat();
       refs.btnThird.classList.add('hidden-itm');
       refs.btnOther.classList.add('hidden-itm');
       return;
