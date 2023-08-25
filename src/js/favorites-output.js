@@ -76,11 +76,15 @@ function createBtn() {
   // refs.btnThird.style.display = 'none'; // =====================треба повісити клас
 
   if (totalPages === 2) {
-    refs.btnSecond.style.display = 'none';
+    // refs.btnSecond.style.display = 'none';
     document.querySelector('.page-pagination-item-second').style.display =
       'none';
+  } else {
+    document.querySelector('.page-pagination-item-second').style.display =
+      'block';
   }
-
+  // console.log(totalPages);
+  // console.log(refs.btnSecond.textContent);
   refs.btnOther.textContent = totalPages;
 }
 
@@ -224,7 +228,8 @@ function activeBtn() {
   }
   if (currentPage === 1) {
     refs.btnSecond.textContent = 2;
-  } else if (currentPage === totalPages) {
+  }
+  if (currentPage === totalPages) {
     refs.btnSecond.textContent = totalPages - 1;
   }
   if (
@@ -234,9 +239,9 @@ function activeBtn() {
     refs.btnSecond.classList.add('act');
     refs.btnSecond.textContent = currentPage;
   }
-  if (currentPage === 3) {
-    refs.btnThird.classList.add('act');
-  }
+  // if (currentPage === 3) {
+  //   refs.btnThird.classList.add('act');
+  // }
   if (currentPage === totalPages) {
     refs.btnOther.classList.add('act');
   }
