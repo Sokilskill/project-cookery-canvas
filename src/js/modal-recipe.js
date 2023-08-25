@@ -94,8 +94,11 @@ async function openRecipeModal(recipeID) {
       toggleFavorite(recipeID, data);
       updateFavoriteButtonText(addToFavoriteBtn, recipeID);
       // if (document.querySelector('.cards-recipe')) {
-      //   onClickAddToFavoritInModal();
+        
       // }
+
+      // onClickAddToFavoritInModal();
+
     });
 
     updateFavoriteButtonText(addToFavoriteBtn, recipeID);
