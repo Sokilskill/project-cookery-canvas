@@ -17,10 +17,10 @@ if (!localStorage.getItem(FAVORITES)) {
   localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
 }
 
-let favoritRecipes = JSON.parse(localStorage.getItem(FAVORITES_RECIPES));
+const favoritRecipes = JSON.parse(localStorage.getItem(FAVORITES_RECIPES));
 localData.allPushLoc(favoritRecipes);
 
-let favorit = JSON.parse(localStorage.getItem(FAVORITES));
+const favorit = JSON.parse(localStorage.getItem(FAVORITES));
 pagination.allPushLoc(favorit);
 
 const refs = {
@@ -42,33 +42,13 @@ const refs = {
   pagBtn: document.querySelector('.page-pagination-list'),
   btnResetFiltr: document.querySelector('.btn-reset-filtr'),
   formEl: document.querySelector('.search-form'),
-  loaderEl: document.querySelector('.loader-f'),
 };
+hidden(refs.pagBtn);
+createSelect(refs.selectTime, '0 min');
 
-
-
-let timeSelect = new SlimSelect({
-  select: refs.selectTime,
-  settings: {
-    contentPosition: 'absolute',
-    placeholderText: '0 min',
-    showSearch: false,
-    searchHighlight: true,
-  },
-});
-let areaSelect;
-let ingrSelect;
 getApi('areas').then(r => {
   refs.selectArea.insertAdjacentHTML('beforeend', stringConcatenation(r));
-  areaSelect = new SlimSelect({
-    select: refs.selectArea,
-    settings: {
-      contentPosition: 'absolute',
-      placeholderText: 'Region',
-      showSearch: false,
-      searchHighlight: true,
-    },
-  });
+  createSelect(refs.selectArea, 'Region');
 });
 
 getApi('ingredients').then(r => {
@@ -76,15 +56,7 @@ getApi('ingredients').then(r => {
     'beforeend',
     stringConcatenationIng(r)
   );
-  ingrSelect = new SlimSelect({
-    select: refs.selectIngredients,
-    settings: {
-      contentPosition: 'absolute',
-      placeholderText: 'Product',
-      showSearch: false,
-      searchHighlight: true,
-    },
-  });
+  createSelect(refs.selectIngredients, 'Product');
 });
 
 initialRecipeWindow();
@@ -92,9 +64,9 @@ getAllRecipes().then(r => {
   if (r) {
     createCards(r.results);
     appdateTotal(r.totalPages);
+    console.log(pagination.total);
     rmHidden(refs.pagBtn);
     defaultValuePaginat();
-    hidLoader();
   }
 });
 
@@ -103,6 +75,7 @@ refs.selectTime.addEventListener('change', onChangeTime);
 refs.selectArea.addEventListener('change', onChangeArea);
 refs.selectIngredients.addEventListener('change', onChangeIngredients);
 refs.inputEl.addEventListener('input', debounce(300, onChangeRequest));
+
 refs.btnBegin.addEventListener('click', onClickBegininPage);
 refs.btnPrev.addEventListener('click', onClickPrevPage);
 refs.btnFirst.addEventListener('click', onClickFirstPage);
@@ -112,52 +85,27 @@ refs.btnNext.addEventListener('click', onClickNextPage);
 refs.btnEnd.addEventListener('click', onClickLastPage);
 refs.btnOther.addEventListener('click', onClickOtherBtnPage);
 refs.formEl.addEventListener('submit', onSub);
-refs.btnResetFiltr.addEventListener('click', onClickReloadFilter);
+
+refs.btnResetFiltr.addEventListener('click', e => {
+  location.reload();
+});
+
 refs.allCatBtn.addEventListener('click', onRemoveRecipe);
+
 refs.recipeList.addEventListener('click', onClickRecipeList);
 
-
-function onRemoveRecipe(e) {
-  hidLoader();
-  pagination.categories = '';
-  clearCardsList();
-  defaultPage();
-  getAllRecipes().then(r => {
-    createCards(r.results);
-    appdateTotal(r.totalPages);
-    rmHiddAllBtn();
-    rmBc(refs.btnNext);
-    rmBc(refs.btnEnd);
-    seePaginBtn();
-    hidLoader();
-  });
-}
-
-
-export default function onClickAddToFavoritInModal() {
-  favorit = JSON.parse(localStorage.getItem(FAVORITES));
-  pagination.clearLoc();
-  pagination.allPushLoc(favorit);
-  clearCardsList();
-  defaultPage();
-  getAllRecipes().then(r => {
-    createCards(r.results);
-    appdateTotal(r.totalPages);
-    rmHiddAllBtn();
-    rmBc(refs.btnNext);
-    rmBc(refs.btnEnd);
-    seePaginBtn();
-  });
+function onSub(e) {
+  e.preventDefault();
 }
 
 function onClickRecipeList(e) {
   const idTarget = e.target.parentNode.dataset.id;
   const classPar = e.target.parentNode.classList;
-  favorit = JSON.parse(localStorage.getItem(FAVORITES));
-  pagination.clearLoc();
-  pagination.allPushLoc(favorit);
-  
+  console.log(idTarget);
+  // let actualObj = null;
+
   if (e.target.parentNode.classList.contains('fav-icon')) {
+    // console.log(pagination.getLoc().includes(idTarget));
     if (pagination.getLoc().includes(idTarget)) {
       localData.delItmLoc(idTarget);
       localStorage.setItem(
@@ -167,8 +115,10 @@ function onClickRecipeList(e) {
       pagination.delItmLoc(idTarget);
       localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
       classPar.remove('activ');
+      // classPar.add('dis');
     } else {
       getApiOneId(idTarget).then(r => {
+        // actualObj = r;
         localData.pushLoc(r);
         localStorage.setItem(
           FAVORITES_RECIPES,
@@ -178,6 +128,7 @@ function onClickRecipeList(e) {
 
       pagination.pushLoc(idTarget);
       localStorage.setItem(FAVORITES, JSON.stringify(pagination.getLoc()));
+      // classPar.remove('dis');
       classPar.add('activ');
     }
 
@@ -195,20 +146,43 @@ function onClickRecipeList(e) {
   }
 }
 
+function onRemoveRecipe(e) {
+  location.reload();
+}
 
 function onChangeRequest(e) {
-  hidLoader();
   pagination.req = e.target.value;
   clearCardsList();
   defaultPage();
   getAllRecipes().then(r => {
     createCards(r.results);
     appdateTotal(r.totalPages);
-    rmHiddAllBtn();
-    rmBc(refs.btnNext);
-    rmBc(refs.btnEnd);
-    seePaginBtn();
-    hidLoader();
+    console.log(pagination.total);
+    if (pagination.total > 3) {
+      defaultValuePaginat();
+      return;
+    } else if (pagination.total === 3) {
+      defaultValuePaginat();
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 2) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 1) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      return;
+    } else if (r.totalPages === null) {
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      refs.btnFirst.textContent = '-';
+      Notiflix.Notify.failure(`❌ There are no requests with such filters.`);
+    }
   });
 }
 
@@ -221,31 +195,25 @@ function defaultValuePaginat() {
 
 function onClickBegininPage(e) {
   if (pagination.page > 1) {
-    hidLoader();
     clearCardsList();
     pagination.pages = 1;
     getAllRecipes().then(r => {
       createCards(r.results);
       appdateTotal(r.totalPages);
+      console.log(pagination.total);
       rmActive(refs.btnOther);
       rmActive(refs.btnSecond);
       rmActive(refs.btnThird);
       addActive(refs.btnFirst);
-      rmHiddAllBtn();
-      addBc(refs.btnBegin)
-      addBc(refs.btnPrev);
-      rmBc(refs.btnNext);
-      rmBc(refs.btnEnd);
-      hidLoader();
       if (pagination.total > 3) {
         defaultValuePaginat();
         return;
       } else if (pagination.total === 2) {
-        refs.btnThird.classList.add('hidden-itm');
-        refs.btnOther.classList.add('hidden-itm');
+        refs.btnThird.textContent = '-';
+        refs.btnOther.textContent = '-';
         return;
       } else if (pagination.total === 3) {
-        refs.btnOther.classList.add('hidden-itm');
+        refs.btnOther.textContent = '-';
         return;
       }
     });
@@ -255,20 +223,16 @@ function onClickBegininPage(e) {
 function onClickPrevPage(e) {
   if (window.screen.width < 768) {
     if (pagination.page > 1) {
-      hidLoader();
       clearCardsList();
-      rmBc(refs.btnNext);
-      rmBc(refs.btnEnd);
       pagination.decr();
       getAllRecipes().then(r => {
         createCards(r.results);
         appdateTotal(r.totalPages);
-        hidLoader();
+        console.log(pagination.total);
         if (pagination.page === 1) {
           rmActive(refs.btnSecond);
+          rmActive(refs.btnOther);
           addActive(refs.btnFirst);
-          addBc(refs.btnBegin);
-          addBc(refs.btnPrev);
           return;
         }
         addActive(refs.btnSecond);
@@ -279,20 +243,15 @@ function onClickPrevPage(e) {
     }
   } else {
     if (pagination.page > 1) {
-      hidLoader();
       clearCardsList();
-      rmBc(refs.btnNext);
-      rmBc(refs.btnEnd);
       pagination.decr();
       getAllRecipes().then(r => {
-        hidLoader();
         createCards(r.results);
         appdateTotal(r.totalPages);
+        console.log(pagination.total);
         if (pagination.page === 1) {
           rmActive(refs.btnSecond);
           addActive(refs.btnFirst);
-          addBc(refs.btnBegin);
-          addBc(refs.btnPrev);
           return;
         }
         if (pagination.page === 2) {
@@ -312,32 +271,26 @@ function onClickPrevPage(e) {
 
 function onClickFirstPage(e) {
   if (pagination.pages > 1) {
-    hidLoader();
     clearCardsList();
-    rmBc(refs.btnNext);
-    rmBc(refs.btnEnd);
     pagination.pages = 1;
     getAllRecipes().then(r => {
-      hidLoader();
       createCards(r.results);
       appdateTotal(r.totalPages);
+      console.log(pagination.total);
       rmActive(refs.btnOther);
       addActive(refs.btnFirst);
       rmActive(refs.btnSecond);
       rmActive(refs.btnThird);
       defaultValuePaginat();
-      rmHiddAllBtn();
-      addBc(refs.btnBegin);
-      addBc(refs.btnPrev);
       if (pagination.total > 3) {
         defaultValuePaginat();
         return;
       } else if (pagination.total === 2) {
-        refs.btnThird.classList.add('hidden-itm');
-        refs.btnOther.classList.add('hidden-itm');
+        refs.btnThird.textContent = '-';
+        refs.btnOther.textContent = '-';
         return;
       } else if (pagination.total === 3) {
-        refs.btnOther.classList.add('hidden-itm');
+        refs.btnOther.textContent = '-';
         return;
       }
     });
@@ -347,25 +300,17 @@ function onClickFirstPage(e) {
 function onClickSecondPage(e) {
   if (window.screen.width < 768) {
     if (pagination.pages !== Number(e.target.textContent)) {
-      hidLoader();
       clearCardsList();
-      rmBc(refs.btnBegin);
-      rmBc(refs.btnPrev);
       pagination.pages = Number(e.target.textContent);
+      console.log(typeof e.target.textContent);
+      console.log(pagination.pages);
       getAllRecipes().then(r => {
-        hidLoader();
         createCards(r.results);
         appdateTotal(r.totalPages);
+        console.log(pagination.total);
         rmActive(refs.btnFirst);
         rmActive(refs.btnOther);
         addActive(refs.btnSecond);
-        if (pagination.pages === pagination.total) {
-          addBc(refs.btnNext);
-          addBc(refs.btnEnd);
-        } else {
-          rmBc(refs.btnNext);
-          rmBc(refs.btnEnd);
-        }
       });
     }
   } else {
@@ -373,35 +318,22 @@ function onClickSecondPage(e) {
       pagination.pages !== Number(e.target.textContent) &&
       pagination.total >= Number(e.target.textContent)
     ) {
-      hidLoader();
       clearCardsList();
-      rmBc(refs.btnBegin);
-      rmBc(refs.btnPrev);
       pagination.pages = Number(e.target.textContent);
       getAllRecipes().then(r => {
-        hidLoader();
         createCards(r.results);
         appdateTotal(r.totalPages);
         rmActive(refs.btnFirst);
         rmActive(refs.btnOther);
         rmActive(refs.btnThird);
         addActive(refs.btnSecond);
-        rmHiddAllBtn();
-        if (pagination.total > 2) {
-          rmBc(refs.btnEnd)
-          rmBc(refs.btnNext)
-        }
         if (pagination.pages === pagination.total) {
-          refs.btnThird.classList.add('hidden-itm');
-          refs.btnOther.classList.add('hidden-itm');
-          addBc(refs.btnNext);
-          addBc(refs.btnEnd);
+          refs.btnThird.textContent = '-';
+          refs.btnOther.textContent = '-';
           return;
         } else if (pagination.total === 3) {
-          // refs.btnThird.textContent = 3;
-          refs.btnOther.classList.add('hidden-itm');
-          rmBc(refs.btnNext);
-          rmBc(refs.btnEnd);
+          refs.btnThird.textContent = 3;
+          refs.btnOther.textContent = '-';
           return;
         }
         refs.btnOther.textContent = pagination.total;
@@ -414,30 +346,22 @@ function onClickSecondPage(e) {
 function onClickThirdPage(e) {
   if (
     pagination.pages !== Number(e.target.textContent) &&
+    e.target.textContent !== '-' &&
     pagination.total >= 3
   ) {
-    hidLoader();
     clearCardsList();
-    rmBc(refs.btnBegin);
-    rmBc(refs.btnPrev);
     pagination.pages = Number(e.target.textContent);
     getAllRecipes().then(r => {
-      hidLoader();
       createCards(r.results);
       appdateTotal(r.totalPages);
       rmActive(refs.btnFirst);
       rmActive(refs.btnOther);
       rmActive(refs.btnSecond);
       addActive(refs.btnThird);
-      rmHiddAllBtn();
       if (pagination.total > 3) {
-        rmBc(refs.btnEnd);
-        rmBc(refs.btnNext);
         refs.btnOther.textContent = pagination.total;
       } else if (pagination.total === 3) {
-        refs.btnOther.classList.add('hidden-itm');
-        addBc(refs.btnNext);
-        addBc(refs.btnEnd);
+        refs.btnOther.textContent = '-';
       }
     });
   }
@@ -449,15 +373,9 @@ function onClickOtherBtnPage(e) {
       pagination.pages !== Number(e.target.textContent) &&
       pagination.total > 3
     ) {
-      hidLoader();
       clearCardsList();
-      rmBc(refs.btnBegin);
-      rmBc(refs.btnPrev);
-      addBc(refs.btnNext);
-      addBc(refs.btnEnd);
       pagination.pages = Number(e.target.textContent);
       getAllRecipes().then(r => {
-        hidLoader();
         createCards(r.results);
         appdateTotal(r.totalPages);
         rmActive(refs.btnFirst);
@@ -471,15 +389,9 @@ function onClickOtherBtnPage(e) {
       pagination.pages !== Number(e.target.textContent) &&
       pagination.total > 3
     ) {
-      hidLoader();
       clearCardsList();
-      rmBc(refs.btnBegin);
-      rmBc(refs.btnPrev);
-      addBc(refs.btnNext);
-      addBc(refs.btnEnd);
       pagination.pages = Number(e.target.textContent);
       getAllRecipes().then(r => {
-        hidLoader();
         createCards(r.results);
         appdateTotal(r.totalPages);
         rmActive(refs.btnFirst);
@@ -493,48 +405,31 @@ function onClickOtherBtnPage(e) {
 
 function onClickNextPage(e) {
   if (window.screen.width < 768) {
-    if (pagination.pages < pagination.total) {
-      hidLoader();
+    if (pagination.pages < pagination.totalRecipe) {
       clearCardsList();
-      rmBc(refs.btnBegin);
-      rmBc(refs.btnPrev);
+
       pagination.incr();
-      console.log(pagination.total);
       getAllRecipes().then(r => {
-        hidLoader();
         createCards(r.results);
         appdateTotal(r.totalPages);
+        console.log(pagination.total);
         rmActive(refs.btnFirst);
         if (pagination.pages === pagination.total && pagination.pages > 3) {
           addActive(refs.btnOther);
           rmActive(refs.btnSecond);
-          addBc(refs.btnNext);
-          addBc(refs.btnEnd);
           return;
-        }
-        if (pagination.pages === pagination.total) {
-          addBc(refs.btnNext);
-          addBc(refs.btnEnd);
         }
         addActive(refs.btnSecond);
         refs.btnSecond.textContent = pagination.pages;
       });
     }
   } else {
-    if (pagination.pages < pagination.total) {
-      hidLoader();
+    if (pagination.pages < pagination.totalRecipe) {
       clearCardsList();
-      rmBc(refs.btnBegin);
-      rmBc(refs.btnPrev);
       pagination.incr();
       getAllRecipes().then(r => {
-        hidLoader();
         createCards(r.results);
         appdateTotal(r.totalPages);
-        if (pagination.pages === pagination.total) {
-          addBc(refs.btnNext);
-          addBc(refs.btnEnd);
-        }
         if (pagination.pages === 2) {
           addActive(refs.btnSecond);
           rmActive(refs.btnFirst);
@@ -559,53 +454,32 @@ function onClickNextPage(e) {
 }
 function onClickLastPage(e) {
   if (window.screen.width < 768) {
-    if (pagination.pages !== pagination.total && pagination.total > 1) {
-      hidLoader();
+    if (pagination.pages !== pagination.total && pagination.total > 3) {
       clearCardsList();
-      addBc(refs.btnNext);
-      addBc(refs.btnEnd);
-      rmBc(refs.btnBegin);
-      rmBc(refs.btnPrev);
-      pagination.pages = pagination.total;
+      pagination.pages = pagination.totalRecipe;
       getAllRecipes().then(r => {
-        hidLoader();
         createCards(r.results);
         appdateTotal(r.totalPages);
+        console.log(pagination.total);
         rmActive(refs.btnFirst);
         addActive(refs.btnSecond);
         refs.btnOther.textContent = pagination.pages;
         addActive(refs.btnOther);
-        if (pagination.total > 2) {
-          rmActive(refs.btnSecond);
-        }
+        rmActive(refs.btnSecond);
       });
     }
   } else {
-    if (pagination.total > 1 && pagination.pages !== pagination.total) {
-      hidLoader();
+    if (pagination.total > 3 && pagination.pages !== pagination.total) {
       clearCardsList();
-      addBc(refs.btnNext);
-      addBc(refs.btnEnd);
-      rmBc(refs.btnBegin);
-      rmBc(refs.btnPrev);
-      pagination.pages = pagination.total;
+      pagination.pages = pagination.totalRecipe;
       getAllRecipes().then(r => {
-        hidLoader();
         createCards(r.results);
         appdateTotal(r.totalPages);
+        console.log(pagination.total);
         rmActive(refs.btnFirst);
-        if (pagination.page === 2) {
-          addActive(refs.btnSecond);
-          return
-        } else if (pagination.page === 3) {
-          addActive(refs.btnThird);
-          rmActive(refs.btnSecond);
-          return
-        } else {
-          addActive(refs.btnOther);
-          rmActive(refs.btnSecond);
-          rmActive(refs.btnThird);
-        }
+        rmActive(refs.btnSecond);
+        rmActive(refs.btnThird);
+        addActive(refs.btnOther);
         refs.btnOther.textContent = pagination.pages;
       });
     }
@@ -614,65 +488,145 @@ function onClickLastPage(e) {
 
 function onClickBtnRecipeInAll(e) {
   pagination.categories = e.target.dataset.value;
-  hidLoader();
   clearCardsList();
   defaultPage();
   getAllRecipes().then(r => {
-    hidLoader();
     createCards(r.results);
     appdateTotal(r.totalPages);
-    rmHiddAllBtn();
-    rmBc(refs.btnNext);
-    rmBc(refs.btnEnd);
-    seePaginBtn();
+    console.log(pagination.total);
+    if (pagination.total > 3) {
+      defaultValuePaginat();
+      return;
+    } else if (pagination.total === 3) {
+      defaultValuePaginat();
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 2) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 1) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      return;
+    } else if (r.totalPages === null) {
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      refs.btnFirst.textContent = '-';
+      Notiflix.Notify.failure(`❌ There are no requests with such filters.`);
+    }
   });
 }
 
 function onChangeIngredients(e) {
   pagination.ingredients = e.target.value;
-  hidLoader();
   clearCardsList();
   defaultPage();
   getAllRecipes().then(r => {
-    hidLoader();
     createCards(r.results);
     appdateTotal(r.totalPages);
-    rmHiddAllBtn();
-    rmBc(refs.btnNext);
-    rmBc(refs.btnEnd);
-    seePaginBtn();
+    console.log(pagination.total);
+    if (pagination.total > 3) {
+      defaultValuePaginat();
+      return;
+    } else if (pagination.total === 3) {
+      defaultValuePaginat();
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 2) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 1) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      return;
+    } else if (r.totalPages === null) {
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      refs.btnFirst.textContent = '-';
+      Notiflix.Notify.failure(`❌ There are no requests with such filters.`);
+    }
   });
 }
 
 function onChangeArea(e) {
   pagination.areas = e.target.value;
-  hidLoader();
   clearCardsList();
   defaultPage();
   getAllRecipes().then(r => {
-    hidLoader();
     createCards(r.results);
     appdateTotal(r.totalPages);
-    rmHiddAllBtn();
-    rmBc(refs.btnNext);
-    rmBc(refs.btnEnd);
-    seePaginBtn();
+    console.log(pagination.total);
+    if (pagination.total > 3) {
+      defaultValuePaginat();
+      return;
+    } else if (pagination.total === 3) {
+      defaultValuePaginat();
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 2) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 1) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      return;
+    } else if (r.totalPages === null) {
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      refs.btnFirst.textContent = '-';
+      Notiflix.Notify.failure(`❌ There are no requests with such filters.`);
+    }
   });
 }
 
 function onChangeTime(e) {
   pagination.times = e.target.value;
-  hidLoader();
   clearCardsList();
   defaultPage();
   getAllRecipes().then(r => {
-    hidLoader();
     createCards(r.results);
     appdateTotal(r.totalPages);
-    rmHiddAllBtn();
-    rmBc(refs.btnNext);
-    rmBc(refs.btnEnd);
-    seePaginBtn();
+    console.log(pagination.total);
+    if (pagination.total > 3) {
+      defaultValuePaginat();
+      return;
+    } else if (pagination.total === 3) {
+      defaultValuePaginat();
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 2) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      return;
+    } else if (pagination.total === 1) {
+      defaultValuePaginat();
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      return;
+    } else if (r.totalPages === null) {
+      refs.btnThird.textContent = '-';
+      refs.btnOther.textContent = '-';
+      refs.btnSecond.textContent = '-';
+      refs.btnFirst.textContent = '-';
+      Notiflix.Notify.failure(`❌ There are no requests with such filters.`);
+    }
   });
 }
 
@@ -730,35 +684,35 @@ function addingCards(el) {
       }
 
       if (rating >= 4.5) {
-        stars = `<svg class="rat-icon active">
+        stars = `<svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 4 || rating >= 3.5) {
-        stars = `<svg class="rat-icon active">
+        stars = `<svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 3 || rating >= 2.5) {
-        stars = `<svg class="rat-icon active">
+        stars = `<svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon">
               <use href="${useIcons.pathname}#icon-Star"></use>
@@ -766,9 +720,9 @@ function addingCards(el) {
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 2 || rating >= 1.5) {
-        stars = `<svg class="rat-icon active">
+        stars = `<svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
-            </svg><svg class="rat-icon active">
+            </svg><svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
               <use href="${useIcons.pathname}#icon-Star"></use>
@@ -778,7 +732,7 @@ function addingCards(el) {
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg>`;
       } else if (rating >= 1) {
-        stars = `<svg class="rat-icon active">
+        stars = `<svg class="rat-icon act">
               <use href="${useIcons.pathname}#icon-Star"></use>
             </svg><svg class="rat-icon ">
               <use href="${useIcons.pathname}#icon-Star"></use>
@@ -871,46 +825,24 @@ function getApiOneId(id) {
   return axios.get(`${BASE_URL}recipes/${id}`).then(r => r.data);
 }
 
-// function createSelect(select, placehold) {
-//   new SlimSelect({
-//     select: select,
-//     settings: {
-//       contentPosition: 'absolute',
-//       placeholderText: placehold,
-//       showSearch: false,
-//       searchHighlight: true,
-//     },
-//   });
-// }
-
-function rmHiddAllBtn() {
-  refs.btnFirst.classList.remove('hidden-itm');
-  refs.btnSecond.classList.remove('hidden-itm');
-  refs.btnThird.classList.remove('hidden-itm');
-  refs.btnOther.classList.remove('hidden-itm');
-
-  // refs.btnFirst.parentNode.classList.remove('bc');
-  // refs.btnSecond.parentNode.classList.remove('bc');
-  // refs.btnThird.parentNode.classList.remove('bc');
-  // refs.btnOther.parentNode.classList.remove('bc');
+function createSelect(select, placehold) {
+  new SlimSelect({
+    select: select,
+    settings: {
+      contentPosition: 'absolute',
+      placeholderText: placehold,
+      showSearch: false,
+      searchHighlight: true,
+    },
+  });
 }
 
 function hidden(itm) {
   itm.classList.add('hidden-itm');
-  // itm.parentNode.classList.add('bc');
 }
 
 function rmHidden(itm) {
   itm.classList.remove('hidden-itm');
-  // itm.parentNode.classList.remove('bc');
-}
-
-function addBc(itm) {
-  itm.classList.add('bc');
-}
-
-function rmBc(itm) {
-  itm.classList.remove('bc');
 }
 
 function addActive(itm) {
@@ -919,67 +851,4 @@ function addActive(itm) {
 
 function rmActive(itm) {
   itm.classList.remove('act');
-}
-
-function hidLoader() {
-  refs.loaderEl.classList.toggle('hidden-itm');
-}
-
-
-
-function seePaginBtn() {
-  addBc(refs.btnBegin);
-  addBc(refs.btnPrev);
-  if (pagination.total > 3) {
-    defaultValuePaginat();
-      return;
-    } else if (pagination.total === 3) {
-      defaultValuePaginat();
-      refs.btnOther.classList.add('hidden-itm');
-      return;
-    } else if (pagination.total === 2) {
-      defaultValuePaginat();
-      refs.btnThird.classList.add('hidden-itm');
-      refs.btnOther.classList.add('hidden-itm');
-      return;
-    } else if (pagination.total === 1) {
-      defaultValuePaginat();
-      addBc(refs.btnNext);
-      addBc(refs.btnEnd);
-      refs.btnThird.classList.add('hidden-itm');
-      refs.btnOther.classList.add('hidden-itm');
-      refs.btnSecond.classList.add('hidden-itm');
-      return;
-    } else {
-      addBc(refs.btnNext);
-      addBc(refs.btnEnd);
-      refs.btnThird.classList.add('hidden-itm');
-      refs.btnOther.classList.add('hidden-itm');
-      refs.btnSecond.classList.add('hidden-itm');
-      refs.btnFirst.classList.add('hidden-itm');
-      Notiflix.Notify.failure(`❌ There are no requests with such filters.`);
-    };
-}
-
-
-function onClickReloadFilter() {
-  refs.inputEl.value = '';
-  favorit = JSON.parse(localStorage.getItem(FAVORITES));
-  timeSelect.setSelected('<option data-placeholder="true" value=""></option>');
-  areaSelect.setSelected('<option data-placeholder="true" value=""></option>');
-  ingrSelect.setSelected('<option data-placeholder="true" value=""></option>');
-
-  getAllRecipes().then(r => {
-    clearCardsList();
-    createCards(r.results);
-    appdateTotal(r.totalPages);
-    rmHiddAllBtn();
-    rmBc(refs.btnNext);
-    rmBc(refs.btnEnd);
-    seePaginBtn();
-  });
-}
-
-function onSub(e) {
-  e.preventDefault();
 }
