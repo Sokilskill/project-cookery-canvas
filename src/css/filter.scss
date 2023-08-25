@@ -258,6 +258,7 @@
 }
 .cards-recipe{
   padding-bottom: 40px;
+  // position: relative;
   @media screen and (min-width: 768px){
     margin-bottom: 64px;
     width: 496px;
@@ -301,16 +302,19 @@ line-height: 1.22; /* 122.222% */
 .svg-switch-duo{
     width: 26px;
 }
-.btn-list.bc{
-    background-color: var(--secondary-text-color);
-    fill: rgba(248, 248, 248, 0.50);
-    border: none;
-}
+
 .act{
     background-color: var(--main-text-color);
     fill: var(--secondary-text-color);
     border: none;
 }
+
+.btn-list.bc{
+    background-color: var(--secondary-text-color);
+    fill: rgba(248, 248, 248, 0.50);
+    border: none;
+}
+
 .page-pagination-item:nth-child(1){
     margin-right: 4px;
 }
@@ -344,6 +348,9 @@ line-height: 1.22; /* 122.222% */
 .page-pagination-item:nth-child(7){
     margin-right: 4px;
 }
+// .page-pagination-item.bc{
+//   margin: 0;
+// }
 .thumb-card{
   display: flex;
 width: 335px;
@@ -365,7 +372,7 @@ width: 335px;
 
 .photo-recipe-card{
   position: relative;
-  
+  width: 100%;
   
   
   padding: 16px;
@@ -415,8 +422,9 @@ margin-bottom: 16px;
 
   }
 }
-.rat-icon.act{
+.rat-icon.active{
   fill:#EEA10C;
+  background-color: #05050500;
 }
 
 .rating-recipe-card{
@@ -505,3 +513,72 @@ margin-bottom: 16px;
 .hidden-btn{
     display: none;
 }
+
+
+
+.loader-f {
+  position: absolute;
+  top: 200%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  text-indent: -9999em;
+  animation: mulShdSpin 1.3s infinite linear;
+  transform: translateZ(0);
+}
+
+
+
+@keyframes mulShdSpin {
+  0%,
+  100% {
+    box-shadow: 0 -3em 0 0.2em, 
+    2em -2em 0 0em, 3em 0 0 -1em, 
+    2em 2em 0 -1em, 0 3em 0 -1em, 
+    -2em 2em 0 -1em, -3em 0 0 -1em, 
+    -2em -2em 0 0;
+  }
+  12.5% {
+    box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 
+    3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, 
+    -2em 2em 0 -1em, -3em 0 0 -1em, 
+    -2em -2em 0 -1em;
+  }
+  25% {
+    box-shadow: 0 -3em 0 -0.5em, 
+    2em -2em 0 0, 3em 0 0 0.2em, 
+    2em 2em 0 0, 0 3em 0 -1em, 
+    -2em 2em 0 -1em, -3em 0 0 -1em, 
+    -2em -2em 0 -1em;
+  }
+  37.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+     3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, 
+     -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  50% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+     3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, 
+     -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+  }
+  62.5% {
+    box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em,
+     3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, 
+     -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+  }
+  75% {
+    box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 
+    3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, 
+    -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+  }
+  87.5% {
+    box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 
+    3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, 
+    -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+  }
+}
+  
